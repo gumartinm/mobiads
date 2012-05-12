@@ -1,0 +1,141 @@
+#
+# MOBIADS schema
+#
+# Hopefully good enough.
+#
+
+Company:
+  columns:
+    user_id:      { type: integer (4), notnull: true }
+    company_cif:  { type: string(255), notnull: true, unique: true }
+  relations:
+    User: { class: sfGuardUser, local: user_id, onDelete: CASCADE }
+
+CompanyDescription:
+  columns:
+    company_id:   { type: integer, notnull: true }
+    language_id:  { type: integer, notnull: true }
+    company_name: { type: string(255), notnull: true }
+  relations:
+    Company:  { onDelete: CASCADE, local: company_id, foreign: id }
+    Language: { onDelete: CASCADE, local: language_id, foreign: id }
+
+Office:
+  actAs:
+    Timestampable:
+  columns:
+    company_id:            { type: integer, notnull: true }
+    city_id:               { type: integer }
+    office_gps:            { type: blob }
+    office_street_address: { type: string(255), notnull: true }
+    office_zip:            { type: string(32), notnull: true }
+  relations:
+    Company: { onDelete: CASCADE, local: company_id, foreign: id }
+    City:    { onDelete: SET NULL, local: city_id, foreign: id }
+
+Country:
+  columns:
+    country_name: { type: string(80), notnull: true }
+    iso_code_2:   { type: string(2), notnull: true }
+    iso_code_3:   { type: string(3), notnull: true }
+
+Region:
+  columns:
+    country_id:  { type: integer, notnull: true }
+    region_name: { type: string(64), notnull: true }  #Dummy name if there is not Region
+  relations:
+    Country: { onDelete: CASCADE, local: country_id, foreign: id }
+
+City:
+  columns:
+    city_name: { type: string(64), notnull: true }
+    region_id: { type: integer, notnull: true }
+  relations:
+    Region: { onDelete: CASCADE, local: region_id, foreign: id }
+
+CompanyCategory:
+  actAs:
+    Timestampable:
+    NestedSet:
+      hasManyRoots: true
+      rootColumnName: root_id
+  columns:
+    company_id:       { type: integer, notnull: true }
+    general_categ_id: { type: integer }
+  relations:
+    Company:      { onDelete: CASCADE, local: company_id, foreign: id }
+    GeneralCategory: { onDelete: SET NULL, local: general_categ_id, foreign: id }
+
+CompanyCategoryDescription:
+  columns:
+    language_id:               { type: integer, notnull: true }
+    company_categ_id:          { type: integer, notnull: true }
+    company_categ_name:        { type: string (255), notnull: true }
+    company_categ_description: { type: text }
+  relations:
+    Language:        { onDelete: CASCADE, local: language_id, foreign: id }
+    CompanyCategory: { onDelete: CASCADE, local: company_categ_id, foreign: id }
+
+GeneralCategory:
+  actAs:
+    Timestampable:
+    NestedSet:
+      hasManyRoots: true
+      rootColumnName: root_id
+
+GeneralCategoryDescription:
+  columns:
+    language_id:               { type: integer, notnull: true }
+    general_categ_id:          { type: integer, notnull: true }
+    general_categ_name:        { type: string (255), notnull: true, unique: true }
+    general_categ_description: { type: text }
+  relations:
+    Language:        { onDelete: CASCADE, local: language_id, foreign: id }
+    GeneralCategory: { onDelete: CASCADE, local: general_categ_id, foreign: id }
+
+Language:
+  columns:
+    language_name: { type: string (255), notnull: true, unique: true }
+    code:          { type: string (3), notnull: true, unique: true }  #Using ISO 639-3
+
+Ad:
+  actAs: [Timestampable]
+  columns:
+    company_id:           { type: integer, notnull: true }
+    company_categ_id:     { type: integer }
+    ad_mobile_image_link: { type: string (3000), notnull: true }
+  relations:
+    Company:      { onDelete: CASCADE, local: company_id, foreign: id }
+    CompanyCategory: { onDelete: SET NULL, local: company_categ_id, foreign: id }
+
+AdDescription:
+  columns:
+    language_id:    { type: integer, notnull: true }
+    ad_id:          { type: integer, notnull: true }
+    ad_name:        { type: string (255), notnull: true }
+    ad_description: { type: text }
+    ad_mobile_text: { type: string (500), notnull: true }
+    ad_link:        { type: string (3000), notnull: true }
+  relations:
+    Language: { onDelete: CASCADE, local: language_id, foreign: id }
+    Ad:       { onDelete: CASCADE, local: ad_id, foreign: id }
+
+OfficeAds:
+  columns:
+    office_id: { type: integer (4), notnull: true }
+    ad_id:     { type: integer, notnull: true }
+  relations:
+    Office: { onDelete: CASCADE, local: office_id, foreign: id }
+    Ad:     { onDelete: CASCADE, local: ad_id, foreign: id }
+
+UserBasket:
+  columns:
+    user_id:          { type: integer (4), notnull: true }
+    general_categ_id: { type: integer, notnull: true }
+  relations:
+    User:
+      class: sfGuardUser
+      local: user_id
+      onDelete: CASCADE
+    GeneralCategory: { onDelete: CASCADE, local: general_categ_id, foreign: id }
+

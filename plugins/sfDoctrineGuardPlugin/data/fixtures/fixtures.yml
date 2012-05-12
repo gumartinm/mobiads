@@ -1,0 +1,64 @@
+sfGuardUser:
+  ADMIN:
+    first_name:     Gustavo
+    last_name:      Martin
+    email_address:  gu.martinm@gmail.com
+    username:       admin
+    password:       admin
+    is_super_admin: true
+    is_active:      true
+  DIA:
+    first_name:     Gustavo
+    last_name:      Empresa
+    email_address:  gu.empresadia@gmail.com
+    username:       gustavoempresa
+    password:       gustavoempresa
+    is_super_admin: false
+    is_active:      true
+  CARREFOUR:
+    first_name:     Gustavo
+    last_name:      Empresa
+    email_address:  gu.empresacarrefour@gmail.com
+    username:       gustavocarrefour
+    password:       gustavocarrefour
+    is_super_admin: false
+    is_active:      true
+  MOBILEADVERTISING:
+    first_name:     Gustavo
+    last_name:      Empresa
+    email_address:  gu.empresamobile@gmail.com
+    username:       gustavomobileadvertising
+    password:       gustavomobileadvertising
+    is_super_admin: false
+    is_active:      true
+  NORMAL_USER:
+    first_name:     Gustavo
+    last_name:      Usuario
+    email_address:  gu.usuario@gmail.com
+    username:       gustavo
+    password:       gustavo
+    is_super_admin: false
+    is_active:      true 
+
+sfGuardPermission:
+  Permission_users:
+    name:        users
+    description: User permissions
+  Permission_companies:
+    name:        companies
+    description: Company permissions
+
+sfGuardUserPermission:
+  UserPermission_normal:
+    User:       NORMAL_USER
+    Permission: Permission_users
+  UserPermission_dia:
+    User:       DIA
+    Permission: Permission_companies
+  UserPermission_carrefour:
+    User:       CARREFOUR
+    Permission: Permission_companies
+  UserPermission_mobileadvertising:
+    User:       MOBILEADVERTISING
+    Permission: Permission_companies
+

@@ -1,0 +1,223 @@
+# # Populate this file with data to be loaded by your ORM's *:data-load task.
+# # You can create multiple files in this directory (i.e. 010_users.yml,
+# # 020_articles.yml, etc) which will be loaded in alphabetical order.
+# # 
+# # See documentation for your ORM's *:data-load task for more information.
+# 
+# User:
+#   fabien:
+#     username: fabien
+#     password: changeme
+#     name:     Fabien Potencier
+#     email:    fabien.potencier@symfony-project.com
+#   kris:
+#     username: Kris.Wallsmith
+#     password: changeme
+#     name:     Kris Wallsmith
+#     email:    kris.wallsmith@symfony-project.com
+
+Language:
+  Spanish:
+    language_name: Spanish
+    code: spa
+  English:
+    language_name: English
+    code: eng
+
+City:
+  Mostoles:
+    city_name: Mostoles
+    Region: Madrid
+  Fuenlabrada:
+    city_name: Fuenlabrada
+    Region: Madrid
+  Alcala:
+    city_name: Alcala de Henares
+    Region: Madrid
+  London:
+    city_name: London
+    Region: London
+
+Region:
+  Madrid:
+    region_name: Madrid
+    Country: Spain
+  London:
+    region_name: London
+    Country: United_Kingdom
+
+Country:
+  Spain:
+    country_name: Spain
+    iso_code_2: ES
+    iso_code_3: ESP
+  United_Kingdom:
+    country_name: United Kingdom
+    iso_code_2: GB
+    iso_code_3: GBR
+  
+CompanyDescription:
+  MOBILEADVERTISING:
+    Company: MOBILEADVERTISING
+    Language: Spanish
+    company_name: MOBILEADVERTISING
+  DIA:
+    Company: DIA
+    Language: Spanish
+    company_name: DIA%
+  CARREFOUR:
+    Company: CARREFOUR
+    Language: Spanish
+    company_name: CARREFOUR
+
+Company:
+  MOBILEADVERTISING:
+    User: MOBILEADVERTISING
+    company_cif: 4683838383-I
+  DIA:
+    User: DIA
+    company_cif: 5748934949-K 
+  CARREFOUR:
+    User: CARREFOUR
+    company_cif: 0390390309-L
+   
+Office:
+  DIA_Mostoles:
+    Company: DIA
+    City: Mostoles
+    office_gps:
+    office_street_address: Colonia Biarritz Nº6 5ºC
+    office_zip: 28938
+  DIA_Fuenlabrada:
+    Company: DIA
+    City: Fuenlabrada
+    office_gps:
+    office_street_address: Calle Fuenlabra Nº66
+    office_zip: 28938
+  CARREFOUR_Mostoles:
+    Company: CARREFOUR
+    City: Mostoles
+    office_gps:
+    office_street_address: Calle las Palmas Nº33
+    office_zip: 28938
+
+CompanyCategory:
+  CompanyCategory_Root:
+    Company: MOBILEADVERTISING
+    GeneralCategory: GeneralCategory_Root  # aiming to root node of CategGeneral
+    children:
+      CompanyCategory_1:
+        Company: DIA
+        GeneralCategory: GeneralCategory_1
+      CompanyCategory_2:
+        Company: CARREFOUR
+        GeneralCategory: GeneralCategory_2
+        children:
+          CompanyCategory_3:
+            Company: CARREFOUR
+            GeneralCategory: GeneralCategory_3
+
+CompanyCategoryDescription:
+  Root_Product:  #The root node
+    Language: Spanish
+    CompanyCategory: CompanyCategory_Root
+    company_categ_name: Producto
+    company_categ_description: Root Node
+  Donuts:
+    Language: Spanish
+    CompanyCategory: CompanyCategory_1
+    company_categ_name: Donuts
+    company_categ_description: Donuts redondos
+  Babuchas:
+    Language: Spanish
+    CompanyCategory: CompanyCategory_2
+    company_categ_name: Babuchas
+    company_categ_description: Babuchas artesanales
+  BabuchasVerdes:
+    Language: Spanish
+    CompanyCategory: CompanyCategory_3
+    company_categ_name: Babuchas verdes
+    company_categ_description: Babuchas verdes artesanales
+
+
+GeneralCategory:
+  GeneralCategory_Root:
+    children:
+      GeneralCategory_1:
+      GeneralCategory_2:
+        children:
+          GeneralCategory_3:
+
+
+GeneralCategoryDescription:
+  Root_Product:  #The root node
+    Language: Spanish
+    GeneralCategory: GeneralCategory_Root
+    general_categ_name: Producto
+    general_categ_description: Root Node
+  Reposteria:
+    Language: Spanish
+    GeneralCategory: GeneralCategory_1
+    general_categ_name: Reposteria
+    general_categ_description: Reposteria de todo tipo
+  Calzado:
+    Language: Spanish
+    GeneralCategory: GeneralCategory_2
+    general_categ_name: Calzado
+    general_categ_description: Calzado de todo tipo
+  Zapatillas_de_deporte:
+    Language: Spanish
+    GeneralCategory: GeneralCategory_3
+    general_categ_name: Zapatillas de deporte
+    general_categ_description: Calzado deportivo
+
+Ad:
+  BabuchasVerdes:
+    Company: CARREFOUR
+    CompanyCategory: CompanyCategory_2
+    ad_mobile_image_link: http://gumartinm.name/vickie.gif
+  BabuchasVerdisimas:
+    Company: CARREFOUR
+    CompanyCategory: CompanyCategory_2
+    ad_mobile_image_link: http://gumartinm.name/vickie.gif
+  Donuts:
+    Company: CARREFOUR
+    CompanyCategory: CompanyCategory_3
+    ad_mobile_image_link: http://gumartinm.name/vickie.gif
+
+
+AdDescription:
+  BabuchasVerdes:
+    Language: Spanish
+    Ad: BabuchasVerdes
+    ad_name: Babuchas Verdes
+    ad_description: Anuncio sobre babuchas verdes
+    ad_mobile_text: Babuchas verdes en oferta solo hoy!
+    ad_link: http://gumartinm.name
+  BabuchasVerdisimas:
+    Language: Spanish
+    Ad: BabuchasVerdisimas
+    ad_name: Babuchas Verdisimas
+    ad_description: Anuncio sobre babuchas muy verdes
+    ad_mobile_text: Babuchas muy verdes en oferta solo hoy!
+    ad_link: http://gumartinm.name
+  Donuts:
+    Language: Spanish
+    Ad: Donuts
+    ad_name: Donuts
+    ad_description: Anuncio sobre donuts
+    ad_mobile_text: Donuts en oferta solo hoy!
+    ad_link: http://gumartinm.name
+
+
+OfficeAds:
+  BabuchasVerdes:
+    Office: CARREFOUR_Mostoles
+    Ad: BabuchasVerdes
+  BabuchasVerdisimas:
+    Office: CARREFOUR_Mostoles
+    Ad: BabuchasVerdisimas
+  Donuts:
+    Office: DIA_Mostoles
+    Ad: Donuts
+
