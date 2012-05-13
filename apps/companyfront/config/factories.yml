@@ -8,6 +8,13 @@ prod:
       level:   err
       loggers: ~
 
+  storage:
+    class: sfSessionStorage
+    param:
+      session_name:            mobicompany
+      session_cookie_path:     /companyfront.php
+      session_cookie_lifetime: 0  # The cookie will be deleted in the browser when it is closed
+
 test:
   storage:
     class: sfSessionTestStorage

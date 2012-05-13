@@ -3,8 +3,10 @@
 
 # default rules
 homepage:
-  url:   /
-  param: { module: default, action: index }
+  url:     /
+  class:   sfDoctrineRoute
+  param:   { module: office, action: index }
+  options: { model: Office, type: object }
 
 office_index:
   url:     /office/index

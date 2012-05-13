@@ -35,10 +35,15 @@ class sfGuardRememberMeFilter extends sfFilter
   {
     $cookieName = sfConfig::get('app_sf_guard_plugin_remember_cookie_name', 'sfRemember');
 
+    $currentPath = trim($this->context->getRequest()->getPathInfo(), "/");
+    $loginPath = sfConfig::get('app_sf_guard_plugin_signin_url_path');
+
     if (
       $this->isFirstCall()
       &&
       $this->context->getUser()->isAnonymous()
+      &&
+      (strcmp($currentPath, $loginPath)!=0)
       &&
       $cookie = $this->context->getRequest()->getCookie($cookieName)
     )

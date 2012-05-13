@@ -160,7 +160,12 @@ class sfGuardSecurityUser extends sfBasicSecurityUser
 
       // make key as a cookie
       $remember_cookie = sfConfig::get('app_sf_guard_plugin_remember_cookie_name', 'sfRemember');
-      sfContext::getInstance()->getResponse()->setCookie($remember_cookie, $key, time() + $expiration_age);
+
+      //My remember cookie MUST depend on the path and in the future it will on the domain as well.
+      //FIXME: WHEN HAVING A DOMAIN TO ADD IT HERE AS WELL!!!! 
+      //       AND THE CONFIGURATION PARAMETER ON /config/app.yml!!!!
+      $path = sfConfig::get('app_sf_guard_plugin_remember_cookie_path', '/');
+      sfContext::getInstance()->getResponse()->setCookie($remember_cookie, $key, time() + $expiration_age, $path);
     }
   }
 
@@ -187,7 +192,12 @@ class sfGuardSecurityUser extends sfBasicSecurityUser
     $this->setAuthenticated(false);
     $expiration_age = sfConfig::get('app_sf_guard_plugin_remember_key_expiration_age', 15 * 24 * 3600);
     $remember_cookie = sfConfig::get('app_sf_guard_plugin_remember_cookie_name', 'sfRemember');
-    sfContext::getInstance()->getResponse()->setCookie($remember_cookie, '', time() - $expiration_age);
+
+    //My remember cookie MUST depend on the path and in the future it will on the domain as well.
+    //FIXME: WHEN HAVING A DOMAIN TO ADD IT HERE AS WELL!!!! 
+    //       AND THE CONFIGURATION PARAMETER ON /config/app.yml!!!!
+    $path = sfConfig::get('app_sf_guard_plugin_remember_cookie_path', '/');
+    sfContext::getInstance()->getResponse()->setCookie($remember_cookie, '', time() - $expiration_age, $path);
   }
 
   /**

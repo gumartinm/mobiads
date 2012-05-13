@@ -12,4 +12,5 @@ all:
      success_signout_url:         @sf_guard_signin    # used by BasesfGuardAuthActions.class.php. After logout we are redirected to this page
      signin_url_path:             login               # used by sfGuardRememberMeFilter.class.php. The Remember cookie must not be used when using the login page
      remember_cookie_path:        /companyfront.php   # used by sfGuardSecurityUser.class.php. The scope of the Remeber cookie
+     remember_cookie_domain:      .localhost
 
