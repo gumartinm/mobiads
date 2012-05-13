@@ -1,0 +1,67 @@
+<?xml version="1.0" ?>
+<xliff version="1.0">
+  <file original="global" source-language="en" datatype="plaintext">
+    <body>
+      <trans-unit>
+        <source>Company Administrator User Id: </source>
+        <target>Id del Usuario Administrador de Empresa: </target>
+      </trans-unit>
+      <trans-unit>
+        <source>Company Id: </source>
+        <target>Id de la Empresa: </target>
+      </trans-unit>
+      <trans-unit>
+        <source>Longitude (180 to -180): </source>
+        <target>Longitud (180 a -180): </target>
+      </trans-unit>
+	  <trans-unit>
+        <source>Latitude (90 to -90): </source>
+        <target>Latitud (90 a -90): </target>
+      </trans-unit>
+      <trans-unit>
+        <source>Address: </source>
+        <target>Direccion: </target>
+      </trans-unit>
+	  <trans-unit>
+        <source>Wrong Longitude</source>
+        <target>Longitud erronea</target>
+      </trans-unit>
+	  <trans-unit>
+        <source>The longitude field is required</source>
+        <target>Se requiere el campo longitud</target>
+      </trans-unit>
+	  <trans-unit>
+        <source>Longitude "%value%" must not exceed the %max% value</source>
+        <target>La longitud "%value%" no debe exceder el valor %max%</target>
+      </trans-unit>
+	  <trans-unit>
+        <source>Longitude "%value%" must be equal or higher than %min%</source>
+        <target>La longitud "%value%" debe ser igual o mayor que %min%</target>
+      </trans-unit>
+	  <trans-unit>
+        <source>Wrong Latitude</source>
+        <target>Latitud erronea</target>
+      </trans-unit>
+      <trans-unit>
+        <source>The latitude field is required</source>
+        <target>Se requiere el campo latitud</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Latitude "%value%" must not exceed the %max% value</source>
+        <target>La latitud "%value%" no debe exceder el valor %max%</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Latitude "%value%" must be equal or higher than %min%</source>
+        <target>La latitud "%value%" debe ser igual o mayor que %min%</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Invalid address field</source>
+        <target>Campo calle erroneo</target>
+      </trans-unit>
+	  <trans-unit>
+        <source>Address "%value%" must have %max_length% characters or less</source>
+        <target>La direccion "%value%" debe tener %max_length% characters o menos</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

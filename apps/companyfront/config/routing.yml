@@ -6,6 +6,12 @@ homepage:
   url:   /
   param: { module: default, action: index }
 
+office_index:
+  url:     /office/index
+  class:   sfDoctrineRoute
+  param:   { module: office, action: index }
+  options: { model: Office, type: object }
+
 # generic rules
 # please, remove them by adding more specific rules
 default_index:
