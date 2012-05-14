@@ -1,3 +1,3 @@
-<h1>Edit Office</h1>
+<h1><?php echo __('Edit Office') ?></h1>
 
-<?php include_partial('form', array('form' => $form)) ?>
+<?php include_partial('formCustomOffice', array('form' => $form)) ?>

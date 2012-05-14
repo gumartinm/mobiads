@@ -16,4 +16,17 @@ class OfficeTable extends Doctrine_Table
     {
         return Doctrine_Core::getTable('Office');
     }
+
+
+   /**
+    * Returns offices by company id.
+    *
+    * @return related offices to a company id.
+    */
+    public function getOfficesByCompanyIdQuery($companyId)
+    {
+         return $this->createQuery('office')->where('office.company_id = ?', $companyId)
+                                            ->orderBy('office.id');
+    }
 }
+

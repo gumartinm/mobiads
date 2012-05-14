@@ -8,7 +8,7 @@ homepage:
   param:   { module: office, action: index }
   options: { model: Office, type: object }
 
-office_index:
+offices_index:
   url:     /office/index
   class:   sfDoctrineRoute
   param:   { module: office, action: index }

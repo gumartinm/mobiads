@@ -16,4 +16,18 @@ class CityTable extends Doctrine_Table
     {
         return Doctrine_Core::getTable('City');
     }
+
+
+   /**
+    * Returns a query which is able to recover the city_name field of a City Table
+    *
+    * @return object Doctrine_Query
+    */
+    public function getCityNameQuery()
+    {
+        $query = $this->createQuery('city')
+                        ->select('city.city_name');
+
+        return $query;
+    }
 }

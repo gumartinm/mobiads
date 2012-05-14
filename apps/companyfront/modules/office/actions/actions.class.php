@@ -12,9 +12,22 @@ class officeActions extends sfActions
 {
   public function executeIndex(sfWebRequest $request)
   {
-    $this->offices = Doctrine_Core::getTable('Office')
-      ->createQuery('a')
-      ->execute();
+    //Get user Id
+    $userId = $this->getUser()->getGuardUser()->getId();
+
+    //Get company owned by that user
+    //Just 1 user owns a company. Should this be improved?
+    $companyId = CompanyTable::getInstance()->findOneByUserId($userId)->getId();
+
+    $this->offices = Doctrine_Core::getTable('Office')->findByCompanyId($companyId);
+
+    $query=OfficeTable::getInstance()->getOfficesByCompanyIdQuery($companyId);
+
+    $this->pager = new sfDoctrinePager('Office', sfConfig::get('app_max_offices_on_pager'));
+    $this->pager->setQuery($query);
+    $this->pager->setPage($request->getParameter('page', 1));
+    $this->pager->init();
+
   }
 
   public function executeShow(sfWebRequest $request)
@@ -32,7 +45,15 @@ class officeActions extends sfActions
   {
     $this->forward404Unless($request->isMethod(sfRequest::POST));
 
-    $this->form = new OfficeForm();
+    $officeInit = new Office();
+
+    //Get user Id
+    $userId = $this->getUser()->getGuardUser()->getId();
+
+    //Get company owned by that user and insert value in form
+    $officeInit->company_id = CompanyTable::getInstance()->findOneByUserId($userId)->getId();
+
+    $this->form = new OfficeForm($officeInit);
 
     $this->processForm($request, $this->form);
 
@@ -42,6 +63,20 @@ class officeActions extends sfActions
   public function executeEdit(sfWebRequest $request)
   {
     $this->forward404Unless($office = Doctrine_Core::getTable('Office')->find(array($request->getParameter('id'))), sprintf('Object office does not exist (%s).', $request->getParameter('id')));
+
+    //Get user Id
+    $userId = $this->getUser()->getGuardUser()->getId();
+
+    //Get company owned by that user and insert value in form
+    $companyUserId = CompanyTable::getInstance()->findOneByUserId($userId)->getId();
+
+    //Get id number sent by the user (never trust the users)
+    $officeId = $request->getParameter('id');
+
+    $companyOfficeId = OfficeTable::getInstance()->findOneById($officeId)->getCompanyId();
+
+    $this->forward404Unless($companyOfficeId == $companyUserId, sprintf('Office does not exist (%s).', $request->getParameter('id')));
+
     $this->form = new OfficeForm($office);
   }
 
@@ -49,6 +84,20 @@ class officeActions extends sfActions
   {
     $this->forward404Unless($request->isMethod(sfRequest::POST) || $request->isMethod(sfRequest::PUT));
     $this->forward404Unless($office = Doctrine_Core::getTable('Office')->find(array($request->getParameter('id'))), sprintf('Object office does not exist (%s).', $request->getParameter('id')));
+
+    //Get user Id
+    $userId = $this->getUser()->getGuardUser()->getId();
+
+    //Get company owned by that user and insert value in form
+    $companyUserId = CompanyTable::getInstance()->findOneByUserId($userId)->getId();
+
+    //Get id number sent by the user (never trust the users)
+    $officeId = $request->getParameter('id');
+
+    $companyOfficeId = OfficeTable::getInstance()->findOneById($officeId)->getCompanyId();
+
+    $this->forward404Unless($companyOfficeId == $companyUserId, sprintf('Office does not exist (%s).', $request->getParameter('id')));
+
     $this->form = new OfficeForm($office);
 
     $this->processForm($request, $this->form);
@@ -61,6 +110,20 @@ class officeActions extends sfActions
     $request->checkCSRFProtection();
 
     $this->forward404Unless($office = Doctrine_Core::getTable('Office')->find(array($request->getParameter('id'))), sprintf('Object office does not exist (%s).', $request->getParameter('id')));
+
+    //Get user Id
+    $userId = $this->getUser()->getGuardUser()->getId();
+
+    //Get company owned by that user and insert value in form
+    $companyUserId = CompanyTable::getInstance()->findOneByUserId($userId)->getId();
+
+    //Get id number sent by the user (never trust the users)
+    $officeId = $request->getParameter('id');
+
+    $companyOfficeId = OfficeTable::getInstance()->findOneById($officeId)->getCompanyId();
+
+    $this->forward404Unless($companyOfficeId == $companyUserId, sprintf('Office does not exist (%s).', $request->getParameter('id')));
+
     $office->delete();
 
     $this->redirect('office/index');
