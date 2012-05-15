@@ -7,6 +7,7 @@
  * 
  * @property string $language_name
  * @property string $code
+ * @property Doctrine_Collection $sfGuardUser
  * @property Doctrine_Collection $CompanyDescription
  * @property Doctrine_Collection $CompanyCategoryDescription
  * @property Doctrine_Collection $GeneralCategoryDescription
@@ -14,12 +15,14 @@
  * 
  * @method string              getLanguageName()               Returns the current record's "language_name" value
  * @method string              getCode()                       Returns the current record's "code" value
+ * @method Doctrine_Collection getSfGuardUser()                Returns the current record's "sfGuardUser" collection
  * @method Doctrine_Collection getCompanyDescription()         Returns the current record's "CompanyDescription" collection
  * @method Doctrine_Collection getCompanyCategoryDescription() Returns the current record's "CompanyCategoryDescription" collection
  * @method Doctrine_Collection getGeneralCategoryDescription() Returns the current record's "GeneralCategoryDescription" collection
  * @method Doctrine_Collection getAdDescription()              Returns the current record's "AdDescription" collection
  * @method Language            setLanguageName()               Sets the current record's "language_name" value
  * @method Language            setCode()                       Sets the current record's "code" value
+ * @method Language            setSfGuardUser()                Sets the current record's "sfGuardUser" collection
  * @method Language            setCompanyDescription()         Sets the current record's "CompanyDescription" collection
  * @method Language            setCompanyCategoryDescription() Sets the current record's "CompanyCategoryDescription" collection
  * @method Language            setGeneralCategoryDescription() Sets the current record's "GeneralCategoryDescription" collection
@@ -52,6 +55,10 @@ abstract class BaseLanguage extends sfDoctrineRecord
     public function setUp()
     {
         parent::setUp();
+        $this->hasMany('sfGuardUser', array(
+             'local' => 'id',
+             'foreign' => 'language_id'));
+
         $this->hasMany('CompanyDescription', array(
              'local' => 'id',
              'foreign' => 'language_id'));
