@@ -16,21 +16,21 @@
 
 <?php if ($pager->haveToPaginate()): ?>
   <div class="pagination">
-    <a href="<?php echo url_for('ads_index') ?>?page=1"><?php echo __('first page') ?></a>
+    <a href="<?php echo url_for('ads_index') ?>?page=1&language=<?php echo $languageCode ?>"><?php echo __('first page') ?></a>
 
-    <a href="<?php echo url_for('ads_index') ?>?page=<?php echo $pager->getPreviousPage() ?>"><?php echo __('<< prev') ?></a>
+    <a href="<?php echo url_for('ads_index') ?>?page=<?php echo $pager->getPreviousPage() ?>&language=<?php echo $languageCode ?>"><?php echo __('<< prev') ?></a>
 
     <?php foreach ($pager->getLinks() as $page): ?>
       <?php if ($page == $pager->getPage()): ?>
         <?php echo $page ?>
       <?php else: ?>
-        <a href="<?php echo url_for('ads_index') ?>?page=<?php echo $page ?>"><?php echo $page ?></a>
+        <a href="<?php echo url_for('ads_index') ?>?page=<?php echo $page ?>&language=<?php echo $languageCode ?>"><?php echo $page ?></a>
       <?php endif; ?>
     <?php endforeach; ?>
 
-    <a href="<?php echo url_for('ads_index') ?>?page=<?php echo $pager->getNextPage() ?>"><?php echo __('next >>') ?></a>
+    <a href="<?php echo url_for('ads_index') ?>?page=<?php echo $pager->getNextPage() ?>&language=<?php echo $languageCode ?>"><?php echo __('next >>') ?></a>
 
-    <a href="<?php echo url_for('ads_index') ?>?page=<?php echo $pager->getLastPage() ?>"><?php echo __('last page') ?></a>
+    <a href="<?php echo url_for('ads_index') ?>?page=<?php echo $pager->getLastPage() ?>&language=<?php echo $languageCode ?>"><?php echo __('last page') ?></a>
   </div>
 <?php endif; ?>
 

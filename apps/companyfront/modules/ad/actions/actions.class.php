@@ -49,6 +49,9 @@ class adActions extends sfActions
     $this->pager->setQuery($query);
     $this->pager->setPage($request->getParameter('page', 1));
     $this->pager->init();
+
+
+    $this->languageCode = $language->getCode();
   }
 
   public function executeShow(sfWebRequest $request)
