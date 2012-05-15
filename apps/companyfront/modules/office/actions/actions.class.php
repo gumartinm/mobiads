@@ -19,15 +19,12 @@ class officeActions extends sfActions
     //Just 1 user owns a company. Should this be improved?
     $companyId = CompanyTable::getInstance()->findOneByUserId($userId)->getId();
 
-    $this->offices = Doctrine_Core::getTable('Office')->findByCompanyId($companyId);
-
     $query=OfficeTable::getInstance()->getOfficesByCompanyIdQuery($companyId);
 
     $this->pager = new sfDoctrinePager('Office', sfConfig::get('app_max_offices_on_pager'));
     $this->pager->setQuery($query);
     $this->pager->setPage($request->getParameter('page', 1));
     $this->pager->init();
-
   }
 
   public function executeShow(sfWebRequest $request)
