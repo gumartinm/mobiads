@@ -34,5 +34,5 @@
   </div>
 <?php endif; ?>
 
-  <a href="<?php echo url_for('ad/new') ?>" class="bt_green"><span class="bt_green_lft"></span><strong><?php echo __('Ad Office') ?></strong><span class="bt_green_r"></span></a>
+  <a href="<?php echo url_for('ad/new') ?>" class="bt_green"><span class="bt_green_lft"></span><strong><?php echo __('New Ad') ?></strong><span class="bt_green_r"></span></a>
 

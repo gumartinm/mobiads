@@ -61,7 +61,7 @@
         <li><a>Manage Ads<!--[if IE 7]><!--></a><!--<![endif]-->
         <!--[if lte IE 6]><table><tr><td><![endif]-->
         	<ul>
-                <li><a href="<?php echo url_for('anuncio/new') ?>" title="">Create New Add</a></li>
+                <li><a href="<?php echo url_for('ad/new') ?>" title="">Create New Add</a></li>
                 <li><a href="" title="">Associate Ad with Company Category</a></li>
              </ul>
          <!--[if lte IE 6]></td></tr></table></a><![endif]-->
@@ -78,13 +78,13 @@
             </div>
             <div class="sidebarmenu">
             
-                <a class="menuitem submenuheader" href="">Ads</a>
+                <a class="menuitem submenuheader" href="<?php echo url_for('ad/index') ?>">Ads</a>
                 <div class="submenu">
                     <ul>
-                    <li><a href="<?php echo url_for('anuncio/index') ?>">Ads Index</a></li>
+                    <li><a href="<?php echo url_for('ad/index') ?>">Ads Index</a></li>
                     </ul>
                 </div>
-                <a class="menuitem submenuheader" href="" >Offices</a>
+                <a class="menuitem submenuheader" href="<?php echo url_for('office/index') ?>" >Offices</a>
                 <div class="submenu">
                     <ul>
                     <li><a href="<?php echo url_for('office/index') ?>">Offices Index</a></li>

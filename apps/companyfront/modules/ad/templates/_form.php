@@ -11,50 +11,13 @@
         <td colspan="2">
           <?php echo $form->renderHiddenFields(false) ?>
           &nbsp;<a href="<?php echo url_for('ad/index') ?>">Back to list</a>
-          <?php if (!$form->getObject()->isNew()): ?>
-            &nbsp;<?php echo link_to('Delete', 'ad/delete?id='.$form->getObject()->getId(), array('method' => 'delete', 'confirm' => 'Are you sure?')) ?>
-          <?php endif; ?>
-          <input type="submit" value="Save" />
+          <input type="submit" value="Update" />
         </td>
       </tr>
     </tfoot>
     <tbody>
       <?php echo $form->renderGlobalErrors() ?>
-      <tr>
-        <th><?php echo $form['company_id']->renderLabel() ?></th>
-        <td>
-          <?php echo $form['company_id']->renderError() ?>
-          <?php echo $form['company_id'] ?>
-        </td>
-      </tr>
-      <tr>
-        <th><?php echo $form['company_categ_id']->renderLabel() ?></th>
-        <td>
-          <?php echo $form['company_categ_id']->renderError() ?>
-          <?php echo $form['company_categ_id'] ?>
-        </td>
-      </tr>
-      <tr>
-        <th><?php echo $form['ad_mobile_image_link']->renderLabel() ?></th>
-        <td>
-          <?php echo $form['ad_mobile_image_link']->renderError() ?>
-          <?php echo $form['ad_mobile_image_link'] ?>
-        </td>
-      </tr>
-      <tr>
-        <th><?php echo $form['created_at']->renderLabel() ?></th>
-        <td>
-          <?php echo $form['created_at']->renderError() ?>
-          <?php echo $form['created_at'] ?>
-        </td>
-      </tr>
-      <tr>
-        <th><?php echo $form['updated_at']->renderLabel() ?></th>
-        <td>
-          <?php echo $form['updated_at']->renderError() ?>
-          <?php echo $form['updated_at'] ?>
-        </td>
-      </tr>
+      <?php echo $form ?>
     </tbody>
   </table>
 </form>

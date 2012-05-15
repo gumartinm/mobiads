@@ -12,5 +12,13 @@ class AdDescriptionForm extends BaseAdDescriptionForm
 {
   public function configure()
   {
+    //$this->useFields(array('language_id', 'ad_id', 'ad_name', 'ad_description', 'ad_mobile_text', 'ad_link'));
+    unset($this['ad_id']);
+
+    if ($this->object->exists())
+    {
+      $this->widgetSchema['delete'] = new sfWidgetFormInputCheckbox();
+      $this->validatorSchema['delete'] = new sfValidatorPass();
+    }
   }
 }
