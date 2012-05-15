@@ -7,9 +7,19 @@
  * 
  * @package    mobiads
  * @subpackage model
- * @author     Your name here
- * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
+ * @author     Gustavo Martin Morcuende
+ * @version
  */
 class Language extends BaseLanguage
 {
+
+  /**
+   * Returns the string representation of this object.
+   *
+   * @return string
+   */
+   public function __toString()
+   {
+      return (string) $this->getLanguageName();
+   }
 }
