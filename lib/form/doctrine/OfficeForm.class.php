@@ -40,11 +40,6 @@ class OfficeForm extends BaseOfficeForm
                                                                      'max'      => 'Latitude "%value%" must not exceed the %max% value',
                                                                      'min'      => 'Latitude "%value%" must be equal or higher than %min%'));
 
-    $this->validatorSchema['city_id'] = new sfValidatorDoctrineChoice(array('model'    => $this->getRelatedModelName('City'),
-                                                                            'required' => false,
-                                                                            'query'    => $cityNamesQuery));
-
-
 
     $this->widgetSchema->setLabels(array('city_id'               => 'City: ',
                                          'longitude'             => 'Longitude (180 to -180): ',
