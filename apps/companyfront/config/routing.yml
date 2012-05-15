@@ -14,6 +14,12 @@ offices_index:
   param:   { module: office, action: index }
   options: { model: Office, type: object }
 
+ads_index:
+  url:     /ad/index
+  class:   sfDoctrineRoute
+  param:   { module: ad, action: index }
+  options: { model: Ad, type: object }
+
 # generic rules
 # please, remove them by adding more specific rules
 default_index:

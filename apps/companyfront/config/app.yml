@@ -4,6 +4,7 @@
 # default values
 all:
   max_offices_on_pager: 3
+  max_ads_on_pager: 3
 
   sf_guard_plugin:
      remember_key_expiration_age: 2592000             # 30 days in seconds

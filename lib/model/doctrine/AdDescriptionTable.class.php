@@ -16,4 +16,19 @@ class AdDescriptionTable extends Doctrine_Table
     {
         return Doctrine_Core::getTable('AdDescription');
     }
+
+
+   /**
+    * Returns ads with ad descriptions by company and language id.
+    *
+    * @return related ad to a company and language id as Doctrine Query
+    */
+    public function getAdsByCompanyandLanguageIdQuery($companyId, $languageId)
+    {
+        return $this->createQuery('addescription')->where('ad.company_id = ?', $companyId)
+                                                  ->andWhere('addescription.language_id = ?', $languageId)
+                                                  ->innerjoin('addescription.Ad ad')
+                                                  ->orderBy('ad.id');
+    }
+
 }
