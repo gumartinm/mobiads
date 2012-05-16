@@ -51,6 +51,7 @@ class adActions extends sfActions
     $this->pager->init();
 
 
+    $this->userLanguageId = $this->getUser()->getGuardUser()->getLanguage()->getId();
     $this->languageCode = $language->getCode();
   }
 

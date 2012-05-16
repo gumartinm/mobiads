@@ -12,7 +12,7 @@
   </table>
 </form>
 
-<?php include_partial('ad/list', array('ads' => $pager->getResults())) ?>
+<?php include_partial('ad/list', array('ads' => $pager->getResults(), 'userLanguageId' => $userLanguageId)) ?>
 
 <?php if ($pager->haveToPaginate()): ?>
   <div class="pagination">
