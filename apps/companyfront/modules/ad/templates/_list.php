@@ -10,16 +10,15 @@
   </thead>
   <tfoot>
     <tr>
-        <td colspan="5" class="rounded-foot-left"><em><?php echo __('Ads List') ?></em></td>
+        <td colspan="4" class="rounded-foot-left"><em><?php echo __('Ads List') ?></em></td>
         <td class="rounded-foot-right">&nbsp;</td>
     </tr>
   </tfoot>
   <tbody>
     <?php foreach ($ads as $ad): ?>
     <tr>
-      <td><img src="<?php echo $ad->getAd()->getAdMobileImageLink() ?>" alt="<?php echo $ad->getAdName() ?>"/></td>
-      <td><?php echo CompanyCategoryDescriptionTable::getInstance()->getCategGeneralFromIdDAOImpl($userLanguageId, $ad->getAd()->getCompanyCategId())->get(0)->company_categ_name?></td>
-
+      <td><img src="<?php echo $ad->getAd()->getAdMobileImageLink() ?>" width="80" height="80" alt="<?php echo $ad->getAdName() ?>"/></td>
+      <td><?php echo $ad->getAd()->getCompanyCategory() ?></td>
       <td><?php echo $ad->getAdName() ?></td>
 	  <td><a href="<?php echo url_for('ad/edit?id='.$ad->getAd()->getId()) ?>"><img src="/images/pencil_add.png" alt="" title="" border="0" /></a></td>
       <td><?php echo link_to('<img src="/images/inadminpanel/images/trash.png" alt="" title="" border="0" />', 'ad/delete?id='.$ad->getAd()->getId(), array('method' => 'delete', 'confirm' => 'Are you sure?')) ?></td>

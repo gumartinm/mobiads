@@ -7,9 +7,44 @@
  * 
  * @package    mobiads
  * @subpackage model
- * @author     Your name here
- * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
+ * @author     Gustavo Martin Morcuende
+ * @version
  */
 class Ad extends BaseAd
 {
+  /**
+   * Returns the string representation of this object.
+   *
+   * @return string
+   */
+  public function __toString()
+  {
+    $languageId = sfContext::getInstance()->getUser()->getGuardUser()->getLanguage()->getId();
+
+    //Check if there is description with the user's language
+    $adDescriptions = AdDescriptionTable::getInstance()->findByAdId($this->getId());
+    foreach ($adDescriptions as $adDescription)
+    {
+        if ($adDescription->getLanguageId() == $languageId)
+        {
+           //We found it!!!
+           return (string) $adDescription->getAdName();
+        }
+    }
+
+    //Otherwise return with the default language
+    $languageCode = sfConfig::get('app_default_language');
+    $languageId = LanguageTable::getInstance()->findByCode($languageCode);
+    foreach ($adDescriptions as $adDescription)
+    {
+        if ($adDescription->getLanguageId() == $languageId)
+        {
+           //We found the default language!!!
+           return (string) $adDescription->getAdName();
+        }
+    }
+
+    //Finally, if nothing was found, return nice error message.
+    return (string) "Ad without default language";
+  }
 }
