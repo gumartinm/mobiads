@@ -16,4 +16,15 @@ class AdTable extends Doctrine_Table
     {
         return Doctrine_Core::getTable('Ad');
     }
+
+
+   /**
+    * Returns ads by company id.
+    *
+    * @return related ads to a company id as Doctrine Query
+    */
+    public function getAdsByCompanyIdQuery($companyId)
+    {
+        return $this->createQuery('ad')->where('ad.company_id = ?', $companyId);
+    }
 }

@@ -22,7 +22,7 @@
       <td><?php echo $office->getLongitude() ?></td>
 	  <td><?php echo $office->getLatitude() ?></td>
 	  <td><a href="<?php echo url_for('office/edit?id='.$office->getId()) ?>"><img src="/images/pencil_add.png" alt="" title="" border="0" /></a></td>
-      <td><a><img src="/images/link.png" alt="" title="" border="0" /></a></td>
+      <td><a href="<?php echo url_for('office/link?id='.$office->getId()) ?>"><img src="/images/link.png" alt="" title="" border="0" /></a></td>
       <td><?php echo link_to('<img src="/images/inadminpanel/images/trash.png" alt="" title="" border="0" />', 'office/delete?id='.$office->getId(), array('method' => 'delete', 'confirm' => 'Are you sure?')) ?></td>
 
     </tr>

@@ -136,4 +136,26 @@ class officeActions extends sfActions
       $this->redirect('office/edit?id='.$office->getId());
     }
   }
+
+  public function executeLink(sfWebRequest $request)
+  {
+    $this->forward404Unless($office = Doctrine_Core::getTable('Office')->find(array($request->getParameter('id'))), sprintf('Object office does not exist (%s).', $request->getParameter('id')));
+
+    //Get user Id
+    $userId = $this->getUser()->getGuardUser()->getId();
+
+    //Get company owned by that user and insert value in form
+    $companyUserId = CompanyTable::getInstance()->findOneByUserId($userId)->getId();
+
+    //Get id number sent by the user (never trust the users)
+    $officeId = $request->getParameter('id');
+
+    $companyOfficeId = $office->getCompanyId();
+
+    $this->forward404Unless($companyOfficeId == $companyUserId, sprintf('Office does not exist (%s).', $request->getParameter('id')));
+
+    $officeAds = OfficeAdsTable::getInstance()->findOneByOfficeId($officeId);
+
+    $this->form = new OfficeAdsForm($officeAds, array('companyId' => $companyOfficeId));
+  }
 }
