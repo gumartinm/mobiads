@@ -36,7 +36,7 @@
   <div id="main_container">
 	<div class="header">
     	<div class="logo"><a href="#"><img src="" alt="" title="" border="0" /></a></div>
-    	<div class="right_header">Welcome Admin | <a href="<?php echo url_for('sf_guard_signout') ?>" class="logout">Logout</a></div>
+        <div class="right_header">Welcome <?php echo $sf_user->getGuardUser()->getFirstName() ?> | <a href="<?php echo url_for('sf_guard_signout') ?>" class="logout">Logout</a></div>
 	</div>
 	<div class="main_content">
 		<div class="menu">
