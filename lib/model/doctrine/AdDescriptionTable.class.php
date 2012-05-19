@@ -30,5 +30,4 @@ class AdDescriptionTable extends Doctrine_Table
                                                   ->innerjoin('addescription.Ad ad')
                                                   ->orderBy('ad.id');
     }
-
 }

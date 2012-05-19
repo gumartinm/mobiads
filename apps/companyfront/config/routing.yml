@@ -20,6 +20,12 @@ ads_index:
   param:   { module: ad, action: index }
   options: { model: Ad, type: object }
 
+companycategories_index:
+  url:     /category/index
+  class:   sfDoctrineRoute
+  param:   { module: category, action: index }
+  options: { model: CompanyCategory, type: object }
+
 # generic rules
 # please, remove them by adding more specific rules
 default_index:

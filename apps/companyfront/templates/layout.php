@@ -94,7 +94,7 @@
                 <a class="menuitem submenuheader" href="">Company Categories</a>
                 <div class="submenu">
                     <ul>
-                    <li><a href="<?php echo url_for('categempresa/index') ?>">Company Categories Index</a></li>
+                    <li><a href="<?php echo url_for('category/index') ?>">Company Categories Index</a></li>
                     </ul>
                 </div>
                 <a class="menuitem" href="">User Reference</a>

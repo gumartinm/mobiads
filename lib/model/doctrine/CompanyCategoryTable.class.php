@@ -16,4 +16,15 @@ class CompanyCategoryTable extends Doctrine_Table
     {
         return Doctrine_Core::getTable('CompanyCategory');
     }
+
+
+   /**
+    * Returns company categories by company id.
+    *
+    * @return related company categories to a company as Doctrine Query
+    */
+    public function getCompanyCategoriesByCompanyIdQuery($companyId)
+    {
+        return $this->createQuery('cg')->where('cg.company_id = ?', $companyId);
+    }
 }
