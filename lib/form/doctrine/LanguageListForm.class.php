@@ -26,6 +26,9 @@ class LanguageListForm extends BaseLanguageForm
 
     $this->widgetSchema->setLabels(array('id' => 'Language: ',));
 
+    //By default symfony comes with 2 decorators: 'table' and 'list'
+    $this->widgetSchema->setFormFormatterName('list');
+
     //i18n (Internationalization)
     //See apps/companyfront/modules/language/i18n/language_select_form.es.xml file (not created yet)
     $this->widgetSchema->getFormFormatter()->setTranslationCatalogue('language_select_form');
