@@ -47,6 +47,17 @@ class OfficeForm extends BaseOfficeForm
                                          'office_street_address' => 'Address: ',
                                          'office_zip'            => 'ZIP:',));
 
+
+    //In the future the companies could pay for improvements in their accounts (premium accounts)
+    //1 premium company could avoid to other companies on the same GPS point. This validator should check if that GPS point is being used by
+    //another company and if that company is premium or not.  
+    $this->validatorSchema->setPostValidator(
+      new sfValidatorAnd(array(
+        new sfValidatorDoctrineUnique(array('model' => $this->getModelName(), 'column' => array('office_gps'))),
+      ))
+    );
+
+
     $this->validatorSchema->setOption('allow_extra_fields', false);
     $this->validatorSchema->setOption('filter_extra_fields', true);
 

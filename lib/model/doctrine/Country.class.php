@@ -12,4 +12,13 @@
  */
 class Country extends BaseCountry
 {
+  /**
+   * Returns the string representation of this object.
+   *
+   * @return string
+   */
+   public function __toString()
+   {
+     return (string) $this->getCountryName();
+   }
 }

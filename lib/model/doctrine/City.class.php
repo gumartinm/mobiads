@@ -17,8 +17,8 @@ class City extends BaseCity
    *
    * @return string
    */
-  public function __toString()
-  {
-    return (string) $this->getCityName();
-  }
+   public function __toString()
+   {
+     return (string) $this->getCityName();
+   }
 }

@@ -19,14 +19,18 @@ class OfficeTable extends Doctrine_Table
 
 
    /**
-    * Returns offices by company id.
+    * Returns offices by company id with sort
     *
     * @return related offices to a company id.
+    * TODO: order by longitude and latitude
     */
-    public function getOfficesByCompanyIdQuery($companyId)
+    public function getOfficesByCompanyIdWithSortQuery($companyId, $sort)
     {
          return $this->createQuery('office')->where('office.company_id = ?', $companyId)
-                                            ->orderBy('office.id');
+                                            ->innerjoin('office.City city')
+                                            ->innerjoin('city.Region region')
+                                            ->innerjoin('region.Country country')
+                                            ->orderBy($sort);
     }
 }
 

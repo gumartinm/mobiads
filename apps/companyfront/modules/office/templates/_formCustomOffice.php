@@ -10,9 +10,9 @@
       <tr>
         <td colspan="2">
           <?php echo $form->renderHiddenFields(false) ?>
-          &nbsp;<a href="<?php echo url_for('office/index') ?>"><?php echo __('Back to list') ?></a>
+          &nbsp;<a href="<?php echo url_for('office/index?'.'&page='.$page.'&sort='.$sort) ?>">Back to list</a>
           <?php if (!$form->getObject()->isNew()): ?>
-            &nbsp;<?php echo link_to('Delete', 'office/delete?id='.$form->getObject()->getId(), array('method' => 'delete', 'confirm' => 'Are you sure?')) ?>
+            &nbsp;<?php echo link_to('Delete', 'office/delete?id='.$form->getObject()->getId().'&page='.$page.'&sort='.$sort, array('method' => 'delete', 'confirm' => 'Are you sure?')) ?>
           <?php endif; ?>
           <input type="submit" value=<?php echo __('Save') ?> />
         </td>
