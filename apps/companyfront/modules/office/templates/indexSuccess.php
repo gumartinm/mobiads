@@ -27,7 +27,8 @@
   </div>
 <?php endif; ?>
 
-  <a href="<?php echo url_for('office/new?page='.$page.'&sort='.$sort) ?>" class="bt_green"><span class="bt_green_lft"></span><strong><?php echo __('Create new Office') ?></strong><span class="bt_green_r"></span></a>
-
-
-
+<?php if ($pager->haveToPaginate()): ?>
+    <a href="<?php echo url_for('office/new?page='.$pager->getPage().'&sort='.$sort) ?>" class="bt_green"><span class="bt_green_lft"></span><strong><?php echo __('Create new Office') ?></strong><span class="bt_green_r"></span></a>
+<?php else: ?>
+    <a href="<?php echo url_for('office/new?page=1'.'&sort='.$sort) ?>" class="bt_green"><span class="bt_green_lft"></span><strong><?php echo __('Create new Office') ?></strong><span class="bt_green_r"></span></a>
+<?php endif; ?>
