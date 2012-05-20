@@ -25,8 +25,8 @@ class CompanyCategoryTable extends Doctrine_Table
     */
     public function getCompanyCategoriesByCompanyIdQuery($companyId)
     {
-        return $this->createQuery('cg')->where('cg.company_id = ?', $companyId)
-                                       ->orWhere('cg.id = ?', '1')
-                                       ->orderBy('cg.id');
+        return $this->createQuery('cc')->where('cc.company_id = ?', $companyId)
+                                       ->orWhere('cc.id = ?', '1')
+                                       ->orderBy('cc.lft');
     }
 }

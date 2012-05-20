@@ -25,10 +25,6 @@ class CompanyCategoryForm extends BaseCompanyCategoryForm
                                                                                     'required' => true,
                                                                                     'query'    => $companyCategs));
 
-    if (!$this->getObject()->isNew())
-    {
-        $this->setDefault('parent_category', $this->getObject()->getNode()->getParent()->getId());
-    }
 
     $this->widgetSchema->setLabels(array('parent_category'  => 'Parent Company Category'));
     $this->widgetSchema->setLabels(array('general_categ_id' => 'General Category'));
@@ -143,6 +139,30 @@ class CompanyCategoryForm extends BaseCompanyCategoryForm
 
     $companyCateg = CompanyCategoryTable::getInstance()->findOneById($this->values['parent_category']);
     //Second one, right here
-    $this->getObject()->getNode()->insertAsFirstChildOf($companyCateg);
+    //First of all, we have to check if this node already has a parent
+    if ($this->getObject()->getNode()->getParent() != null)
+    {
+        //We have to move the node
+        $this->getObject()->getNode()->moveAsFirstChildOf($companyCateg);
+    }
+    else
+    {
+        //We have to insert the node
+        $this->getObject()->getNode()->insertAsFirstChildOf($companyCateg);
+    }
+  }
+
+ /**
+  * Overriding updateDefaultsFromObject method from lib/vendor/symfony/lib/plugins/sfDoctrinePlugin/lib/form/sfFormDoctrine.class.php
+  *
+  */
+  protected function updateDefaultsFromObject()
+  {
+    parent::updateDefaultsFromObject();
+
+    if (!$this->getObject()->isNew())
+    {
+        $this->setDefault('parent_category', $this->getObject()->getNode()->getParent()->getId());
+    }
   }
 }
