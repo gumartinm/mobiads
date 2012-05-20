@@ -63,14 +63,25 @@ class adActions extends sfActions
 
   public function executeNew(sfWebRequest $request)
   {
-    $this->form = new AdForm();
+    //Get user Id
+    $userId = $this->getUser()->getGuardUser()->getId();
+
+    $this->form = new AdForm(null, array('company_user_id' => CompanyTable::getInstance()->findOneByUserId($userId)->getId()));
   }
 
   public function executeCreate(sfWebRequest $request)
   {
     $this->forward404Unless($request->isMethod(sfRequest::POST));
 
-    $this->form = new AdForm();
+    $adInit = new Ad();
+    //Get user Id
+    $userId = $this->getUser()->getGuardUser()->getId();
+
+    //Get company owned by that user and insert value in form
+    $companyUserId = CompanyTable::getInstance()->findOneByUserId($userId)->getId();
+    $adInit->company_id = $companyUserId;
+
+    $this->form = new AdForm($adInit, array('company_user_id' => $companyUserId));
 
     $this->processForm($request, $this->form);
 
@@ -80,14 +91,42 @@ class adActions extends sfActions
   public function executeEdit(sfWebRequest $request)
   {
     $this->forward404Unless($ad = Doctrine_Core::getTable('Ad')->find(array($request->getParameter('id'))), sprintf('Object ad does not exist (%s).', $request->getParameter('id')));
-    $this->form = new AdForm($ad);
+
+    //Get user Id
+    $userId = $this->getUser()->getGuardUser()->getId();
+
+    //Get company owned by that user and insert value in form
+    $companyUserId = CompanyTable::getInstance()->findOneByUserId($userId)->getId();
+
+     //Get id number sent by the user (never trust the users)
+    $adId = $request->getParameter('id');
+
+    $companyId = AdTable::getInstance()->findOneById($adId)->getCompanyId();
+
+    $this->forward404Unless($companyId == $companyUserId, sprintf('Ad does not exist (%s).', $request->getParameter('id')));
+
+    $this->form = new AdForm($ad, array('company_user_id' => $companyUserId));
   }
 
   public function executeUpdate(sfWebRequest $request)
   {
     $this->forward404Unless($request->isMethod(sfRequest::POST) || $request->isMethod(sfRequest::PUT));
     $this->forward404Unless($ad = Doctrine_Core::getTable('Ad')->find(array($request->getParameter('id'))), sprintf('Object ad does not exist (%s).', $request->getParameter('id')));
-    $this->form = new AdForm($ad);
+
+    //Get user Id
+    $userId = $this->getUser()->getGuardUser()->getId();
+
+    //Get company owned by that user and insert value in form
+    $companyUserId = CompanyTable::getInstance()->findOneByUserId($userId)->getId();
+
+     //Get id number sent by the user (never trust the users)
+    $adId = $request->getParameter('id');
+
+    $companyId = AdTable::getInstance()->findOneById($adId)->getCompanyId();
+
+    $this->forward404Unless($companyId == $companyUserId, sprintf('Ad does not exist (%s).', $request->getParameter('id')));
+
+    $this->form = new AdForm($ad, array('company_user_id' => $companyUserId));
 
     $this->processForm($request, $this->form);
 
@@ -99,6 +138,20 @@ class adActions extends sfActions
     $request->checkCSRFProtection();
 
     $this->forward404Unless($ad = Doctrine_Core::getTable('Ad')->find(array($request->getParameter('id'))), sprintf('Object ad does not exist (%s).', $request->getParameter('id')));
+
+    //Get user Id
+    $userId = $this->getUser()->getGuardUser()->getId();
+
+    //Get company owned by that user
+    $companyUserId = CompanyTable::getInstance()->findOneByUserId($userId)->getId();
+
+    //Get id number sent by the user (never trust the users)
+    $adId = $request->getParameter('id');
+
+    $companyId = AdTable::getInstance()->findOneById($adId)->getCompanyId();
+
+    $this->forward404Unless($companyId == $companyUserId, sprintf('Ad does not exist (%s).', $request->getParameter('id')));
+
     $ad->delete();
 
     $this->redirect('ad/index');

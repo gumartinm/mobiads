@@ -16,6 +16,25 @@ class AdForm extends BaseAdForm
   {
     $this->useFields(array('company_categ_id', 'ad_mobile_image_link'));
 
+    //Narrow down the valid options for some field validators
+    $companyCategs = CompanyCategoryTable::getInstance()->getCompanyCategoriesByCompanyIdQuery($this->getOption('company_user_id'));
+
+    //The default value is not good enough for us. We need narrow down the results.
+    $this->widgetSchema['company_categ_id'] = new sfWidgetFormDoctrineChoice(array('model'    => $this->getModelName(),
+                                                                                  'add_empty' => true,
+                                                                                  'query'     => $companyCategs));
+
+    $this->validatorSchema['company_categ_id'] = new sfValidatorDoctrineChoice(array('model'   => $this->getModelName(),
+                                                                                    'required' => false,
+                                                                                    'query'    => $companyCategs));
+
+    $this->widgetSchema->setLabels(array('company_categ_id'  => 'Company Category'));
+    $this->widgetSchema->setLabels(array('ad_mobile_image_link' => "Picture on the user's mobile"));
+
+
+    //i18n (Internationalization)
+    $this->widgetSchema->getFormFormatter()->setTranslationCatalogue('ad_form');
+
     // Ad creation form
     $adDescription = new AdDescription();
     $adDescription->Ad = $this->getObject();
