@@ -5,8 +5,8 @@
  *
  * @package    mobiads
  * @subpackage office
- * @author     Your name here
- * @version    SVN: $Id: actions.class.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
+ * @author     Gustavo Martin Morcuende
+ * @version
  */
 class officeActions extends sfActions
 {
