@@ -18,13 +18,10 @@ class categoryActions extends sfActions
     //Just 1 user owns a company. Should this be improved?
     $companyId = CompanyTable::getInstance()->findOneByUserId($userId)->getId();
 
-    //Doctrine Query used to show a pager with the Company Categories.
+    //Doctrine Query used to show a list with the Company Categories.
     $query=CompanyCategoryTable::getInstance()->getCompanyCategoriesByCompanyIdQuery($companyId);
 
-    $this->pager = new sfDoctrinePager('CompanyCategoryDescription', sfConfig::get('app_max_categories_on_pager'));
-    $this->pager->setQuery($query);
-    $this->pager->setPage($request->getParameter('page', 1));
-    $this->pager->init();
+    $this->companyCategories = $query->execute();
   }
 
   public function executeShow(sfWebRequest $request)
