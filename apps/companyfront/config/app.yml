@@ -5,7 +5,7 @@
 all:
   max_offices_on_pager: 3
   max_ads_on_pager: 2
-  max_categories_on_pager: 2
+  max_categories_on_pager: 3
   default_language: eng                               # Everything must exist at least with this language
 
   sf_guard_plugin:

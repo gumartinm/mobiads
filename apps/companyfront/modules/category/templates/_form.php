@@ -10,72 +10,14 @@
       <tr>
         <td colspan="2">
           <?php echo $form->renderHiddenFields(false) ?>
-          &nbsp;<a href="<?php echo url_for('category/index') ?>">Back to list</a>
-          <?php if (!$form->getObject()->isNew()): ?>
-            &nbsp;<?php echo link_to('Delete', 'category/delete?id='.$form->getObject()->getId(), array('method' => 'delete', 'confirm' => 'Are you sure?')) ?>
-          <?php endif; ?>
-          <input type="submit" value="Save" />
+          &nbsp;<a href="<?php echo url_for('category/index') ?>"><?php echo __('Back to list') ?></a>
+          <input type="submit" value="Update" />
         </td>
       </tr>
     </tfoot>
     <tbody>
-      <?php echo $form->renderGlobalErrors() ?>
-      <tr>
-        <th><?php echo $form['company_id']->renderLabel() ?></th>
-        <td>
-          <?php echo $form['company_id']->renderError() ?>
-          <?php echo $form['company_id'] ?>
-        </td>
-      </tr>
-      <tr>
-        <th><?php echo $form['general_categ_id']->renderLabel() ?></th>
-        <td>
-          <?php echo $form['general_categ_id']->renderError() ?>
-          <?php echo $form['general_categ_id'] ?>
-        </td>
-      </tr>
-      <tr>
-        <th><?php echo $form['created_at']->renderLabel() ?></th>
-        <td>
-          <?php echo $form['created_at']->renderError() ?>
-          <?php echo $form['created_at'] ?>
-        </td>
-      </tr>
-      <tr>
-        <th><?php echo $form['updated_at']->renderLabel() ?></th>
-        <td>
-          <?php echo $form['updated_at']->renderError() ?>
-          <?php echo $form['updated_at'] ?>
-        </td>
-      </tr>
-      <tr>
-        <th><?php echo $form['root_id']->renderLabel() ?></th>
-        <td>
-          <?php echo $form['root_id']->renderError() ?>
-          <?php echo $form['root_id'] ?>
-        </td>
-      </tr>
-      <tr>
-        <th><?php echo $form['lft']->renderLabel() ?></th>
-        <td>
-          <?php echo $form['lft']->renderError() ?>
-          <?php echo $form['lft'] ?>
-        </td>
-      </tr>
-      <tr>
-        <th><?php echo $form['rgt']->renderLabel() ?></th>
-        <td>
-          <?php echo $form['rgt']->renderError() ?>
-          <?php echo $form['rgt'] ?>
-        </td>
-      </tr>
-      <tr>
-        <th><?php echo $form['level']->renderLabel() ?></th>
-        <td>
-          <?php echo $form['level']->renderError() ?>
-          <?php echo $form['level'] ?>
-        </td>
-      </tr>
+      <?php echo $form->renderGlobalErrors(false) ?>
+      <?php echo $form ?>
     </tbody>
   </table>
 </form>

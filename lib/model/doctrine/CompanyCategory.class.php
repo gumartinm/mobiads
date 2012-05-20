@@ -34,7 +34,7 @@ class CompanyCategory extends BaseCompanyCategory
 
     //Otherwise return with the default language
     $languageCode = sfConfig::get('app_default_language');
-    $languageId = LanguageTable::getInstance()->findByCode($languageCode);
+    $languageId = LanguageTable::getInstance()->findOneByCode($languageCode)->getId();
     foreach ($categoryDescriptions as $categoryDescription)
     {
         if ($categoryDescription->getLanguageId() == $languageId)

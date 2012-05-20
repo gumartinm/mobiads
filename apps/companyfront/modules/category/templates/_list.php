@@ -18,18 +18,17 @@ jQuery(document).ready(function(){
 <table id="rounded-corner">
   <thead>
     <tr>
-      <th scope="col" class="rounded-company">Name</th>
-	  <th scope="col" class="rounded">Current General Category</th>
-      <th scope="col" class="rounded">Associate/Delete</th>
-      <th scope="col" class="rounded">Edit</th>
-      <th scope="col" class="rounded-q4">Delete</th>
+      <th scope="col" class="rounded-company"><?php echo __('Company Category') ?></th>
+	  <th scope="col" class="rounded"><?php echo __('Current General Category') ?></th>
+      <th scope="col" class="rounded"><?php echo __('Edit') ?></th>
+      <th scope="col" class="rounded-q4"></th>
     </tr>
   </thead>
   <tbody>
-    <?php foreach ($company_categories as $categ_empresa): ?>
-    <tr id="node-<?php echo $categ_empresa->getId()?>" <?php
+    <?php foreach ($company_categories as $company_category): ?>
+    <tr id="node-<?php echo $company_category->getId()?>" <?php
 	  // insert hierarchical info
-	  $node = $categ_empresa->getNode();
+	  $node = $company_category->getNode();
 	  if ($node->isValidNode() && $node->hasParent() && ($node->getParent()->getId() != '1'))
       {
       	echo 'class="child-of-node-'.$node->getParent()->getId().'"';
@@ -37,35 +36,25 @@ jQuery(document).ready(function(){
       ?>>
       <td>
         <a>
-           <?php echo $categ_empresa ?>
+           <?php echo $company_category ?>
         </a>
       </td >
 	  <td>
-          <?php echo $categ_empresa->getGeneralCategory() ?>
-      </td>
-      <td>
-        <?php if ($categ_empresa->getId() != 1): ?>
-         <?php if ($categ_empresa->getGeneralCategId() != null): ?>
-          <a href="<?php echo url_for('categgeneral/deleteassociation?idcompanycateg='.$categ_empresa->getId()) ?>">
-          <img src="/images/link_break.png" alt="" title="" border="0" /></a>
-         <?php else: ?>
-          <a><img src="/images/link.png" alt="" title="" border="0" /></a>
-         <?php endif; ?>
-        <?php else: ?>
-		 <a><img src="/images/cross.png" alt="" title="" border="0" /></a>
+        <?php if ($company_category->getGeneralCategId() != null): ?>
+            <?php echo $company_category->getGeneralCategory() ?>
         <?php endif; ?>
       </td>
       <td>
-        <?php if ($categ_empresa->getId() != 1): ?>
-         <a href="<?php echo url_for('categempresa/edit?id='.$categ_empresa->getId()) ?>">
+        <?php if ($company_category->getId() != 1): ?>
+         <a href="<?php echo url_for('category/edit?id='.$company_category->getId()) ?>">
          <img src="/images/pencil_add.png" alt="" title="" border="0" /></a>
         <?php else: ?>
 	     <a><img src="/images/cross.png" alt="" title="" border="0" /></a>
         <?php endif; ?>
       </td>
       <td>
-        <?php if ($categ_empresa->getId() != 1): ?>	  
-         <?php echo link_to('<img src="/images/inadminpanel/images/trash.png" alt="" title="" border="0" />', 'categempresa/delete?id='.$categ_empresa->getId(), array('method' => 'delete', 'confirm' => 'Are you sure?')) ?>
+        <?php if ($company_category->getId() != 1): ?>	  
+         <?php echo link_to('<img src="/images/inadminpanel/images/trash.png" alt="" title="" border="0" />', 'category/delete?id='.$company_category->getId(), array('method' => 'delete', 'confirm' => 'Are you sure?')) ?>
         <?php else: ?>
          <a><img src="/images/cross.png" alt="" title="" border="0" /></a>
         <?php endif; ?>
