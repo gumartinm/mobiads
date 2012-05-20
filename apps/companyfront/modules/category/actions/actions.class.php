@@ -48,9 +48,10 @@ class categoryActions extends sfActions
     $userId = $this->getUser()->getGuardUser()->getId();
 
     //Get company owned by that user and insert value in form
-    $companyCategoryInit->company_id = CompanyTable::getInstance()->findOneByUserId($userId)->getId();
+    $companyUserId = CompanyTable::getInstance()->findOneByUserId($userId)->getId();
+    $companyCategoryInit->company_id = $companyUserId;
 
-    $this->form = new CompanyCategoryForm($companyCategoryInit, array('company_user_id' => CompanyTable::getInstance()->findOneByUserId($userId)->getId()));
+    $this->form = new CompanyCategoryForm($companyCategoryInit, array('company_user_id' => $companyUserId));
 
     $this->processForm($request, $this->form);
 
@@ -70,9 +71,9 @@ class categoryActions extends sfActions
     //Get id number sent by the user (never trust the users)
     $companyCategoryId = $request->getParameter('id');
 
-    $companyOfficeId = CompanyCategoryTable::getInstance()->findOneById($companyCategoryId)->getCompanyId();
+    $companyId = CompanyCategoryTable::getInstance()->findOneById($companyCategoryId)->getCompanyId();
 
-    $this->forward404Unless($companyOfficeId == $companyUserId, sprintf('Category does not exist (%s).', $request->getParameter('id')));
+    $this->forward404Unless($companyId == $companyUserId, sprintf('Category does not exist (%s).', $request->getParameter('id')));
 
     $this->form = new CompanyCategoryForm($company_category, array('company_user_id' => $companyUserId));
   }
@@ -91,9 +92,9 @@ class categoryActions extends sfActions
     //Get id number sent by the user (never trust the users)
     $companyCategoryId = $request->getParameter('id');
 
-    $companyOfficeId = CompanyCategoryTable::getInstance()->findOneById($companyCategoryId)->getCompanyId();
+    $companyId = CompanyCategoryTable::getInstance()->findOneById($companyCategoryId)->getCompanyId();
 
-    $this->forward404Unless($companyOfficeId == $companyUserId, sprintf('Category does not exist (%s).', $request->getParameter('id')));
+    $this->forward404Unless($companyId == $companyUserId, sprintf('Category does not exist (%s).', $request->getParameter('id')));
 
     $this->form = new CompanyCategoryForm($company_category, array('company_user_id' => $companyUserId));
 
@@ -107,7 +108,22 @@ class categoryActions extends sfActions
     $request->checkCSRFProtection();
 
     $this->forward404Unless($company_category = Doctrine_Core::getTable('CompanyCategory')->find(array($request->getParameter('id'))), sprintf('Object company_category does not exist (%s).', $request->getParameter('id')));
-    $company_category->delete();
+
+    //Get user Id
+    $userId = $this->getUser()->getGuardUser()->getId();
+
+    //Get company owned by that user
+    $companyUserId = CompanyTable::getInstance()->findOneByUserId($userId)->getId();
+
+    //Get id number sent by the user (never trust the users)
+    $companyCategoryId = $request->getParameter('id');
+
+    $companyId = CompanyCategoryTable::getInstance()->findOneById($companyCategoryId)->getCompanyId();
+
+    $this->forward404Unless($companyId == $companyUserId, sprintf('Category does not exist (%s).', $request->getParameter('id')));
+
+    //Delete node and its descendants
+    $company_category->getNode()->delete();
 
     $this->redirect('category/index');
   }

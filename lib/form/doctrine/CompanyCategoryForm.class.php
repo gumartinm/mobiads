@@ -42,7 +42,7 @@ class CompanyCategoryForm extends BaseCompanyCategoryForm
 
 
     //i18n (Internationalization)
-    $this->widgetSchema->getFormFormatter()->setTranslationCatalogue('company_categor_form');
+    $this->widgetSchema->getFormFormatter()->setTranslationCatalogue('company_category_form');
   }
 
   protected function doBind(array $values)
