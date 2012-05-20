@@ -10,7 +10,10 @@
  */
 class OfficeAdsForm extends BaseOfficeAdsForm
 {
+  /*Stores Doctrine Records to be saved in the database.*/
   protected $scheduledForSave = array();
+  /*Stores Doctrine Records to be removed from the database.*/
+  protected $scheduledForDelete = array();
 
 
   public function configure()
@@ -27,12 +30,6 @@ class OfficeAdsForm extends BaseOfficeAdsForm
                                                                         'expanded'       => false,
                                                                         'renderer_class' => 'sfWidgetFormSelectDoubleList',
                                                                         'query'          => $query));
-
-    $this->widgetSchema->setLabels(array('city_id'               => 'City: ',
-                                         'longitude'             => 'Longitude (180 to -180): ',
-                                         'latitude'              => 'Latitude (90 to -90): ',
-                                         'office_street_address' => 'Address: ',
-                                         'office_zip'            => 'ZIP:',));
 
 
     $this->validatorSchema['ad_id'] =  new sfValidatorDoctrineChoice(array('model'    => $this->getRelatedModelName('Ad'),
@@ -83,6 +80,11 @@ class OfficeAdsForm extends BaseOfficeAdsForm
     {
         $value->save($con);
     }
+    foreach ($this->scheduledForDelete as $index => $value)
+    {
+        $value->delete($con);
+    }
+
   }
 
 
@@ -90,39 +92,58 @@ class OfficeAdsForm extends BaseOfficeAdsForm
   * Overriding doBind method
   *
   * TODO: I am breaking the validations. How could I do this in a right way?
-  */  
+  */
   protected function doBind(array $values)
   {
-    if (!isset($values['ad_id']))
-    {
-        if (!$this->getObject()->isNew())
-        { 
-            $officeAds = OfficeAdsTable::getInstance()->findByOfficeId($this->getObject()->getOfficeId());
-           
-            foreach ($officeAds as $officeAd)
-            { 
-                $officeAd->delete();
-            }
-        }    
-        return;
-    }
-
     $officeAds = OfficeAdsTable::getInstance()->findByOfficeId($this->getObject()->getOfficeId());
 
-    foreach ($values['ad_id'] as $index => $value)
+    //Scheduled for delete
+    //If the object was previously in the database.
+    if (!$this->getObject()->isNew())
     {
-        if (!$this->getObject()->isNew())
-        { 
-            foreach ($officeAds as $officeAd)
+        //The Doctrine Collection must not be null because the object was previously in the data base.
+        //We must search the whole Doctrine Collection in order to find out if the object was in the database
+        //and it has been chosen for the user to stay in the database.
+        foreach ($officeAds as $index => $officeAd)
+        {
+            //If the user chose something to associate with.
+            if (isset($values['ad_id']))
             {
-                if ($officeAd->getAdId() == $value)
-                    continue 2;
+                foreach ($values['ad_id'] as $value)
+                {
+                    //That ad has been found in the database, so it is not going to be removed.
+                    if ($officeAd->getAdId() == $value)
+                        continue 2;
+                }
             }
+            //The user did not choose this ad which was previously in the database, so we have to remove it.
+            $this->scheduledForDelete[$index] = $officeAd;
         }
-        $officeAds = new OfficeAds();
-        $officeAds->office_id = $this->getObject()->getOfficeId();
-        $officeAds->ad_id = $value;
-        $this->scheduledForSave[$index] = $officeAds;
+    }
+
+    //Scheduled for save
+    if (isset($values['ad_id']))
+    {
+        //We must search the whole array in order to find out if the chosen ad is in the database or not.
+        //If the object was not previously in the database we must save it, otherwise we do nothing.
+        foreach ($values['ad_id'] as $index => $value)
+        {
+            //If the object was previously in the database.
+            if (!$this->getObject()->isNew())
+            {
+                foreach ($officeAds as $officeAd)
+                {
+                    //The ad has been found in the database, it is not going to be saved again.
+                    if ($officeAd->getAdId() == $value)
+                        continue 2;
+                }
+            }
+            //The user chose another ad to be stored in the database.
+            $newOfficeAds = new OfficeAds();
+            $newOfficeAds->office_id = $this->getObject()->getOfficeId();
+            $newOfficeAds->ad_id = $value;
+            $this->scheduledForSave[$index] = $newOfficeAds;
+        }
     }
   }
 }
