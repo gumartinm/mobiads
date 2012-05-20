@@ -34,7 +34,7 @@ class GeneralCategory extends BaseGeneralCategory
 
     //Otherwise return with the default language
     $languageCode = sfConfig::get('app_default_language');
-    $languageId = LanguageTable::getInstance()->findByCode($languageCode);
+    $languageId = LanguageTable::getInstance()->findOneByCode($languageCode)->getId();
     foreach ($generalCategoryDescriptions as $generalCategoryDescription)
     {
         if ($generalCategoryDescription->getLanguageId() == $languageId)
