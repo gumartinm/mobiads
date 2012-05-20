@@ -20,7 +20,7 @@
       <td><img src="<?php echo $ad->getAd()->getAdMobileImageLink() ?>" width="80" height="80" alt="<?php echo $ad->getAdName() ?>"/></td>
       <td>
         <?php if ($ad->getAd()->getCompanyCategId() != null): ?>
-            <?php echo $ad->getAd()->getCompanyCategory() ?></td>
+            <?php echo $ad->getAd()->getCompanyCategory() ?>
         <?php endif; ?>
       </td>
       <td><?php echo $ad->getAdName() ?></td>
