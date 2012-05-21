@@ -11,9 +11,9 @@
 class OfficeAdsForm extends BaseOfficeAdsForm
 {
   /*Stores Doctrine Records to be saved in the database.*/
-  protected $scheduledForSave = array();
+  protected $scheduledForSaving = array();
   /*Stores Doctrine Records to be removed from the database.*/
-  protected $scheduledForDelete = array();
+  protected $scheduledForDeletion = array();
 
 
   public function configure()
@@ -76,11 +76,11 @@ class OfficeAdsForm extends BaseOfficeAdsForm
     }
    
  
-    foreach ($this->scheduledForSave as $index => $value)
+    foreach ($this->scheduledForSaving as $index => $value)
     {
         $value->save($con);
     }
-    foreach ($this->scheduledForDelete as $index => $value)
+    foreach ($this->scheduledForDeletion as $index => $value)
     {
         $value->delete($con);
     }
@@ -117,7 +117,7 @@ class OfficeAdsForm extends BaseOfficeAdsForm
                 }
             }
             //The user did not choose this ad which was previously in the database, so we have to remove it.
-            $this->scheduledForDelete[$index] = $officeAd;
+            $this->scheduledForDeletion[$index] = $officeAd;
         }
     }
 
@@ -142,7 +142,7 @@ class OfficeAdsForm extends BaseOfficeAdsForm
             $newOfficeAds = new OfficeAds();
             $newOfficeAds->office_id = $this->getObject()->getOfficeId();
             $newOfficeAds->ad_id = $value;
-            $this->scheduledForSave[$index] = $newOfficeAds;
+            $this->scheduledForSaving[$index] = $newOfficeAds;
         }
     }
   }
