@@ -5,8 +5,14 @@
 homepage:
   url:     /
   class:   sfDoctrineRoute
-  param:   { module: office, action: index }
-  options: { model: Office, type: object }
+  param:   { module: company, action: index }
+  options: { model: Company, type: object }
+
+company_index:
+  url:     /company/index
+  class:   sfDoctrineRoute
+  param:   { module: company, action: index }
+  options: { model: Company, type: object }
 
 offices_index:
   url:     /office/index
