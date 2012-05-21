@@ -4,7 +4,7 @@
     <?php include_http_metas() ?>
     <?php include_metas() ?>
     <?php //include_title() ?>
-	<title>Mobi - Mobile Ads</title>
+	<title><?php echo __('Mobi - Mobile Ads') ?></title>
     <link rel="shortcut icon" href="/favicon.ico" />
     <?php include_stylesheets() ?>
     <?php include_javascripts() ?>
@@ -36,39 +36,37 @@
   <div id="main_container">
 	<div class="header">
     	<div class="logo"><a href="#"><img src="" alt="" title="" border="0" /></a></div>
-        <div class="right_header">Welcome <?php echo $sf_user->getGuardUser()->getFirstName() ?> | <a href="<?php echo url_for('sf_guard_signout') ?>" class="logout">Logout</a></div>
+        <div class="right_header"><?php echo __('Welcome')." ".$sf_user->getGuardUser()->getFirstName() ?> | <a href="<?php echo url_for('sf_guard_signout') ?>" class="logout"><?php echo __('Logout') ?></a></div>
 	</div>
 	<div class="main_content">
 		<div class="menu">
         <ul>
-        <li><a class="current" href="<?php echo url_for('homepage') ?>">Home</a></li>
+        <li><a class="current" href="<?php echo url_for('homepage') ?>"><?php echo __('Home') ?></a></li>
         <li><a>Manage Categories<!--[if IE 7]><!--></a><!--<![endif]-->
         <!--[if lte IE 6]><table><tr><td><![endif]-->
-        	<ul>
-        	<li><a href="<?php echo url_for('categempresa/new') ?>" title="">Add New Category</a></li>
-            <li><a href="" title="">Delete Category</a></li>
-            <li><a href="" title="">Associate Categories</a></li>
+            <ul>
+                <li><a href="<?php echo url_for('category/new') ?>" title=""><?php echo __('Create New Category') ?></a></li>
             </ul>
         <!--[if lte IE 6]></td></tr></table></a><![endif]-->
         </li>
         <li><a>Manage Offices<!--[if IE 7]><!--></a><!--<![endif]-->
         <!--[if lte IE 6]><table><tr><td><![endif]-->
             <ul>
-                <li><a href="<?php echo url_for('office/new') ?>" title="">Create New Office</a></li>
+                <li><a href="<?php echo url_for('office/new') ?>" title=""><?php echo __('Create New Office') ?></a></li>
             </ul>
         <!--[if lte IE 6]></td></tr></table></a><![endif]-->
         </li>
         <li><a>Manage Ads<!--[if IE 7]><!--></a><!--<![endif]-->
         <!--[if lte IE 6]><table><tr><td><![endif]-->
-        	<ul>
-                <li><a href="<?php echo url_for('ad/new') ?>" title="">Create New Add</a></li>
-                <li><a href="" title="">Associate Ad with Company Category</a></li>
+            <ul>
+                <li><a href="<?php echo url_for('ad/new') ?>" title=""><?php echo __('Create New Add') ?></a></li>
              </ul>
          <!--[if lte IE 6]></td></tr></table></a><![endif]-->
          </li>
+         <li><a href="http://gumartinm.name" title=""><?php echo __('Contact') ?><!--[if IE 7]><!--></a><!--<![endif]--></li>
          </ul>
-	     </div>
-	<div class="center_content">  
+         </div>
+	<div class="center_content">
     <div class="left_content">
     		<div class="sidebar_search">
             <form>
@@ -78,31 +76,24 @@
             </div>
             <div class="sidebarmenu">
             
-                <a class="menuitem submenuheader" href="<?php echo url_for('ad/index') ?>">Ads</a>
+                <a class="menuitem submenuheader" href="<?php echo url_for('office/index') ?>" ><?php echo __('Offices') ?></a>
                 <div class="submenu">
                     <ul>
-                    <li><a href="<?php echo url_for('ad/index') ?>">Ads Index</a></li>
+                    <li><a href="<?php echo url_for('office/index') ?>"><?php echo __('Offices Index') ?></a></li>
+                    <li><a href="<?php echo url_for('office/new') ?>"><?php echo __('Create New Office') ?></a></li>
                     </ul>
                 </div>
-                <a class="menuitem submenuheader" href="<?php echo url_for('office/index') ?>" >Offices</a>
+                <a class="menuitem submenuheader" href=""><?php echo __('Company Categories') ?></a>
                 <div class="submenu">
                     <ul>
-                    <li><a href="<?php echo url_for('office/index') ?>">Offices Index</a></li>
-                    <li><a href="">Sidebar submenu</a></li>
+                    <li><a href="<?php echo url_for('category/index') ?>"><?php echo __('Company Categories Index') ?></a></li>
+                    <li><a href="<?php echo url_for('category/new') ?>"><?php echo __('Create New Category') ?></a></li>
                     </ul>
                 </div>
-                <a class="menuitem submenuheader" href="">Company Categories</a>
-                <div class="submenu">
-                    <ul>
-                    <li><a href="<?php echo url_for('category/index') ?>">Company Categories Index</a></li>
-                    </ul>
-                </div>
-                <a class="menuitem" href="">User Reference</a>
-                <a class="menuitem" href="">Blue button</a>
                 
-                <a class="menuitem_green" href="">Green button</a>
+                <a class="menuitem_green" href="<?php echo url_for('ad/index') ?>"><?php echo __('Ads Index') ?></a>
                 
-                <a class="menuitem_red" href="">Red button</a>
+                <a class="menuitem_red" href="<?php echo url_for('company/index') ?>"><?php echo __('Your Company') ?></a>
                     
             </div>
 		</div>
@@ -117,7 +108,7 @@
 	</div> <!--end of main content-->
 
 	<div class="footer">
-		<div class="left_footer">MOBIE ADS | Powered by <a href="http://uah.es">UAH</a></div>
+		<div class="left_footer">MOBILE ADS | Powered by <a href="http://uah.es">UAH</a></div>
     	<div class="right_footer"><a href="http://uah.es"><img src="" alt="" title="" border="0" /></a></div>
     </div>
 </div>
