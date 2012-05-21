@@ -10,6 +10,10 @@
  */
 class CompanyCategoryForm extends BaseCompanyCategoryForm
 {
+  /*Stores Doctrine Records to be removed from the database.*/
+  protected $scheduledForDeletion = array();
+
+
   public function configure()
   {
     $this->useFields(array('general_categ_id'));
