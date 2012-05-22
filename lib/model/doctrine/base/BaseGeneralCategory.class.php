@@ -7,14 +7,14 @@
  * 
  * @property Doctrine_Collection $CompanyCategory
  * @property Doctrine_Collection $GeneralCategoryDescription
- * @property Doctrine_Collection $UserBasket
+ * @property Doctrine_Collection $UserBaskets
  * 
  * @method Doctrine_Collection getCompanyCategory()            Returns the current record's "CompanyCategory" collection
  * @method Doctrine_Collection getGeneralCategoryDescription() Returns the current record's "GeneralCategoryDescription" collection
- * @method Doctrine_Collection getUserBasket()                 Returns the current record's "UserBasket" collection
+ * @method Doctrine_Collection getUserBaskets()                Returns the current record's "UserBaskets" collection
  * @method GeneralCategory     setCompanyCategory()            Sets the current record's "CompanyCategory" collection
  * @method GeneralCategory     setGeneralCategoryDescription() Sets the current record's "GeneralCategoryDescription" collection
- * @method GeneralCategory     setUserBasket()                 Sets the current record's "UserBasket" collection
+ * @method GeneralCategory     setUserBaskets()                Sets the current record's "UserBaskets" collection
  * 
  * @package    mobiads
  * @subpackage model
@@ -39,7 +39,7 @@ abstract class BaseGeneralCategory extends sfDoctrineRecord
              'local' => 'id',
              'foreign' => 'general_categ_id'));
 
-        $this->hasMany('UserBasket', array(
+        $this->hasMany('UserBasket as UserBaskets', array(
              'local' => 'id',
              'foreign' => 'general_categ_id'));
 

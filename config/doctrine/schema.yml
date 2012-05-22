@@ -137,5 +137,5 @@ UserBasket:
       class: sfGuardUser
       local: user_id
       onDelete: CASCADE
-    GeneralCategory: { onDelete: CASCADE, local: general_categ_id, foreign: id }
+    GeneralCategory: { onDelete: CASCADE, local: general_categ_id, foreign: id, foreignAlias: UserBaskets }
 
