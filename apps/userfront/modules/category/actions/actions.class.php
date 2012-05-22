@@ -77,4 +77,64 @@ class categoryActions extends sfActions
       $this->redirect('category/edit?id='.$general_category->getId());
     }
   }
+
+  public function executeChoose($request)
+  {
+    //Get user Id
+    $userId = $this->getUser()->getGuardUser()->getId();
+
+    //Get data from user
+    $checked = $request->getParameter('checked');
+
+    //We retrieve a Doctrine_Collection
+    $userBaskets = UserBasketTable::getInstance()->findByUserId($userId);
+
+
+    //Using Doctrine_Collection_Iterator
+    $iterator = $userBaskets->getIterator();
+    while ($userBasket = $iterator->current())
+    {
+        if (!empty($checked))
+        {
+            foreach ($checked as $index => $value)
+            {
+                if ($userBasket->getGeneralCategId() == $value)
+                {
+                    unset($checked[$index]);
+                    $iterator->next();
+                    continue 2;
+                }
+            }
+        }
+        $userBaskets->remove($iterator->key());
+        $iterator->next();
+    }
+
+    if (!empty($checked))
+    {
+        foreach ($checked as $index => $value)
+        {
+            //Never trust in data coming from users... Performance vs security.
+            $generalCategory = GeneralCategoryTable::getInstance()->findOneById($value);
+            if ($generalCategory != null)
+            {
+                $userBasket = new UserBasket();
+                $userBasket->general_categ_id = $generalCategory->getId();
+                $userBasket->user_id = $userId;
+                $userBaskets->add($userBasket);
+            }
+        }
+    }
+
+    //The Doctrine_Collection should just insert/remove in the database in this point (never before)
+    //This feature is really nice (if it works as intended) I have no time for checking out its behaviour...
+    $userBaskets->save();
+
+    //set content type HTTP field  with the right value (we are going to use a JSON response)
+    $this->getResponse()->setContentType('application/json');
+
+    //Bypass completely the view layer and set the response code directly from this action.
+    //In this way the user may know if the data were updated
+    return $this->renderText(json_encode($checked));
+  }
 }

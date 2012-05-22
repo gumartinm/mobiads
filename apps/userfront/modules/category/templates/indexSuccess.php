@@ -7,13 +7,15 @@
         });
 </script>
 <script type="text/javascript">
-    $.fn.UpdateCategories = function() {
-        var allVals = [];
+    $.fn.CheckCategories = function() {
+        var checked = [];
         $('#rounded-corner :checked').each(function() {
-                allVals.push($(this).val());
+                checked.push($(this).val());
                });
-        alert(allVals);
-        $.post('prueba.html', {'choices': allVals}, function(data){ alert(data);} ,"json");
+        $.post('<?php echo url_for('category/choose') ?>', {'checked[]': checked},
+            function(data){
+                alert("hola");
+        }, "json");
     };
 </script>
 
@@ -23,8 +25,7 @@
   <thead>
     <tr>
       <th scope="col" class="rounded-company"><?php echo __('General Category Name') ?></th>
-      <th scope="col" class="rounded"><?php echo __('Selected') ?></th>
-      <th scope="col" class="rounded-q4"></th>
+      <th scope="col" class="rounded-q4"><?php echo __('Selected') ?></th>
     </tr>
   </thead>
   <tbody>
@@ -38,7 +39,7 @@
       }
       ?>>
       <td><a><?php echo $category ?></a></td>
-      <td><input type="checkbox" id="chosen" value="<?php echo $category->getId() ?>"
+      <td><input type="checkbox" id="chosen" class="NFCheck" value="<?php echo $category->getId() ?>"
       <?php foreach ($category->getUserBaskets() as $userBasket): ?>
         <?php if ($userBasket->getUserId() == $userId): ?>
             checked
@@ -51,4 +52,4 @@
   </tbody>
 </table>
 
-<input type="button" value="Update" onClick="$(this).UpdateCategories();"/>
+<input type="button" class="NFButtonToRight" value="<?php echo __('Select') ?>" onClick="$(this).CheckCategories();"/>

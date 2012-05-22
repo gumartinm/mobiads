@@ -25,6 +25,7 @@ class GeneralCategoryTable extends Doctrine_Table
     */
     public function getGeneralCategoriesByLftQuery()
     {
-        return $this->createQuery('gc')->orderBy('gc.lft');
+        return $this->createQuery('gc')->where('gc.id != 1')
+                                       ->orderBy('gc.lft');
     }
 }
