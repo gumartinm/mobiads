@@ -16,4 +16,15 @@ class GeneralCategoryTable extends Doctrine_Table
     {
         return Doctrine_Core::getTable('GeneralCategory');
     }
+
+
+   /**
+    * Returns general categories, ordered by lft field.
+    *
+    * @return Doctrine Query
+    */
+    public function getGeneralCategoriesByLftQuery()
+    {
+        return $this->createQuery('gc')->orderBy('gc.lft');
+    }
 }

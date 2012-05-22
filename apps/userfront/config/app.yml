@@ -1,0 +1,18 @@
+# You can find more information about this file on the symfony website:
+# http://www.symfony-project.org/reference/1_4/en/11-App
+
+# default values
+all:
+  default_language: eng                              # Everything must exist at least with this language
+  # Using meters for the radius parameter in PostGIS
+  radius: 100
+
+  sf_guard_plugin:
+     remember_key_expiration_age: 2592000            # 30 days in seconds
+     remember_cookie_name:        mobiuserRemember   # used by sfGuardSecurityUser.class.php
+     success_signin_url:          @homepage          # the plugin uses the referer as default
+     success_signout_url:         @sf_guard_signin   # used by BasesfGuardAuthActions.class.php. After logout we are redirected to this page
+     signin_url_path:             login              # used by sfGuardRememberMeFilter.class.php. The Remember cookie must not be used when using the login page
+     remember_cookie_path:        /userfront.php     # used by sfGuardSecurityUser.class.php. The scope of the Remeber cookie
+     remember_cookie_domain:      .localhost
+

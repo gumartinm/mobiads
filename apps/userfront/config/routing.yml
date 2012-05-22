@@ -1,0 +1,61 @@
+# You can find more information about this file on the symfony website:
+# http://www.symfony-project.org/reference/1_4/en/10-Routing
+
+# default rules
+homepage:
+  url:     /
+  class:   sfDoctrineRoute
+  param:   { module: category, action: index }
+  options: { model: GeneralCategory, type: object }
+
+categories_index:
+  url:     /category/index
+  class:   sfDoctrineRoute 
+  param:   { module: category, action: index }
+  options: { model: GeneralCategory, type: object }
+
+
+# http://localhost/userfront.php/api/51,32/0,5/gpsads.xml   latitude/longitude
+api_getadsbygps:
+  url:     /api/:latitude/:longitude/gpsads.:sf_format
+#  class:   sfDoctrineRoute
+  class:   sfRequestRoute
+  param:   { module: api, action: getadsbygps }
+#  options: { model: Anuncio, type: list, method: getAdsByGPS } I can not use this one because I can not pass the userId to this method in AnuncioTable.
+  requirements:
+   sf_format: (?:json)
+   #sf_format: (?:xml|json|yaml)
+   sf_method: [GET]
+
+api_loginauth:
+  url:     /api/login/auth.:sf_format
+  class:   sfRequestRoute
+  param:   { module: api, action: loginauth }
+  requirements:
+   sf_format: (?:json)
+   sf_method: [POST]
+
+api_logoutauth:
+  url:     /api/logout/auth.:sf_format
+  class:   sfRequestRoute
+  param:   { module: api, action: logoutauth }
+  requirements:
+   sf_format: (?:json)
+   sf_method: [GET]
+
+# generic rules
+# please, remove them by adding more specific rules
+default_index:
+  url:   /:module
+  param: { action: index }
+
+default:
+  url:   /:module/:action/*
+
+sf_guard_signin:
+  url:   /login
+  param: { module: sfGuardAuth, action: signin }
+
+sf_guard_signout:
+  url:   /logout
+  param: { module: sfGuardAuth, action: signout }

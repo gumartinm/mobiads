@@ -5,6 +5,7 @@
     <?php include_metas() ?>
     <link rel="shortcut icon" href="/favicon.ico" />
     <title><?php echo __('Mobi - Mobile Ads') ?></title>
+    <title>Mobi - Mobile Ads</title>
     <?php include_stylesheets() ?>
   </head>
   <body>

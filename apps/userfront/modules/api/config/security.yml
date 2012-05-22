@@ -1,0 +1,7 @@
+
+
+loginauth:
+  is_secure: false
+
+logoutauth:
+  is_secure: false
