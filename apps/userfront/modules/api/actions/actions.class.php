@@ -5,8 +5,8 @@
  *
  * @package    mobileadvertising
  * @subpackage api
- * @author     Your name here
- * @version    SVN: $Id: actions.class.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
+ * @author     Gustavo Martin Morcuende
+ * @version
  */
 class apiActions extends sfActions
 {
@@ -38,17 +38,23 @@ class apiActions extends sfActions
   */
   public function executeGetadsbygps(sfWebRequest $request)
   {
-	//With RESTFUL is allowed to use cookies to get authentication (user / password)
-	$this->ads = AdTable::getInstance()->getAdsByGPSandUserId($this->getRoute()->getParameters(), $this->getUser()->getGuardUser()->getId());
-  	if (!$this->ads)
-	{
-		//If there are not results.
-		//In production replace this line by a die command (trying to stop wasting TCP bandwidth)
-		throw new sfError404Exception(sprintf('
-			There are not offices with GPS coordinates: longitude "%s" and 
-			latitude "%s".', $request->getParameter('longitude'), $request->getParameter('latitude')));
-		//die;
-	}
+    //RESTFUL permits to use cookies to implement authentication (user / password)
+    $parameters = $this->getRoute()->getParameters();
+    $userId = $this->getUser()->getGuardUser()->getId();
+
+    $this->ads = array();
+    $this->ads = AdDescriptionTable::getInstance()->getAdsByGPSAndUserIdAndLanguageId($this->getRoute()->getParameters(),
+                                                                                      $this->getUser()->getGuardUser()->getId(),
+                                                                                      $this->getUser()->getGuardUser()->getLanguage()->getId());
+    if (empty($this->ads))
+    {
+        //If there are not results.
+        //In production replace this line by a die command (trying to stop wasting TCP bandwidth)
+        throw new sfError404Exception(sprintf('
+            There are not offices with GPS coordinates: longitude "%s" and
+            latitude "%s".', $request->getParameter('longitude'), $request->getParameter('latitude')));
+            //die;
+    }
   }
 
  /**

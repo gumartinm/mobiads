@@ -86,6 +86,8 @@ class categoryActions extends sfActions
     //Get data from user
     $checked = $request->getParameter('checked');
 
+    $uniqChecked =  array_unique($checked, SORT_NUMERIC);
+
     //We retrieve a Doctrine_Collection
     $userBaskets = UserBasketTable::getInstance()->findByUserId($userId);
 
@@ -94,13 +96,13 @@ class categoryActions extends sfActions
     $iterator = $userBaskets->getIterator();
     while ($userBasket = $iterator->current())
     {
-        if (!empty($checked))
+        if (!empty($uniqChecked))
         {
-            foreach ($checked as $index => $value)
+            foreach ($uniqChecked as $index => $value)
             {
                 if ($userBasket->getGeneralCategId() == $value)
                 {
-                    unset($checked[$index]);
+                    unset($uniqChecked[$index]);
                     $iterator->next();
                     continue 2;
                 }
@@ -110,9 +112,9 @@ class categoryActions extends sfActions
         $iterator->next();
     }
 
-    if (!empty($checked))
+    if (!empty($uniqChecked))
     {
-        foreach ($checked as $index => $value)
+        foreach ($uniqChecked as $index => $value)
         {
             //Never trust in data coming from users... Performance vs security.
             $generalCategory = GeneralCategoryTable::getInstance()->findOneById($value);
@@ -135,6 +137,6 @@ class categoryActions extends sfActions
 
     //Bypass completely the view layer and set the response code directly from this action.
     //In this way the user may know if the data were updated
-    return $this->renderText(json_encode($checked));
+    return $this->renderText(json_encode($uniqChecked));
   }
 }

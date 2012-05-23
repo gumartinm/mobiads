@@ -14,7 +14,7 @@
                });
         $.post('<?php echo url_for('category/choose') ?>', {'checked[]': checked},
             function(data){
-                alert("hola");
+                alert("Updated successfully!");
         }, "json");
     };
 </script>
