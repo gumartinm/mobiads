@@ -12,7 +12,12 @@
   </table>
 </form>
 
-<?php include_partial('ad/list', array('ads' => $pager->getResults(), 'userLanguageId' => $userLanguageId)) ?>
+<?php if ($pager->haveToPaginate()): ?>
+    <?php include_partial('ad/list', array('ads' => $pager->getResults(), 'userLanguageId' => $userLanguageId, 'page' => $pager->getPage())) ?>
+<?php else: ?>
+    <?php include_partial('ad/list', array('ads' => $pager->getResults(), 'userLanguageId' => $userLanguageId, 'page' => '1')) ?>
+<?php endif; ?>
+
 
 <?php if ($pager->haveToPaginate()): ?>
   <div class="pagination">
@@ -34,5 +39,9 @@
   </div>
 <?php endif; ?>
 
-  <a href="<?php echo url_for('ad/new') ?>" class="bt_green"><span class="bt_green_lft"></span><strong><?php echo __('New Ad') ?></strong><span class="bt_green_r"></span></a>
 
+<?php if ($pager->haveToPaginate()): ?>
+    <a href="<?php echo url_for('ad/new?page='.$pager->getPage()) ?>" class="bt_green"><span class="bt_green_lft"></span><strong><?php echo __('Create new Ad') ?></strong><span class="bt_green_r"></span></a>
+<?php else: ?>
+    <a href="<?php echo url_for('ad/new?page=1') ?>" class="bt_green"><span class="bt_green_lft"></span><strong><?php echo __('Create new Ad') ?></strong><span class="bt_green_r"></span></a>
+<?php endif; ?>

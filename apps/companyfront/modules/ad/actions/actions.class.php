@@ -67,6 +67,7 @@ class adActions extends sfActions
     $userId = $this->getUser()->getGuardUser()->getId();
 
     $this->form = new AdForm(null, array('company_user_id' => CompanyTable::getInstance()->findOneByUserId($userId)->getId()));
+    $this->page = $request->getParameter('page', 1);
   }
 
   public function executeCreate(sfWebRequest $request)
@@ -82,6 +83,8 @@ class adActions extends sfActions
     $adInit->company_id = $companyUserId;
 
     $this->form = new AdForm($adInit, array('company_user_id' => $companyUserId));
+
+    $this->page = $request->getParameter('page', 1);
 
     $this->processForm($request, $this->form);
 
@@ -105,6 +108,8 @@ class adActions extends sfActions
 
     $this->forward404Unless($companyId == $companyUserId, sprintf('Ad does not exist (%s).', $request->getParameter('id')));
 
+    $this->page = $request->getParameter('page', 1);
+
     $this->form = new AdForm($ad, array('company_user_id' => $companyUserId));
   }
 
@@ -127,6 +132,8 @@ class adActions extends sfActions
     $this->forward404Unless($companyId == $companyUserId, sprintf('Ad does not exist (%s).', $request->getParameter('id')));
 
     $this->form = new AdForm($ad, array('company_user_id' => $companyUserId));
+
+    $this->page = $request->getParameter('page', 1);
 
     $this->processForm($request, $this->form);
 
