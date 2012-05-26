@@ -28,6 +28,19 @@ class AdForm extends BaseAdForm
                                                                                     'required' => false,
                                                                                     'query'    => $companyCategs));
 
+
+    $this->widgetSchema['ad_mobile_image_link'] =
+                new sfWidgetFormInputFileEditable(array('file_src'    => '/uploads/images/'.$this->getObject()->ad_mobile_image_link,
+                                                        'edit_mode'   => !$this->isNew(),
+                                                        'is_image'    => true,
+                                                        'with_delete' => false));
+
+
+    $this->validatorSchema['ad_mobile_image_link'] = new sfValidatorFile(array('mime_types' => 'web_images',
+                                                                               'path' => sfConfig::get('app_default_picture_directory'),
+                                                                               'required' => true));
+
+
     $this->widgetSchema->setLabels(array('company_categ_id'  => 'Company Category'));
     $this->widgetSchema->setLabels(array('ad_mobile_image_link' => "Picture on the user's mobile"));
 

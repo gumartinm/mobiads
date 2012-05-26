@@ -159,6 +159,10 @@ class adActions extends sfActions
 
     $this->forward404Unless($companyId == $companyUserId, sprintf('Ad does not exist (%s).', $request->getParameter('id')));
 
+    //Remove picture from file system.
+    $fs = new sfFilesystem();
+    $fs->remove(sfConfig::get('app_default_picture_directory').$ad->getAdMobileImageLink());
+    //Remove ad from database.
     $ad->delete();
 
     $this->redirect('ad/index');
