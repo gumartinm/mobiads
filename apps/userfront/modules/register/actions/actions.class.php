@@ -32,7 +32,6 @@ class registerActions extends sfActions
                        'recaptcha_response_field'  => $request->getParameter('recaptcha_response_field'),
                       );
       $this->form->bind(array_merge($request->getParameter($this->form->getName()), array('captcha' => $captcha)));
-      //$this->form->bind($request->getParameter($this->form->getName()));
       if ($this->form->isValid())
       {
         $user = $this->form->save();
