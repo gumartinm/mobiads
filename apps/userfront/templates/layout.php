@@ -48,6 +48,7 @@
             </ul>
         <!--[if lte IE 6]></td></tr></table></a><![endif]-->
         </li>
+        <li><a href="http://gumartinm.name" title=""><?php echo __('Contact') ?><!--[if IE 7]><!--></a><!--<![endif]--></li>
          </ul>
          </div>
 	<div class="center_content">
