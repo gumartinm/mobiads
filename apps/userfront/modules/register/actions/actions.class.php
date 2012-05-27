@@ -28,7 +28,11 @@ class registerActions extends sfActions
 
     if ($request->isMethod('post'))
     {
-      $this->form->bind($request->getParameter($this->form->getName()));
+      $captcha = array('recaptcha_challenge_field' => $request->getParameter('recaptcha_challenge_field'),
+                       'recaptcha_response_field'  => $request->getParameter('recaptcha_response_field'),
+                      );
+      $this->form->bind(array_merge($request->getParameter($this->form->getName()), array('captcha' => $captcha)));
+      //$this->form->bind($request->getParameter($this->form->getName()));
       if ($this->form->isValid())
       {
         $user = $this->form->save();

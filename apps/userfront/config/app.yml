@@ -16,3 +16,6 @@ all:
      remember_cookie_path:        /userfront.php     # used by sfGuardSecurityUser.class.php. The scope of the Remeber cookie
      remember_cookie_domain:      .localhost
 
+  recaptcha:
+     private_key: 6Lcg9dESAAAAACrrfQ5l9OLp3nq93lN1ra1q-8Kn
+     public_key:  6Lcg9dESAAAAAG-QQLfE8By9c8ufO8WjuhBMz2-M

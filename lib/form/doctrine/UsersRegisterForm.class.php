@@ -20,5 +20,9 @@ class UsersRegisterForm extends BasesfGuardRegisterForm
 
     $this->validatorSchema['language_id'] = new sfValidatorDoctrineChoice(array('model'    => $this->getRelatedModelName('Language'),
                                                                                 'required' => true));
+
+    $this->widgetSchema['captcha'] = new sfWidgetFormReCaptcha(array('public_key' => sfConfig::get('app_recaptcha_public_key')));
+
+    $this->validatorSchema['captcha'] = new sfValidatorReCaptcha(array('private_key' => sfConfig::get('app_recaptcha_private_key')));
   }   
 } 
