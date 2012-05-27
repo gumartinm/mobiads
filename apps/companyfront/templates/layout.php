@@ -90,7 +90,7 @@
                     <li><a href="<?php echo url_for('category/new') ?>"><?php echo __('Create New Category') ?></a></li>
                     </ul>
                 </div>
-                <a class="menuitem submenuheader" href=""><?php echo __('Ads Index') ?></a>
+                <a class="menuitem submenuheader" href=""><?php echo __('Ads') ?></a>
                 <div class="submenu">
                     <ul>
                     <li><a href="<?php echo url_for('ad/index') ?>"><?php echo __('Ads Index') ?></a></li>
@@ -98,7 +98,7 @@
                     </ul>
                 </div>
                 
-                <a class="menuitem_green" href="<?php echo url_for('company/index') ?>"><?php echo __('Your Personal Data') ?></a>
+                <a class="menuitem_green" href="<?php echo url_for('user/index') ?>"><?php echo __('Your Personal Data') ?></a>
                 
                 <a class="menuitem_red" href="<?php echo url_for('company/index') ?>"><?php echo __('Your Company') ?></a>
                     

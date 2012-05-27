@@ -5,12 +5,21 @@
  *
  * @package    mobiads
  * @subpackage form
- * @author     Your name here
- * @version    SVN: $Id: sfDoctrinePluginFormTemplate.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
+ * @author     Gustavo Martin Morcuende
+ * @version
  */
 class sfGuardUserForm extends PluginsfGuardUserForm
 {
   public function configure()
   {
+    $this->useFields(array('first_name', 'last_name', 'email_address', 'language_id'));
+
+
+    $this->widgetSchema['language_id'] = new sfWidgetFormDoctrineChoice(array('model'     => $this->getRelatedModelName('Language'),
+                                                                              'add_empty' => false));
+
+
+    $this->validatorSchema['language_id'] = new sfValidatorDoctrineChoice(array('model'    => $this->getRelatedModelName('Language'),
+                                                                                'required' => true));
   }
 }
