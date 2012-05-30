@@ -40,9 +40,9 @@ class AdForm extends BaseAdForm
                                                                                     'path' => sfConfig::get('app_default_picture_directory'),
                                                                                     'required' => $this->isNew(),
                                                                                     'is_only_image' => true,
-                                                                                    'max_height' => 200,
+                                                                                    'max_height' => 156,
                                                                                     'min_height' => 128,
-                                                                                    'max_width' => 200,
+                                                                                    'max_width' => 156,
                                                                                     'min_width' => 128,
                                   'mime_types' => array('image/jpeg','image/pjpeg','image/png','image/x-png','image/gif','application/x-shockwave-flash')));
 
