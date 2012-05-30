@@ -47,7 +47,7 @@ class AdDescriptionTable extends Doctrine_Table
 
         try{
             $adIds = Doctrine_Manager::getInstance()->getCurrentConnection()->fetchColumn(
-                    "SELECT ad_id from office INNER JOIN office_ads ON (office_ads.office_id=office.id) 
+                    "SELECT ad_id FROM office INNER JOIN office_ads ON (office_ads.office_id=office.id) 
                     WHERE ST_DWithin(office_gps, ST_GeographyFromText('SRID=4326;POINT($longitude $latitude)'), $radius)"
             );
         }
@@ -56,13 +56,23 @@ class AdDescriptionTable extends Doctrine_Table
             //In case of error return as soon as posible.
             return null;
         }
-        if (empty($adIds))
+        try{
+            $directAdIds = Doctrine_Manager::getInstance()->getCurrentConnection()->fetchColumn(
+                    "SELECT id FROM ad WHERE ST_DWithin(ad_gps, ST_GeographyFromText('SRID=4326;POINT($longitude $latitude)'), $radius)"
+            );
+        }
+        catch (Exception $e)
+        {
+            //In case of error return as soon as posible.
+            return null;
+        }
+        if (empty($adIds) && empty($directAdIds))
         {   //There are not offices with those GPS coordinates.
             //In many situations we will get this result, so a fast response.
             return null;
         }
-
-        $uniqAdIds =  array_unique($adIds, SORT_NUMERIC);
+        $arrayMerge = array_merge($adIds, $directAdIds);
+        $uniqAdIds =  array_unique($arrayMerge, SORT_NUMERIC);
 
         //We can not waste time doing this query. What is the best way to achieve this goal? 
         //Is a direct query the best way? With big tables I think this is not going to work.

@@ -49,7 +49,7 @@ class apiActions extends sfActions
         //If there are not results.
         //In production replace this line by a die command (trying to stop wasting TCP bandwidth)
         throw new sfError404Exception(sprintf('
-            There are not offices with GPS coordinates: longitude "%s" and
+            There are not offices or ads with GPS coordinates: longitude "%s" and
             latitude "%s".', $request->getParameter('longitude'), $request->getParameter('latitude')));
             //die;
     }

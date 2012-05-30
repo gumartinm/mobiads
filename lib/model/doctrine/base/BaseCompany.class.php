@@ -7,6 +7,7 @@
  * 
  * @property integer $user_id
  * @property string $company_cif
+ * @property string $company_logo
  * @property sfGuardUser $User
  * @property Doctrine_Collection $CompanyDescription
  * @property Doctrine_Collection $Office
@@ -15,6 +16,7 @@
  * 
  * @method integer             getUserId()             Returns the current record's "user_id" value
  * @method string              getCompanyCif()         Returns the current record's "company_cif" value
+ * @method string              getCompanyLogo()        Returns the current record's "company_logo" value
  * @method sfGuardUser         getUser()               Returns the current record's "User" value
  * @method Doctrine_Collection getCompanyDescription() Returns the current record's "CompanyDescription" collection
  * @method Doctrine_Collection getOffice()             Returns the current record's "Office" collection
@@ -22,6 +24,7 @@
  * @method Doctrine_Collection getAd()                 Returns the current record's "Ad" collection
  * @method Company             setUserId()             Sets the current record's "user_id" value
  * @method Company             setCompanyCif()         Sets the current record's "company_cif" value
+ * @method Company             setCompanyLogo()        Sets the current record's "company_logo" value
  * @method Company             setUser()               Sets the current record's "User" value
  * @method Company             setCompanyDescription() Sets the current record's "CompanyDescription" collection
  * @method Company             setOffice()             Sets the current record's "Office" collection
@@ -49,6 +52,11 @@ abstract class BaseCompany extends sfDoctrineRecord
              'unique' => true,
              'length' => 255,
              ));
+        $this->hasColumn('company_logo', 'string', 255, array(
+             'type' => 'string',
+             'notnull' => true,
+             'length' => 255,
+             ));
     }
 
     public function setUp()
@@ -74,5 +82,9 @@ abstract class BaseCompany extends sfDoctrineRecord
         $this->hasMany('Ad', array(
              'local' => 'id',
              'foreign' => 'company_id'));
+
+        $timestampable0 = new Doctrine_Template_Timestampable(array(
+             ));
+        $this->actAs($timestampable0);
     }
 }

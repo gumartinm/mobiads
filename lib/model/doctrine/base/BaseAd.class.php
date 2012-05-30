@@ -7,6 +7,7 @@
  * 
  * @property integer $company_id
  * @property integer $company_categ_id
+ * @property blob $ad_gps
  * @property string $ad_mobile_image_link
  * @property Company $Company
  * @property CompanyCategory $CompanyCategory
@@ -15,6 +16,7 @@
  * 
  * @method integer             getCompanyId()            Returns the current record's "company_id" value
  * @method integer             getCompanyCategId()       Returns the current record's "company_categ_id" value
+ * @method blob                getAdGps()                Returns the current record's "ad_gps" value
  * @method string              getAdMobileImageLink()    Returns the current record's "ad_mobile_image_link" value
  * @method Company             getCompany()              Returns the current record's "Company" value
  * @method CompanyCategory     getCompanyCategory()      Returns the current record's "CompanyCategory" value
@@ -22,6 +24,7 @@
  * @method Doctrine_Collection getOfficeAds()            Returns the current record's "OfficeAds" collection
  * @method Ad                  setCompanyId()            Sets the current record's "company_id" value
  * @method Ad                  setCompanyCategId()       Sets the current record's "company_categ_id" value
+ * @method Ad                  setAdGps()                Sets the current record's "ad_gps" value
  * @method Ad                  setAdMobileImageLink()    Sets the current record's "ad_mobile_image_link" value
  * @method Ad                  setCompany()              Sets the current record's "Company" value
  * @method Ad                  setCompanyCategory()      Sets the current record's "CompanyCategory" value
@@ -44,6 +47,9 @@ abstract class BaseAd extends sfDoctrineRecord
              ));
         $this->hasColumn('company_categ_id', 'integer', null, array(
              'type' => 'integer',
+             ));
+        $this->hasColumn('ad_gps', 'blob', null, array(
+             'type' => 'blob',
              ));
         $this->hasColumn('ad_mobile_image_link', 'string', 3000, array(
              'type' => 'string',

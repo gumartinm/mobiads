@@ -5,9 +5,11 @@
 #
 
 Company:
+  actAs: [Timestampable]
   columns:
     user_id:      { type: integer (4), notnull: true }
     company_cif:  { type: string(255), notnull: true, unique: true }
+    company_logo: { type: string(255), notnull: true }
   relations:
     User: { class: sfGuardUser, local: user_id, onDelete: CASCADE }
 
@@ -103,6 +105,7 @@ Ad:
   columns:
     company_id:           { type: integer, notnull: true }
     company_categ_id:     { type: integer }
+    ad_gps:               { type: blob }
     ad_mobile_image_link: { type: string (3000), notnull: true }
   relations:
     Company:      { onDelete: CASCADE, local: company_id, foreign: id }

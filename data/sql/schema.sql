@@ -1,7 +1,7 @@
-CREATE TABLE ad (id BIGSERIAL, company_id BIGINT NOT NULL, company_categ_id BIGINT, ad_mobile_image_link VARCHAR(3000) NOT NULL, created_at TIMESTAMP NOT NULL, updated_at TIMESTAMP NOT NULL, PRIMARY KEY(id));
+CREATE TABLE ad (id BIGSERIAL, company_id BIGINT NOT NULL, company_categ_id BIGINT, ad_gps BYTEA, ad_mobile_image_link VARCHAR(3000) NOT NULL, created_at TIMESTAMP NOT NULL, updated_at TIMESTAMP NOT NULL, PRIMARY KEY(id));
 CREATE TABLE ad_description (id BIGSERIAL, language_id BIGINT NOT NULL, ad_id BIGINT NOT NULL, ad_name VARCHAR(255) NOT NULL, ad_description text, ad_mobile_text VARCHAR(500) NOT NULL, ad_link VARCHAR(3000) NOT NULL, PRIMARY KEY(id));
 CREATE TABLE city (id BIGSERIAL, city_name VARCHAR(64) NOT NULL, region_id BIGINT NOT NULL, PRIMARY KEY(id));
-CREATE TABLE company (id BIGSERIAL, user_id INT NOT NULL, company_cif VARCHAR(255) NOT NULL UNIQUE, PRIMARY KEY(id));
+CREATE TABLE company (id BIGSERIAL, user_id INT NOT NULL, company_cif VARCHAR(255) NOT NULL UNIQUE, company_logo VARCHAR(255) NOT NULL, created_at TIMESTAMP NOT NULL, updated_at TIMESTAMP NOT NULL, PRIMARY KEY(id));
 CREATE TABLE company_category (id BIGSERIAL, company_id BIGINT NOT NULL, general_categ_id BIGINT, created_at TIMESTAMP NOT NULL, updated_at TIMESTAMP NOT NULL, root_id BIGINT, lft INT, rgt INT, level SMALLINT, PRIMARY KEY(id));
 CREATE TABLE company_category_description (id BIGSERIAL, language_id BIGINT NOT NULL, company_categ_id BIGINT NOT NULL, company_categ_name VARCHAR(255) NOT NULL, company_categ_description text, PRIMARY KEY(id));
 CREATE TABLE company_description (id BIGSERIAL, company_id BIGINT NOT NULL, language_id BIGINT NOT NULL, company_name VARCHAR(255) NOT NULL, PRIMARY KEY(id));

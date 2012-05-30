@@ -74,13 +74,16 @@ Company:
   MOBILEADVERTISING:
     User: MOBILEADVERTISING
     company_cif: 4683838383-I
+    company_logo: mobileads.jpg
   DIA:
     User: DIA
     company_cif: 5748934949-K 
+    company_logo: dia.jpg
   CARREFOUR:
     User: CARREFOUR
     company_cif: 0390390309-L
-   
+    company_logo: carrefour.jpg
+
 Office:
   DIA_Mostoles:
     Company: DIA
@@ -175,15 +178,15 @@ Ad:
   BabuchasVerdes:
     Company: CARREFOUR
     CompanyCategory: CompanyCategory_2
-    ad_mobile_image_link: http://gumartinm.name/vickie.gif
+    ad_mobile_image_link: babuchasverdes.jpg
   BabuchasVerdisimas:
     Company: CARREFOUR
     CompanyCategory: CompanyCategory_2
-    ad_mobile_image_link: http://gumartinm.name/vickie.gif
+    ad_mobile_image_link: babuchasverdisimas.jpg
   Donuts:
     Company: CARREFOUR
     CompanyCategory: CompanyCategory_3
-    ad_mobile_image_link: http://gumartinm.name/vickie.gif
+    ad_mobile_image_link: donuts.jpg
 
 
 AdDescription:

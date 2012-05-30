@@ -47,4 +47,35 @@ class Ad extends BaseAd
     //Finally, if nothing was found, return nice error message.
     return (string) "Ad without default language";
   }
+
+    public function getGpsST_AsText()
+    {
+        $aux=$this->getAdGps();
+        if ($aux)
+        {
+            //Using a PostGIS query to convert a GIS value? This is a bit strange
+            $results=Doctrine_Manager::getInstance()->getCurrentConnection()->fetchColumn("SELECT ST_AsText('$aux')");
+            return trim($results['0'], "POINT()");
+        }
+        else
+            return 0;
+    }
+
+    public function getLongitude()
+    {
+        $gpsST_AsText=$this->getGpsST_AsText();
+
+        $longitude = strstr($gpsST_AsText, ' ', true);
+
+        return $longitude;
+    }
+
+    public function getLatitude()
+    {
+        $gpsST_AsText=$this->getGpsST_AsText();
+
+        $latitude = strstr($gpsST_AsText, ' ');
+
+        return $latitude;
+    }
 }

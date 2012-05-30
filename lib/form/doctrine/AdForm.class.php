@@ -46,10 +46,36 @@ class AdForm extends BaseAdForm
                                                                                     'min_width' => 128,
                                   'mime_types' => array('image/jpeg','image/pjpeg','image/png','image/x-png','image/gif','application/x-shockwave-flash')));
 
+    $this->widgetSchema['longitude'] = new sfWidgetFormInputFloat();
+    $this->widgetSchema['latitude'] = new sfWidgetFormInputFloat();
+
+
+    $this->validatorSchema['longitude'] =  new sfValidatorNumber(array('max' => 180,
+                                                                       'min' => -180,
+                                                                       'required' => false,
+                                                                       'trim' => true),
+                                                                 array('invalid'  => 'Wrong Longitude',
+                                                                       'max'      => 'Longitude "%value%" must not exceed the %max% value',
+                                                                       'min'      => 'Longitude "%value%" must be equal or higher than %min%'));
+
+
+
+    $this->validatorSchema['latitude'] = new sfValidatorNumber(array('max' => 90,
+                                                                     'min' => -90,
+                                                                     'required' => false,
+                                                                     'trim' => true),
+                                                               array('invalid'  => 'Wrong Latitude',
+                                                                     'max'      => 'Latitude "%value%" must not exceed the %max% value',
+                                                                     'min'      => 'Latitude "%value%" must be equal or higher than %min%'));
+
+
 
 
     $this->widgetSchema->setLabels(array('company_categ_id'  => 'Company Category'));
     $this->widgetSchema->setLabels(array('ad_mobile_image_link' => "Picture on the user's mobile"));
+    $this->widgetSchema->setLabels(array('longitude'  => 'Longitude (180 to -180): '));
+    $this->widgetSchema->setLabels(array('latitude'  => 'Latitude (90 to -90): '));
+
 
 
     //i18n (Internationalization)
@@ -142,5 +168,44 @@ class AdForm extends BaseAdForm
         $this->saveEmbeddedForms($con, $form->getEmbeddedForms());
       }
     }
+  }
+
+  /**
+  * Overriding updateDefaultsFromObject method from lib/vendor/symfony/lib/plugins/sfDoctrinePlugin/lib/form/sfFormDoctrine.class.php
+  *
+  * TODO: create a Doctrine_Record for PostGIS
+  */
+  protected function updateDefaultsFromObject()
+  {
+    parent::updateDefaultsFromObject();
+
+    $this->setDefault('longitude', $this->getObject()->getLongitude());
+    $this->setDefault('latitude', $this->getObject()->getLatitude());
+  }
+
+ /**
+  * Overriding doSave method from lib/vendor/symfony/lib/form/addon/sfFormObject.class.php
+  *
+  * We are updating the data base in just 1 transaction
+  * In case of unsetting longitude or latitude fields you will have to override this method.
+  * TODO: create a Doctrine_Record for PostGIS
+  */
+  protected function doSave($con = null)
+  {
+    parent::doSave($con);
+
+    //Get latitude and longitude values. They will be translated to GEOGRAPHIC data.
+    foreach ($this->values as $field => $value)
+    {
+        if ($field == 'longitude')
+            $longitude = $value;
+        if ($field == 'latitude')
+            $latitude = $value;
+    }
+    //Catch id element. We will use this id to insert the PostGIS value in the right row.
+    $arrowId = $this->getObject()->getId();
+    //Update PostGIS
+    //This connection will throw exception in case of error.
+    Doctrine_Manager::connection()->execute("UPDATE ad SET ad_gps=ST_GeographyFromText('SRID=4326;POINT($longitude $latitude)') WHERE id=$arrowId");
   }
 }
