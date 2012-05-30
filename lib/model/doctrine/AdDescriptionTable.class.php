@@ -103,7 +103,13 @@ class AdDescriptionTable extends Doctrine_Table
                 //Return with the default language
                 $languageCode = sfConfig::get('app_default_language');
                 $languageId = LanguageTable::getInstance()->findOneByCode($languageCode)->getId();
-                $ads[] = $this->findOneByAdIdAndLanguageId($adId, $languageId);
+                $ad = $this->findOneByAdIdAndLanguageId($adId, $languageId);
+                //This should never happen if every ad has at least the language by default.
+                //TODO: Do not let the users create ads without the default language.
+                if ($ad != null)
+                {
+                    $ads[] = $ad;
+                }
             }
         }
         return $ads;

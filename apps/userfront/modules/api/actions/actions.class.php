@@ -39,8 +39,6 @@ class apiActions extends sfActions
   public function executeGetadsbygps(sfWebRequest $request)
   {
     //RESTFUL permits to use cookies to implement authentication (user / password)
-    $parameters = $this->getRoute()->getParameters();
-    $userId = $this->getUser()->getGuardUser()->getId();
 
     $this->ads = array();
     $this->ads = AdDescriptionTable::getInstance()->getAdsByGPSAndUserIdAndLanguageId($this->getRoute()->getParameters(),
