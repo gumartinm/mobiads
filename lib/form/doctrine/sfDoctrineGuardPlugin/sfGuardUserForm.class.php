@@ -21,5 +21,6 @@ class sfGuardUserForm extends PluginsfGuardUserForm
 
     $this->validatorSchema['language_id'] = new sfValidatorDoctrineChoice(array('model'    => $this->getRelatedModelName('Language'),
                                                                                 'required' => true));
+
   }
 }

@@ -5,19 +5,70 @@
 <?php if (!$form->getObject()->isNew()): ?>
 <input type="hidden" name="sf_method" value="put" />
 <?php endif; ?>
+  <fieldset>
+  <legend><?php echo __('LOGO AND CIF') ?></legend>
   <table>
-    <tfoot>
-      <tr>
-        <td colspan="2">
-          <?php echo $form->renderHiddenFields(false) ?>
-          &nbsp;<a href="<?php echo url_for('company/index') ?>"><?php echo __('Back to list') ?></a>
-          <input type="submit" value=<?php echo __('Update') ?> />
-        </td>
-      </tr>
-    </tfoot>
     <tbody>
-      <?php echo $form->renderGlobalErrors(false) ?>
-      <?php echo $form ?>
+            <?php echo $form['company_logo']->renderRow(array('class' => 'required')) ?>
+            <?php echo $form['company_cif']->renderRow(array('class' => 'required')) ?>
     </tbody>
   </table>
+  <fieldset>
+  <legend><?php echo __('INTERNATIONALIZATION') ?></legend>
+  <table id="rounded-cornergus">
+  <thead>
+    <tr>
+        <th> </th>
+        <th scope="col" class="rounded-companygus"><?php echo __('Language') ?></th>
+        <th scope="col" class="roundedgus"><?php echo __('Company Name') ?></th>
+        <th scope="col" class="rounded-q4gus"><?php echo __('Remove') ?></th>
+    </tr>
+  </thead>
+  <tbody>
+    <?php if (isset($form['new'])): ?>
+    <tr>
+    <td><?php echo __('New Entry:') ?></td>
+    <td>
+        <?php echo $form['new']['language_id']->render(array('class' => 'validate-selection')) ?>
+    </td>
+    <td>
+        <?php echo $form['new']['company_name']->render(array('class' => 'required')) ?>
+        <?php echo $form['new']['id'] ?>
+    </td>
+    <td>
+    </td>
+    </tr>
+    <?php endif; ?>
+    <?php foreach ($form['CompanyDescription'] as $companyDescription): ?>
+    <tr>
+    <td><?php echo __('Current Entry:') ?></td>
+    <td>
+        <?php echo $companyDescription['language_id']->render(array('class' => 'validate-selection')) ?>
+    </td>
+    <td>
+        <?php echo $companyDescription['company_name']->render(array('class' => 'required')) ?>
+    </td>
+    <td>
+        <?php echo $companyDescription['delete'] ?>
+        <?php echo $companyDescription['id'] ?>
+    </td>
+    </tr>
+    <?php endforeach; ?>
+  </tbody>
+  </table>
+  <?php echo $form->renderHiddenFields(false) ?>
+  </fieldset>
+  </fieldset>
+  <table align="right">
+        <tbody>
+            <tr>
+            <td>
+                <a href="<?php echo url_for('company/index') ?>" class="bt_red"><strong><?php echo __('Back') ?></strong></a>
+            </td>
+            <td>
+                <input type="submit" value="<?php echo __('Update') ?>" class="NFButton">
+            </td>
+            </tr>
+        </tbody>
+    </table>
 </form>

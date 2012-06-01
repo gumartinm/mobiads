@@ -456,3 +456,86 @@ margin-right: 2px;
 border: 1px solid #f3f3f3;
 color: #ccc;
 }
+.form-row
+{
+  clear: both;
+  padding: 10px;
+  border-bottom: 1px solid #bbf;
+  background-color: #fff;
+}
+label
+{
+  float: left;
+  color: #666666;
+  padding: 8px;
+  line-height: 25px;
+  font-size: 12px;
+  width: 150px;
+  font-weight: normal;
+}
+div.form_helper {
+    clear: both;
+    color: #333;
+    font-style: italic;
+}
+.error_list {
+    color: #ff0000;
+}
+#rounded-cornergus
+{
+margin:0px;
+width:550px;
+text-align: left;
+border-collapse: collapse;
+}
+#rounded-cornergus thead th.rounded-companygus
+{
+border: 1px solid #95E0EF;
+}
+#rounded-cornergus thead th.rounded-q4gus
+{
+border: 1px solid #95E0EF;
+}
+#rounded-cornergus th
+{
+padding: 8px;
+font-weight: normal;
+font-size: 13px;
+color: #666666;
+border: 1px solid #95E0EF;
+}
+#rounded-cornergus td
+{
+padding: 8px;
+border: 1px solid #95E0EF;
+color: #666666;
+}
+input.required {
+background-color: #F3FCFE;
+border-color: #95E0EF;
+border-style: solid;
+border-width: 1px 1px 1px 2px;
+float: left;
+height: 28px;
+padding: 5px 0 0 2px;
+width: 300px;
+}
+select.validate-selection{
+width:90px;
+height:28px;
+border: 1px solid #95E0EF;
+background-color:#f3fcfe;
+border-left-width:2px;
+padding:4px 2px 3px 2px;
+float:left;
+}
+fieldset{
+border: 1px solid #EBEBEB;
+margin: 0 10px 10px;
+padding: 15px 10px;
+}
+legend{
+background-color: #0FCDF6;
+color: #FFFFFF;
+padding: 2px 5px;
+}
