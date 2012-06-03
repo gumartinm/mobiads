@@ -12,7 +12,7 @@
   </thead>
   <tfoot>
     <tr>
-        <td colspan="4" class="rounded-foot-left"><em><?php echo __('Ads List') ?></em></td>
+        <td colspan="6" class="rounded-foot-left"><em><?php echo __('Ads List') ?></em></td>
         <td class="rounded-foot-right">&nbsp;</td>
     </tr>
   </tfoot>
