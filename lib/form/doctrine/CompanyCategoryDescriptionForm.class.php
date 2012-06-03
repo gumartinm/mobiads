@@ -14,6 +14,8 @@ class CompanyCategoryDescriptionForm extends BaseCompanyCategoryDescriptionForm
   {
     unset($this['company_categ_id']);
 
+    $this->widgetSchema['company_categ_description'] = new sfWidgetFormTextarea();
+
     if ($this->object->exists())
     {
       $this->widgetSchema['delete'] = new sfWidgetFormInputCheckbox();
