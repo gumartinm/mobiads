@@ -10,11 +10,13 @@
   <table>
     <tbody>
             <?php echo $form['company_logo']->renderRow(array('class' => 'required')) ?>
+            <?php echo $form['company_logo']->renderError() ?>
             <?php echo $form['company_cif']->renderRow(array('class' => 'required')) ?>
+            <?php echo $form['company_cif']->renderError() ?>
     </tbody>
   </table>
   <fieldset>
-  <legend><?php echo __('INTERNATIONALIZATION') ?></legend>
+  <legend class="optional"><?php echo __('INTERNATIONALIZATION') ?></legend>
   <table id="rounded-cornergus">
   <thead>
     <tr>
@@ -30,10 +32,13 @@
     <td><?php echo __('New Entry:') ?></td>
     <td>
         <?php echo $form['new']['language_id']->render(array('class' => 'validate-selection')) ?>
+        <?php echo $form['new']['language_id']->renderError() ?>
     </td>
     <td>
         <?php echo $form['new']['company_name']->render(array('class' => 'required')) ?>
+        <?php echo $form['new']['company_name']->renderError() ?>
         <?php echo $form['new']['id'] ?>
+        <?php echo $form['new']['id']->renderError() ?>
     </td>
     <td>
     </td>
@@ -44,13 +49,17 @@
     <td><?php echo __('Current Entry:') ?></td>
     <td>
         <?php echo $companyDescription['language_id']->render(array('class' => 'validate-selection')) ?>
+        <?php echo $companyDescription['language_id']->renderError() ?>
     </td>
     <td>
         <?php echo $companyDescription['company_name']->render(array('class' => 'required')) ?>
+        <?php echo $companyDescription['company_name']->renderError() ?>
     </td>
     <td>
         <?php echo $companyDescription['delete'] ?>
+        <?php echo $companyDescription['delete']->renderError() ?>
         <?php echo $companyDescription['id'] ?>
+        <?php echo $companyDescription['id']->renderError() ?>
     </td>
     </tr>
     <?php endforeach; ?>

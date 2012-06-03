@@ -94,10 +94,13 @@ class AdForm extends BaseAdForm
 
   protected function doBind(array $values)
   {
-    if ('' === trim($values['new']['ad_description']) && '' === trim($values['new']['ad_mobile_text'])
-        && '' === trim($values['new']['ad_name']) && '' === trim($values['new']['ad_link']))
+    if (isset($values['new']))
     {
-      unset($values['new'], $this['new']);
+        if ('' === trim($values['new']['ad_mobile_text']) && '' === trim($values['new']['ad_name']) && 
+            '' === trim($values['new']['ad_link']))
+        {
+            unset($values['new'], $this['new']);
+        }
     }
 
     if (isset($values['AdDescription']))
@@ -202,10 +205,19 @@ class AdForm extends BaseAdForm
         if ($field == 'latitude')
             $latitude = $value;
     }
+
     //Catch id element. We will use this id to insert the PostGIS value in the right row.
-    $arrowId = $this->getObject()->getId();
-    //Update PostGIS
-    //This connection will throw exception in case of error.
-    Doctrine_Manager::connection()->execute("UPDATE ad SET ad_gps=ST_GeographyFromText('SRID=4326;POINT($longitude $latitude)') WHERE id=$arrowId");
+    $rowId = $this->getObject()->getId();
+    //They are not required fields, so they could be null values.
+    if ((isset($longitude)) && (isset($latitude)))
+    {
+        //Update PostGIS with the chosen coordinates.
+        //This connection will throw exception in case of error.
+        Doctrine_Manager::connection()->execute("UPDATE ad SET ad_gps=ST_GeographyFromText('SRID=4326;POINT($longitude $latitude)') WHERE id=$rowId");
+    }
+    else {
+        //Update PostGIS with null value (no GPS coordinates)
+        Doctrine_Manager::connection()->execute("UPDATE ad SET ad_gps=null WHERE id=$rowId");
+    }   
   }
 }

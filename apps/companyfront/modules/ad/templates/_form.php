@@ -5,19 +5,90 @@
 <?php if (!$form->getObject()->isNew()): ?>
 <input type="hidden" name="sf_method" value="put" />
 <?php endif; ?>
+  <fieldset>
+  <legend><?php echo __('PICTURE, GPS COORDINATES AND CATEGORY') ?></legend>
   <table>
-    <tfoot>
-      <tr>
-        <td colspan="2">
-          <?php echo $form->renderHiddenFields(false) ?>
-          &nbsp;<a href="<?php echo url_for('ad/index?page='.$page) ?>"><?php echo __('Back to list') ?></a>
-          <input type="submit" value="Update" />
-        </td>
-      </tr>
-    </tfoot>
     <tbody>
-      <?php echo $form->renderGlobalErrors() ?>
-      <?php echo $form ?>
+            <?php echo $form['company_categ_id']->renderRow(array('class' => 'validate-selection')) ?>
+            <?php echo $form['company_categ_id']->renderError() ?>
+            <?php echo $form['ad_mobile_image_link']->renderRow(array('class' => 'required')) ?>
+            <?php echo $form['longitude']->renderRow(array('class' => 'required')) ?>
+            <?php echo $form['longitude']->renderError() ?>
+            <?php echo $form['latitude']->renderRow(array('class' => 'required')) ?>
+            <?php echo $form['latitude']->renderError() ?>
     </tbody>
   </table>
+  </fieldset>
+  <fieldset>
+  <legend class="optional"><?php echo __('INTERNATIONALIZATION') ?></legend>
+  <table id="rounded-cornergus">
+  <thead>
+    <tr>
+        <th> </th>
+        <th scope="col" class="rounded-companygus"><?php echo __('Language') ?></th>
+        <th scope="col" class="rounded-companygus"><?php echo __('Ad Name, Mobile Text and Link HTTP') ?></th>
+        <th scope="col" class="rounded-q4gus"><?php echo __('Remove') ?></th>
+    </tr>
+  </thead>
+  <tbody>
+  <?php if (isset($form['new'])): ?>
+     <tr>
+    <td><?php echo __('New Entry:') ?></td>
+    <td>
+        <?php echo $form['new']['language_id']->render(array('class' => 'validate-selection')) ?>
+        <?php echo $form['new']['language_id']->renderError() ?>
+    </td>
+    <td>
+        <?php echo $form['new']['ad_name']->render(array('class' => 'required')) ?>
+        <?php echo $form['new']['ad_name']->renderError() ?>
+        <?php echo $form['new']['ad_mobile_text']->render(array('class' => 'required')) ?>
+        <?php echo $form['new']['ad_mobile_text']->renderError() ?>
+        <?php echo $form['new']['ad_link']->render(array('class' => 'required')) ?>
+        <?php echo $form['new']['ad_link']->renderError() ?>
+        <?php echo $form['new']['id'] ?>
+        <?php echo $form['new']['id']->renderError() ?>
+    </td>
+    <td></td>
+    </tr>
+  <?php endif; ?>
+  <?php foreach ($form['AdDescription'] as $adDescription): ?>
+    <tr>
+    <td><?php echo __('Current Entry:') ?></td>
+    <td>
+        <?php echo $adDescription['language_id']->render(array('class' => 'validate-selection')) ?>
+        <?php echo $adDescription['language_id']->renderError() ?>
+    </td>
+    <td>
+        <?php echo $adDescription['ad_name']->render(array('class' => 'required')) ?>
+        <?php echo $adDescription['ad_name']->renderError() ?>
+        <?php echo $adDescription['ad_mobile_text']->render(array('class' => 'required')) ?>
+        <?php echo $adDescription['ad_mobile_text']->renderError() ?>
+        <?php echo $adDescription['ad_link']->render(array('class' => 'required')) ?>
+        <?php echo $adDescription['ad_link']->renderError() ?>
+    </td>
+    <td>
+        <?php echo $adDescription['delete'] ?>
+        <?php echo $adDescription['delete']->renderError() ?>
+        <?php echo $adDescription['id'] ?>
+        <?php echo $adDescription['id']->renderError() ?>
+    </td>
+    </tr> 
+  <?php endforeach; ?>
+  </tbody>
+  </table>
+  <?php echo $form->renderHiddenFields(false) ?>
+  </fieldset>
+  &nbsp;
+  <table align="right">
+        <tbody>
+            <tr>
+            <td>
+                <a href="<?php echo url_for('ad/index?page='.$page) ?>" class="bt_red"><strong><?php echo __('Back to list') ?></strong></a>
+            </td>
+            <td>
+                <input type="submit" value="<?php echo __('Update') ?>" class="NFButton">
+            </td>
+            </tr>
+        </tbody>
+   </table>
 </form>
