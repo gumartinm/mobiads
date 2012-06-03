@@ -1,16 +1,25 @@
 <h2><?php echo __('Ads List') ?></h2>
 
-<form action="<?php echo url_for('ad/indexLanguage') ?>" method="post" <?php $formLanguage->isMultipart() and print 'enctype="multipart/form-data" ' ?>>
-  <table>
-    <tbody>
-      <tr>
-        <td><?php echo $formLanguage->renderHiddenFields(false) ?></td>
-        <td><?php echo $formLanguage ?></td>
-        <td><input type="submit" value=<?php echo __('Update') ?> /></td>
-      </tr>
-    </tbody>
-  </table>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#languageselect_id').change(function() {
+            $('#chooselanguage').submit();
+        });
+    });
+</script>
+
+<form id="chooselanguage" action="<?php echo url_for('ad/indexLanguage') ?>" method="post" <?php $formLanguage->isMultipart() and print 'enctype="multipart/form-data" ' ?>>
+<table align="right">
+    <tr>
+    <td>
+        <?php echo $formLanguage->renderHiddenFields(false) ?>
+        <?php echo $formLanguage['id']->render(array('class' => 'validate-selection')) ?>
+    </td>
+    <tr>
+</table>
 </form>
+
+
 
 <?php if ($pager->haveToPaginate()): ?>
     <?php include_partial('ad/list', array('ads' => $pager->getResults(), 'userLanguageId' => $userLanguageId, 'page' => $pager->getPage())) ?>
