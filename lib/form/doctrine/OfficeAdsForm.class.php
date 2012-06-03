@@ -35,6 +35,7 @@ class OfficeAdsForm extends BaseOfficeAdsForm
     $this->validatorSchema['ad_id'] =  new sfValidatorDoctrineChoice(array('model'    => $this->getRelatedModelName('Ad'),
                                                                            'multiple' => true,
                                                                            'query'    => $query));
+    $this->widgetSchema->setLabel('ad_id', false);
 
     $this->widgetSchema->getFormFormatter()->setTranslationCatalogue('office_ads_form');
   }

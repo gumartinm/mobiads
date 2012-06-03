@@ -7,17 +7,21 @@
 <input type="hidden" name="sf_method" value="put" />
 <?php endif; ?>
   <table>
-    <tfoot>
-      <tr>
-        <td colspan="2">
-          <?php echo $form->renderHiddenFields(false) ?>
-          &nbsp;<a href="<?php echo url_for('office/index?page='.$page.'&sort='.$sort) ?>"><?php echo __('Back to list') ?></a>
-          <input type="submit" value=<?php echo __('Save') ?> />
-        </td>
-      </tr>
-    </tfoot>
     <tbody>
         <?php echo $form ?>
     </tbody>
   </table>
+  <?php echo $form->renderHiddenFields(false) ?>
+  <table align="right">
+        <tbody>
+            <tr>
+            <td>
+                <a href="<?php echo url_for('office/index?page='.$page.'&sort='.$sort) ?>" class="bt_red"><strong><?php echo __('Back to list') ?></strong></a>
+            </td>
+            <td>
+                <input type="submit" value="<?php echo __('Save') ?>" class="NFButton">
+            </td>
+            </tr>
+        </tbody>
+   </table>
 </form>
