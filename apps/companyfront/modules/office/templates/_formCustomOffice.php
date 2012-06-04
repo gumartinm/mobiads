@@ -8,6 +8,7 @@
                 function(data){
                     $('#office_City_region_id').empty();
                     $('#office_City_region_id').removeAttr('disabled');
+                    $('#office_City_region_id').append($("<option></option>").attr("value", "").text(""));
                     $.each(data, function(value, key) {
                         $('#office_City_region_id').append($("<option></option>").attr("value", value).text(key));
                     });
@@ -15,6 +16,23 @@
         });
     });
 </script>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#office_City_region_id').change(function() {
+            $.post('<?php echo url_for('office/chosenregion') ?>', { 'regionId': $(this).val() },
+                function(data){
+                    $('#office_city_id').empty();
+                    $('#office_city_id').removeAttr('disabled');
+                    $('#office_city_id').append($("<option></option>").attr("value", "").text(""));
+                    $.each(data, function(value, key) {
+                        $('#office_city_id').append($("<option></option>").attr("value", value).text(key));
+                    });
+            }, "json");
+        });
+    });
+</script>
+
 
 <form action="<?php echo url_for('office/'.($form->getObject()->isNew() ? 'create' : 'update').'?page='.$page.'&sort='.$sort.(!$form->getObject()->isNew() ? '&id='.$form->getObject()->getId() : '')) ?>" method="post" <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>>
 <?php if (!$form->getObject()->isNew()): ?>

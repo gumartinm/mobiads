@@ -55,6 +55,7 @@ class officeActions extends sfActions
 
     //Get company owned by that user and insert value in form
     $officeInit->company_id = CompanyTable::getInstance()->findOneByUserId($userId)->getId();
+    $officeInit->city_id = null;
 
     $this->form = new OfficeForm($officeInit);
 
@@ -285,7 +286,13 @@ class officeActions extends sfActions
     return $orderBy;
   }
 
-  public function executeChosencountry($request)
+ /**
+  * Run action from JQuery POST while chosing the country in the select HTML field
+  * for offices creation and edition.
+  *
+  * @param sfWebRequest with the chosen country
+  */
+  public function executeChosencountry(sfWebRequest $request)
   {
     $countryId = $request->getParameter('countryId');
 
@@ -325,42 +332,52 @@ class officeActions extends sfActions
     return $this->renderText(json_encode($regionsJSON));
   }
 
-  public function executeChosencountry($request)
+ /**
+  * Run action from JQuery POST while chosing the region in the select HTML field
+  * for offices creation and edition.
+  *
+  * @param sfWebRequest with the chosen region
+  */
+  public function executeChosenregion(sfWebRequest $request)
   {
     $regionId = $request->getParameter('regionId');
-
-    //Never trust data coming from user
-    if (!isset($regionId))
-    {
-        //Incorrect data from user. Using default value.
-        $country = RegionTable::getInstance()->findOnebyCountryName(sfConfig::get('app_default_country'));
-    }
-    else
-    {
-        $country = CountryTable::getInstance()->findOneById($countryId);
-        if (!isset($country))
-        {
-            //Incorrect data from user. Using default value.
-            $country = CountryTable::getInstance()->findOnebyCountryName(sfConfig::get('app_default_country'));
-        }
-    }
-
-    $regionsJSON = array();
-    //Retrieve Doctrine_Collection
-    $regions = RegionTable::getInstance()->findByCountryId($country->getId());
-    //Using Doctrine_Collection_Iterator
-    $iterator = $regions->getIterator();
-    while ($region = $iterator->current())
-    {
-        $regionsJSON[$region->getId()] = $region->getRegionName();
-        $iterator->next();
-    }
 
     //set content type HTTP field  with the right value (we are going to use a JSON response)
     $this->getResponse()->setContentType('application/json');
 
+
+    //Never trust data coming from user
+    if (!isset($regionId))
+    {
+        //Incorrect data from user.
+        //TODO: JSON error
+        return $this->renderText(json_encode("")); 
+    }
+    else
+    {
+        $region = RegionTable::getInstance()->findOneById($regionId);
+        if (!isset($region))
+        {
+            //Incorrect data from user.
+            //TODO: JSON error
+            return $this->renderText(json_encode(""));
+        }
+    }
+
+    $citiesJSON = array();
+    //Retrieve Doctrine_Collection
+    $cities = CityTable::getInstance()->findByRegionId($region->getId());
+    //Using Doctrine_Collection_Iterator
+    $iterator = $cities->getIterator();
+    while ($city = $iterator->current())
+    {
+        $citiesJSON[$city->getId()] = $city->getCityName();
+        $iterator->next();
+    }
+
+
     //Bypass completely the view layer and set the response code directly from this action.
     //In this way the user may know if the data were updated
-    return $this->renderText(json_encode($regionsJSON));
+    return $this->renderText(json_encode($citiesJSON));
   }
 }

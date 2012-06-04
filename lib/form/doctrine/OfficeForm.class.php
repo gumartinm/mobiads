@@ -28,6 +28,10 @@ class OfficeForm extends BaseOfficeForm
                                                                           'add_empty' => true,
                                                                           'query' => $query));
 
+    $this->validatorSchema['city_id'] = new sfValidatorDoctrineChoice(array('model'   => $this->getRelatedModelName('City'),
+                                                                            'required' => true));
+
+
 
     $this->widgetSchema['city_id']->setAttribute('disabled', 'disabled');
 
@@ -91,7 +95,29 @@ class OfficeForm extends BaseOfficeForm
   */
   protected function doSave($con = null)
   {
-    parent::doSave($con);
+    if (null === $con)
+    {
+      $con = $this->getConnection();
+    }
+
+
+    if (!$this->getObject()->isNew())
+    {
+        $office = OfficeTable::getInstance()->findOneById($this->getObject()->getId());
+    }
+    else
+    {
+        $office = new Office();
+        $office->company_id = $this->getObject()->getCompanyId();
+    }
+    $office->city_id = $this->values['city_id'];
+    $office->office_street_address = $this->values['office_street_address'];
+    $office->office_zip = $this->values['office_zip'];
+
+    //TODO: Symfony sucks
+    $this->object = $office;
+
+    $office->save();
 
     //Get latitude and longitude values. They will be translated to GEOGRAPHIC data.
     foreach ($this->values as $field => $value)
@@ -102,10 +128,10 @@ class OfficeForm extends BaseOfficeForm
             $latitude = $value;
     }
     //Catch id element. We will use this id to insert the PostGIS value in the right row.
-    $arrowId = $this->getObject()->getId();
+    $rowId = $office->getId();
     //Update PostGIS
     //This connection will throw exception in case of error.
-    Doctrine_Manager::connection()->execute("UPDATE office SET office_gps=ST_GeographyFromText('SRID=4326;POINT($longitude $latitude)') WHERE id=$arrowId");
+    Doctrine_Manager::connection()->execute("UPDATE office SET office_gps=ST_GeographyFromText('SRID=4326;POINT($longitude $latitude)') WHERE id=$rowId");
   }
 
 
