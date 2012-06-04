@@ -14,10 +14,23 @@ class OfficeForm extends BaseOfficeForm
   {
     $this->useFields(array('city_id', 'office_street_address', 'office_zip'));
 
-
+    if($this->isNew()) 
+    {
+        $country = CountryTable::getInstance()->findOnebyCountryName(sfConfig::get('app_default_country'));
+        $region = RegionTable::getInstance()->findOneByCountryId($country->getId());
+        $query = CityTable::getInstance()->getCitiesByRegionIdQuery($region->getId());
+    }
 
     $this->widgetSchema['longitude'] = new sfWidgetFormInputFloat();
     $this->widgetSchema['latitude'] = new sfWidgetFormInputFloat();
+
+    $this->widgetSchema['city_id'] = new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('City'), 
+                                                                          'add_empty' => true,
+                                                                          'query' => $query));
+
+
+    $this->widgetSchema['city_id']->setAttribute('disabled', 'disabled');
+
 
 
     $this->validatorSchema['longitude'] =  new sfValidatorNumber(array('max' => 180,
@@ -46,6 +59,8 @@ class OfficeForm extends BaseOfficeForm
                                          'latitude'              => 'Latitude (90 to -90): ',
                                          'office_street_address' => 'Address: ',
                                          'office_zip'            => 'ZIP:',));
+
+    $this->embedRelation('City');
 
 
     //In the future the companies could pay for improvements in their accounts (premium accounts)

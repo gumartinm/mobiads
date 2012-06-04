@@ -30,4 +30,9 @@ class CityTable extends Doctrine_Table
 
         return $query;
     }
+
+    public function getCitiesByRegionIdQuery($regionId)
+    {
+        return $this->createQuery('city')->where('city.region_id = ?', $regionId);
+    }
 }

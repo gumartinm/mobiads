@@ -12,5 +12,8 @@ class RegionForm extends BaseRegionForm
 {
   public function configure()
   {
+    unset($this['region_name']);
+
+    $this->embedRelation('Country');
   }
 }

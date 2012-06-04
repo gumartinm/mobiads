@@ -284,4 +284,83 @@ class officeActions extends sfActions
     
     return $orderBy;
   }
+
+  public function executeChosencountry($request)
+  {
+    $countryId = $request->getParameter('countryId');
+
+    //Never trust data coming from user
+    if (!isset($countryId))
+    {
+        //Incorrect data from user. Using default value.
+        $country = CountryTable::getInstance()->findOnebyCountryName(sfConfig::get('app_default_country'));
+    }
+    else 
+    {
+        $country = CountryTable::getInstance()->findOneById($countryId);
+        if (!isset($country))
+        {
+            //Incorrect data from user. Using default value.
+            $country = CountryTable::getInstance()->findOnebyCountryName(sfConfig::get('app_default_country'));
+        }
+    }
+
+    $regionsJSON = array();
+    //Retrieve Doctrine_Collection
+    $regions = RegionTable::getInstance()->findByCountryId($country->getId());
+    //Using Doctrine_Collection_Iterator
+    $iterator = $regions->getIterator();
+    while ($region = $iterator->current())
+    {
+        $regionsJSON[$region->getId()] = $region->getRegionName();
+        $iterator->next();
+    }
+
+
+    //set content type HTTP field  with the right value (we are going to use a JSON response)
+    $this->getResponse()->setContentType('application/json');
+
+    //Bypass completely the view layer and set the response code directly from this action.
+    //In this way the user may know if the data were updated
+    return $this->renderText(json_encode($regionsJSON));
+  }
+
+  public function executeChosencountry($request)
+  {
+    $regionId = $request->getParameter('regionId');
+
+    //Never trust data coming from user
+    if (!isset($regionId))
+    {
+        //Incorrect data from user. Using default value.
+        $country = RegionTable::getInstance()->findOnebyCountryName(sfConfig::get('app_default_country'));
+    }
+    else
+    {
+        $country = CountryTable::getInstance()->findOneById($countryId);
+        if (!isset($country))
+        {
+            //Incorrect data from user. Using default value.
+            $country = CountryTable::getInstance()->findOnebyCountryName(sfConfig::get('app_default_country'));
+        }
+    }
+
+    $regionsJSON = array();
+    //Retrieve Doctrine_Collection
+    $regions = RegionTable::getInstance()->findByCountryId($country->getId());
+    //Using Doctrine_Collection_Iterator
+    $iterator = $regions->getIterator();
+    while ($region = $iterator->current())
+    {
+        $regionsJSON[$region->getId()] = $region->getRegionName();
+        $iterator->next();
+    }
+
+    //set content type HTTP field  with the right value (we are going to use a JSON response)
+    $this->getResponse()->setContentType('application/json');
+
+    //Bypass completely the view layer and set the response code directly from this action.
+    //In this way the user may know if the data were updated
+    return $this->renderText(json_encode($regionsJSON));
+  }
 }

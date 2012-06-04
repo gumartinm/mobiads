@@ -1,6 +1,21 @@
 <?php use_stylesheets_for_form($form) ?>
 <?php use_javascripts_for_form($form) ?>
 
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#office_City_Region_country_id').change(function() {
+            $.post('<?php echo url_for('office/chosencountry') ?>', { 'countryId': $(this).val() },
+                function(data){
+                    $('#office_City_region_id').empty();
+                    $('#office_City_region_id').removeAttr('disabled');
+                    $.each(data, function(value, key) {
+                        $('#office_City_region_id').append($("<option></option>").attr("value", value).text(key));
+                    });
+            }, "json");
+        });
+    });
+</script>
+
 <form action="<?php echo url_for('office/'.($form->getObject()->isNew() ? 'create' : 'update').'?page='.$page.'&sort='.$sort.(!$form->getObject()->isNew() ? '&id='.$form->getObject()->getId() : '')) ?>" method="post" <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>>
 <?php if (!$form->getObject()->isNew()): ?>
 <input type="hidden" name="sf_method" value="put" />
@@ -11,6 +26,8 @@
     <tbody> 
         <?php echo $form->renderGlobalErrors() ?>
         <?php echo $form->renderHiddenFields(false) ?>
+        <?php echo $form['City']['Region']['country_id']->renderRow(array('class' => 'validate-selection'))?>
+        <?php echo $form['City']['region_id']->renderRow(array('class' => 'validate-selection'))?>
         <?php echo $form['city_id']->renderRow(array('class' => 'validate-selection')) ?>
         <?php echo $form['office_street_address']->renderRow(array('class' => 'required')) ?>
         <?php echo $form['office_zip']->renderRow(array('class' => 'required')) ?>

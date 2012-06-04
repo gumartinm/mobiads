@@ -8,6 +8,7 @@ all:
   max_categories_on_pager:   3
   default_picture_directory: /home/gustavo/symfonyreloaded/mobiads/web/uploads/images/
   default_language:          eng                      # Everything must exist at least with this language
+  default_country:           Spain
 
   sf_guard_plugin:
      remember_key_expiration_age: 2592000             # 30 days in seconds

@@ -12,5 +12,10 @@ class CityForm extends BaseCityForm
 {
   public function configure()
   {
+    unset($this['city_name']);
+
+    $this->widgetSchema['region_id']->setAttribute('disabled', 'disabled');
+
+    $this->embedRelation('Region');
   }
 }
