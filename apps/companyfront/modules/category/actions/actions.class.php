@@ -75,7 +75,7 @@ class categoryActions extends sfActions
 
     $this->forward404Unless($companyId == $companyUserId, sprintf('Category does not exist (%s).', $request->getParameter('id')));
 
-    $this->form = new CompanyCategoryForm($company_category, array('company_user_id' => $companyUserId));
+    $this->form = new CompanyCategoryForm($company_category, array('company_user_id' => $companyUserId, 'current_category' => $companyCategoryId));
   }
 
   public function executeUpdate(sfWebRequest $request)

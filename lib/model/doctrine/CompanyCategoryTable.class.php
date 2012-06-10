@@ -23,10 +23,20 @@ class CompanyCategoryTable extends Doctrine_Table
     *
     * @return related company categories to a company as Doctrine Query
     */
-    public function getCompanyCategoriesByCompanyIdQuery($companyId)
+    public function getCompanyCategoriesByCompanyIdQuery($companyId, $currentCategory = null)
     {
-        return $this->createQuery('cc')->where('cc.company_id = ?', $companyId)
-                                       ->orWhere('cc.id = ?', '1')
-                                       ->orderBy('cc.lft');
+        if ($currentCategory != null)
+        {
+            return $this->createQuery('cc')->where('cc.company_id = ?', $companyId)
+                                           ->andWhere('cc.id != ?', $currentCategory)
+                                           ->orWhere('cc.id = ?', '1')
+                                           ->orderBy('cc.lft');
+        }
+        else
+        {
+            return $this->createQuery('cc')->where('cc.company_id = ?', $companyId)
+                                           ->orWhere('cc.id = ?', '1')
+                                           ->orderBy('cc.lft');
+        }
     }
 }
