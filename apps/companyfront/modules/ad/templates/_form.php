@@ -1,6 +1,36 @@
 <?php use_stylesheets_for_form($form) ?>
 <?php use_javascripts_for_form($form) ?>
 
+<script type="text/javascript">
+
+    $(document).ready(function(){
+        var longitude = document.getElementById('ad_longitude');
+        var latitude = document.getElementById('ad_latitude');
+        var adMapURL = 'http://localhost/companyfront.php/admap/admap?latitude='+latitude.value+'&longitude='+longitude.value;
+        $('#ad_longitude').click(function() {
+        newwindow=window.open(adMapURL, '', 'menubar=no,height=600,width=600');
+            if (window.focus) {
+                newwindow.focus()
+            }
+            return false;
+        });
+    });
+
+    $(document).ready(function(){
+        var longitude = document.getElementById('ad_longitude');
+        var latitude = document.getElementById('ad_latitude');
+        var adMapURL = 'http://localhost/companyfront.php/admap/admap?latitude='+latitude.value+'&longitude='+longitude.value;
+        $('#ad_latitude').click(function() {
+        newwindow=window.open(adMapURL, '', 'menubar=no,height=600,width=600');
+            if (window.focus) {
+                newwindow.focus()
+            }
+            return false;
+        });
+    });
+
+</script>
+
 <form action="<?php echo url_for('ad/'.($form->getObject()->isNew() ? 'create' : 'update').'?page='.$page.(!$form->getObject()->isNew() ? '&id='.$form->getObject()->getId() : '')) ?>" method="post" <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>>
 <?php if (!$form->getObject()->isNew()): ?>
 <input type="hidden" name="sf_method" value="put" />

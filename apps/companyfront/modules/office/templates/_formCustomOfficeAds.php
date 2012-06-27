@@ -1,5 +1,4 @@
 <?php use_stylesheets_for_form($form) ?>
-<?php use_stylesheet('inadminpanel/style.css') ?>
 <?php use_javascripts_for_form($form) ?>
 <?php use_javascript('/sfFormExtraPlugin/js/double_list.js') ?>
 

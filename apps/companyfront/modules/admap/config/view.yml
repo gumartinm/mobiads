@@ -12,9 +12,9 @@ default:
     #language:     en
     #robots:       index, follow
 
-  stylesheets:    [inadminpanel/niceforms-default.css]
+  stylesheets:    []
 
-  javascripts:    [jquery-1.6.2.min.js, inadminpanel/ddaccordion.js]
+  javascripts:    []
 
-  has_layout:     true
+  has_layout:     false
   layout:         layout

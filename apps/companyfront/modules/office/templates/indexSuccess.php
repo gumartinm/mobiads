@@ -1,5 +1,3 @@
-<?php use_stylesheet('inadminpanel/style.css') ?>
-
 <h2><?php echo __('Offices Index') ?></h2>
 
 <?php if ($pager->haveToPaginate()): ?>
