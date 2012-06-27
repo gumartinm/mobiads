@@ -1,4 +1,6 @@
 <?php use_stylesheets_for_form($form) ?>
+<?php use_stylesheet('inadminpanel/style.googlemaps.css') ?>
+<?php use_javascript('googlemaps.js') ?>
 <?php use_javascripts_for_form($form) ?>
 
 <script type="text/javascript">
@@ -67,3 +69,5 @@
         </tbody>
    </table>
 </form>
+
+<div id="map_canvas" style="width:100%; height:40%"></div>

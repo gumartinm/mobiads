@@ -14,6 +14,7 @@ class OfficeForm extends BaseOfficeForm
   {
     $this->useFields(array('city_id', 'office_street_address', 'office_zip'));
 
+    $query = null;
     if($this->isNew()) 
     {
         $country = CountryTable::getInstance()->findOnebyCountryName(sfConfig::get('app_default_country'));
