@@ -22,6 +22,8 @@ class CompaniesRegisterForm extends UsersRegisterForm
 
     $this->embedForm('new', $newCompanyForm);
 
+    $this->embedRelation('Company');
+
     parent::configure();
   }   
 } 
