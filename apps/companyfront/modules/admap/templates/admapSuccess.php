@@ -62,9 +62,13 @@
             document.body.appendChild(script);
         }
 
+        function taskOnExit() {
+            self.opener.alreadyOpened = false;
+        }
+
         window.onload = loadScript;
 
-        google.maps.event.addDomListener(window, 'load', initialize);
+        window.onbeforeunload = taskOnExit;
     </script>
   </head>
 
