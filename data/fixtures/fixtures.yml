@@ -55,34 +55,23 @@ Country:
     country_name: United Kingdom
     iso_code_2: GB
     iso_code_3: GBR
-  
-CompanyDescription:
-  MOBILEADVERTISING:
-    Company: MOBILEADVERTISING
-    Language: Spanish
-    company_name: MOBILEADVERTISING
-  DIA:
-    Company: DIA
-    Language: Spanish
-    company_name: DIA%
-  CARREFOUR:
-    Company: CARREFOUR
-    Language: Spanish
-    company_name: CARREFOUR
 
 Company:
   MOBILEADVERTISING:
     User: MOBILEADVERTISING
     company_cif: 4683838383-I
     company_logo: mobileads.jpg
+    company_name: MOBILEADVERTISING
   DIA:
     User: DIA
     company_cif: 5748934949-K 
     company_logo: dia.jpg
+    company_name: DIA%
   CARREFOUR:
     User: CARREFOUR
     company_cif: 0390390309-L
     company_logo: carrefour.jpg
+    company_name: CARREFOUR
 
 Office:
   DIA_Mostoles:
@@ -106,42 +95,27 @@ Office:
 
 CompanyCategory:
   CompanyCategory_Root:
+    company_categ_name: Producto
+    company_categ_description: Root Node
     Company: MOBILEADVERTISING
     GeneralCategory: GeneralCategory_Root  # aiming to root node of CategGeneral
     children:
       CompanyCategory_1:
+        company_categ_name: Donuts
+        company_categ_description: Donuts redondos
         Company: DIA
         GeneralCategory: GeneralCategory_1
       CompanyCategory_2:
+        company_categ_name: Babuchas
+        company_categ_description: Babuchas artesanales
         Company: CARREFOUR
         GeneralCategory: GeneralCategory_2
         children:
           CompanyCategory_3:
+            company_categ_name: Babuchas verdes
+            company_categ_description: Babuchas verdes artesanales
             Company: CARREFOUR
             GeneralCategory: GeneralCategory_3
-
-CompanyCategoryDescription:
-  Root_Product:  #The root node
-    Language: Spanish
-    CompanyCategory: CompanyCategory_Root
-    company_categ_name: Producto
-    company_categ_description: Root Node
-  Donuts:
-    Language: Spanish
-    CompanyCategory: CompanyCategory_1
-    company_categ_name: Donuts
-    company_categ_description: Donuts redondos
-  Babuchas:
-    Language: Spanish
-    CompanyCategory: CompanyCategory_2
-    company_categ_name: Babuchas
-    company_categ_description: Babuchas artesanales
-  BabuchasVerdes:
-    Language: Spanish
-    CompanyCategory: CompanyCategory_3
-    company_categ_name: Babuchas verdes
-    company_categ_description: Babuchas verdes artesanales
-
 
 GeneralCategory:
   GeneralCategory_Root:
@@ -150,7 +124,6 @@ GeneralCategory:
       GeneralCategory_2:
         children:
           GeneralCategory_3:
-
 
 GeneralCategoryDescription:
   Root_Product:  #The root node
@@ -178,15 +151,15 @@ Ad:
   BabuchasVerdes:
     Company: CARREFOUR
     CompanyCategory: CompanyCategory_2
-    ad_mobile_image_link: babuchasverdes.jpg
+    ad_mobile_image: babuchasverdes.jpg
   BabuchasVerdisimas:
     Company: CARREFOUR
     CompanyCategory: CompanyCategory_2
-    ad_mobile_image_link: babuchasverdisimas.jpg
+    ad_mobile_image: babuchasverdisimas.jpg
   Donuts:
     Company: CARREFOUR
-    CompanyCategory: CompanyCategory_3
-    ad_mobile_image_link: donuts.jpg
+    CompanyCategory: CompanyCategory_1
+    ad_mobile_image: donuts.jpg
 
 
 AdDescription:

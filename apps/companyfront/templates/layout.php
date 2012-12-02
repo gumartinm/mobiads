@@ -68,12 +68,6 @@
          </div>
 	<div class="center_content">
     <div class="left_content">
-    		<div class="sidebar_search">
-            <form>
-            <input type="text" name="" class="search_input" value="search keyword" onclick="this.value=''" />
-            <input type="image" class="search_submit" src="/images/inadminpanel/images/search.png" />
-            </form>            
-            </div>
             <div class="sidebarmenu">
             
                 <a class="menuitem submenuheader" href="<?php echo url_for('office/index') ?>" ><?php echo __('Offices') ?></a>

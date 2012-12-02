@@ -16,7 +16,7 @@ class CompanyCategoryForm extends BaseCompanyCategoryForm
 
   public function configure()
   {
-    $this->useFields(array('general_categ_id'));
+    $this->useFields(array('general_categ_id', 'company_categ_name', 'company_categ_description'));
 
     //Narrow down the valid options for some field validators
     $companyCategs = CompanyCategoryTable::getInstance()->getCompanyCategoriesByCompanyIdQuery($this->getOption('company_user_id'),
@@ -26,6 +26,8 @@ class CompanyCategoryForm extends BaseCompanyCategoryForm
                                                                                   'add_empty' => false,
                                                                                   'query'     => $companyCategs));
 
+    $this->widgetSchema['company_categ_description'] = new sfWidgetFormTextarea();
+
     $this->validatorSchema['parent_category'] = new sfValidatorDoctrineChoice(array('model'    => $this->getModelName(),
                                                                                     'required' => true,
                                                                                     'query'    => $companyCategs));
@@ -33,101 +35,13 @@ class CompanyCategoryForm extends BaseCompanyCategoryForm
 
     $this->widgetSchema->setLabels(array('parent_category'  => 'Parent Company Category'));
     $this->widgetSchema->setLabels(array('general_categ_id' => 'General Category'));
-
-
-
-    //Company categ creation form
-    $companyCategoryDescription = new CompanyCategoryDescription();
-    $companyCategoryDescription->CompanyCategory = $this->getObject();
-    $newCompanyCategDescriptionForm = new CompanyCategoryDescriptionForm($companyCategoryDescription);
-
-    $this->embedForm('new', $newCompanyCategDescriptionForm);
-
-    $this->embedRelation('CompanyCategoryDescription');
+    $this->widgetSchema->setLabels(array('company_categ_name'  => 'Company Category Name'));
+    $this->widgetSchema->setLabels(array('company_categ_description' => 'Company Category Description'));
 
 
     //i18n (Internationalization)
     $this->widgetSchema->getFormFormatter()->setTranslationCatalogue('company_category_form');
   }
-
-  protected function doBind(array $values)
-  {
-    if ('' === trim($values['new']['company_categ_description']) && '' === trim($values['new']['company_categ_name']))
-    {
-      unset($values['new'], $this['new']);
-    }
-
-    if (isset($values['CompanyCategoryDescription']))
-    {
-      foreach ($values['CompanyCategoryDescription'] as $i => $companyCategoryDescriptionValues)
-      {
-        if (isset($companyCategoryDescriptionValues['delete']) && $companyCategoryDescriptionValues['id'])
-        {
-          $this->scheduledForDeletion[$i] = $companyCategoryDescriptionValues['id'];
-        }
-      }
-    }
-
-
-    parent::doBind($values);
-  }
-
-
-  /**
-   * Updates object with provided values, dealing with evantual relation deletion
-   *
-   * @see sfFormDoctrine::doUpdateObject()
-   */
-  protected function doUpdateObject($values)
-  {
-    if (count($this->scheduledForDeletion))
-    {
-      foreach ($this->scheduledForDeletion as $index => $id)
-      {
-        unset($values['CompanyCategoryDescription'][$index]);
-        unset($this->object['CompanyCategoryDescription'][$index]);
-        Doctrine::getTable('CompanyCategoryDescription')->findOneById($id)->delete();
-      }
-    }
-
-    $this->getObject()->fromArray($values);
-  }
-
-  /**
-   * Saves embedded form objects.
-   *
-   * @param mixed $con   An optional connection object
-   * @param array $forms An array of forms
-   */
-  public function saveEmbeddedForms($con = null, $forms = null)
-  {
-    if (null === $con)
-    {
-      $con = $this->getConnection();
-    }
-
-    if (null === $forms)
-    {
-      $forms = $this->embeddedForms;
-    }
-
-    foreach ($forms as $form)
-    {
-      if ($form instanceof sfFormObject)
-      {
-        if (!in_array($form->getObject()->getId(), $this->scheduledForDeletion))
-        {
-          $form->saveEmbeddedForms($con);
-          $form->getObject()->save($con);
-        }
-      }
-      else
-      {
-        $this->saveEmbeddedForms($con, $form->getEmbeddedForms());
-      }
-    }
-  }
-
 
   /**
    * Overriding doSave method from lib/vendor/symfony/lib/form/addon/sfFormObject.class.php

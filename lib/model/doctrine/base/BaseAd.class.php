@@ -8,28 +8,28 @@
  * @property integer $company_id
  * @property integer $company_categ_id
  * @property blob $ad_gps
- * @property string $ad_mobile_image_link
+ * @property string $ad_mobile_image
  * @property Company $Company
  * @property CompanyCategory $CompanyCategory
  * @property Doctrine_Collection $AdDescription
  * @property Doctrine_Collection $OfficeAds
  * 
- * @method integer             getCompanyId()            Returns the current record's "company_id" value
- * @method integer             getCompanyCategId()       Returns the current record's "company_categ_id" value
- * @method blob                getAdGps()                Returns the current record's "ad_gps" value
- * @method string              getAdMobileImageLink()    Returns the current record's "ad_mobile_image_link" value
- * @method Company             getCompany()              Returns the current record's "Company" value
- * @method CompanyCategory     getCompanyCategory()      Returns the current record's "CompanyCategory" value
- * @method Doctrine_Collection getAdDescription()        Returns the current record's "AdDescription" collection
- * @method Doctrine_Collection getOfficeAds()            Returns the current record's "OfficeAds" collection
- * @method Ad                  setCompanyId()            Sets the current record's "company_id" value
- * @method Ad                  setCompanyCategId()       Sets the current record's "company_categ_id" value
- * @method Ad                  setAdGps()                Sets the current record's "ad_gps" value
- * @method Ad                  setAdMobileImageLink()    Sets the current record's "ad_mobile_image_link" value
- * @method Ad                  setCompany()              Sets the current record's "Company" value
- * @method Ad                  setCompanyCategory()      Sets the current record's "CompanyCategory" value
- * @method Ad                  setAdDescription()        Sets the current record's "AdDescription" collection
- * @method Ad                  setOfficeAds()            Sets the current record's "OfficeAds" collection
+ * @method integer             getCompanyId()        Returns the current record's "company_id" value
+ * @method integer             getCompanyCategId()   Returns the current record's "company_categ_id" value
+ * @method blob                getAdGps()            Returns the current record's "ad_gps" value
+ * @method string              getAdMobileImage()    Returns the current record's "ad_mobile_image" value
+ * @method Company             getCompany()          Returns the current record's "Company" value
+ * @method CompanyCategory     getCompanyCategory()  Returns the current record's "CompanyCategory" value
+ * @method Doctrine_Collection getAdDescription()    Returns the current record's "AdDescription" collection
+ * @method Doctrine_Collection getOfficeAds()        Returns the current record's "OfficeAds" collection
+ * @method Ad                  setCompanyId()        Sets the current record's "company_id" value
+ * @method Ad                  setCompanyCategId()   Sets the current record's "company_categ_id" value
+ * @method Ad                  setAdGps()            Sets the current record's "ad_gps" value
+ * @method Ad                  setAdMobileImage()    Sets the current record's "ad_mobile_image" value
+ * @method Ad                  setCompany()          Sets the current record's "Company" value
+ * @method Ad                  setCompanyCategory()  Sets the current record's "CompanyCategory" value
+ * @method Ad                  setAdDescription()    Sets the current record's "AdDescription" collection
+ * @method Ad                  setOfficeAds()        Sets the current record's "OfficeAds" collection
  * 
  * @package    mobiads
  * @subpackage model
@@ -51,10 +51,10 @@ abstract class BaseAd extends sfDoctrineRecord
         $this->hasColumn('ad_gps', 'blob', null, array(
              'type' => 'blob',
              ));
-        $this->hasColumn('ad_mobile_image_link', 'string', 3000, array(
+        $this->hasColumn('ad_mobile_image', 'string', 255, array(
              'type' => 'string',
              'notnull' => true,
-             'length' => 3000,
+             'length' => 255,
              ));
     }
 

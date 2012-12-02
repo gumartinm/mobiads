@@ -19,6 +19,7 @@ abstract class BaseCompanyForm extends BaseFormDoctrine
       'user_id'      => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('User'), 'add_empty' => false)),
       'company_cif'  => new sfWidgetFormInputText(),
       'company_logo' => new sfWidgetFormInputText(),
+      'company_name' => new sfWidgetFormInputText(),
       'created_at'   => new sfWidgetFormDateTime(),
       'updated_at'   => new sfWidgetFormDateTime(),
     ));
@@ -28,6 +29,7 @@ abstract class BaseCompanyForm extends BaseFormDoctrine
       'user_id'      => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('User'))),
       'company_cif'  => new sfValidatorString(array('max_length' => 255)),
       'company_logo' => new sfValidatorString(array('max_length' => 255)),
+      'company_name' => new sfValidatorString(array('max_length' => 255)),
       'created_at'   => new sfValidatorDateTime(),
       'updated_at'   => new sfValidatorDateTime(),
     ));

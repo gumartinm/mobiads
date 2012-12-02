@@ -18,7 +18,7 @@ class GeneralCategoryTable extends Doctrine_Table
     }
 
 
-   /**
+    /**
     * Returns general categories, ordered by lft field.
     *
     * @return Doctrine Query

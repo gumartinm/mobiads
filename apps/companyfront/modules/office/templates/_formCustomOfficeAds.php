@@ -11,6 +11,7 @@
         <?php echo $form ?>
     </tbody>
   </table>
+  <?php echo $form->renderGlobalErrors() ?>
   <?php echo $form->renderHiddenFields(false) ?>
   <table align="right">
         <tbody>

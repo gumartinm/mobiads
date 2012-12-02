@@ -7,23 +7,26 @@
  * 
  * @property integer $company_id
  * @property integer $general_categ_id
+ * @property string $company_categ_name
+ * @property text $company_categ_description
  * @property Company $Company
  * @property GeneralCategory $GeneralCategory
- * @property Doctrine_Collection $CompanyCategoryDescription
  * @property Doctrine_Collection $Ad
  * 
- * @method integer             getCompanyId()                  Returns the current record's "company_id" value
- * @method integer             getGeneralCategId()             Returns the current record's "general_categ_id" value
- * @method Company             getCompany()                    Returns the current record's "Company" value
- * @method GeneralCategory     getGeneralCategory()            Returns the current record's "GeneralCategory" value
- * @method Doctrine_Collection getCompanyCategoryDescription() Returns the current record's "CompanyCategoryDescription" collection
- * @method Doctrine_Collection getAd()                         Returns the current record's "Ad" collection
- * @method CompanyCategory     setCompanyId()                  Sets the current record's "company_id" value
- * @method CompanyCategory     setGeneralCategId()             Sets the current record's "general_categ_id" value
- * @method CompanyCategory     setCompany()                    Sets the current record's "Company" value
- * @method CompanyCategory     setGeneralCategory()            Sets the current record's "GeneralCategory" value
- * @method CompanyCategory     setCompanyCategoryDescription() Sets the current record's "CompanyCategoryDescription" collection
- * @method CompanyCategory     setAd()                         Sets the current record's "Ad" collection
+ * @method integer             getCompanyId()                 Returns the current record's "company_id" value
+ * @method integer             getGeneralCategId()            Returns the current record's "general_categ_id" value
+ * @method string              getCompanyCategName()          Returns the current record's "company_categ_name" value
+ * @method text                getCompanyCategDescription()   Returns the current record's "company_categ_description" value
+ * @method Company             getCompany()                   Returns the current record's "Company" value
+ * @method GeneralCategory     getGeneralCategory()           Returns the current record's "GeneralCategory" value
+ * @method Doctrine_Collection getAd()                        Returns the current record's "Ad" collection
+ * @method CompanyCategory     setCompanyId()                 Sets the current record's "company_id" value
+ * @method CompanyCategory     setGeneralCategId()            Sets the current record's "general_categ_id" value
+ * @method CompanyCategory     setCompanyCategName()          Sets the current record's "company_categ_name" value
+ * @method CompanyCategory     setCompanyCategDescription()   Sets the current record's "company_categ_description" value
+ * @method CompanyCategory     setCompany()                   Sets the current record's "Company" value
+ * @method CompanyCategory     setGeneralCategory()           Sets the current record's "GeneralCategory" value
+ * @method CompanyCategory     setAd()                        Sets the current record's "Ad" collection
  * 
  * @package    mobiads
  * @subpackage model
@@ -42,6 +45,14 @@ abstract class BaseCompanyCategory extends sfDoctrineRecord
         $this->hasColumn('general_categ_id', 'integer', null, array(
              'type' => 'integer',
              ));
+        $this->hasColumn('company_categ_name', 'string', 255, array(
+             'type' => 'string',
+             'notnull' => true,
+             'length' => 255,
+             ));
+        $this->hasColumn('company_categ_description', 'text', null, array(
+             'type' => 'text',
+             ));
     }
 
     public function setUp()
@@ -56,10 +67,6 @@ abstract class BaseCompanyCategory extends sfDoctrineRecord
              'local' => 'general_categ_id',
              'foreign' => 'id',
              'onDelete' => 'SET NULL'));
-
-        $this->hasMany('CompanyCategoryDescription', array(
-             'local' => 'id',
-             'foreign' => 'company_categ_id'));
 
         $this->hasMany('Ad', array(
              'local' => 'id',

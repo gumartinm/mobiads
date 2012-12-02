@@ -19,7 +19,7 @@
   <tbody>
     <?php foreach ($ads as $ad): ?>
     <tr>
-      <td><img src="<?php echo "/uploads/images/".$ad->getAd()->getAdMobileImageLink() ?>" width="80" height="80" alt="<?php echo $ad->getAdName() ?>"/></td>
+      <td><img src="<?php echo "/uploads/images/".$ad->getAd()->getAdMobileImage() ?>" width="80" height="80" alt="<?php echo $ad->getAdName() ?>"/></td>
       <td>
         <?php if ($ad->getAd()->getCompanyCategId() != null): ?>
             <?php echo $ad->getAd()->getCompanyCategory() ?>

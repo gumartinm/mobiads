@@ -16,8 +16,7 @@
         <?php echo $form['language_id']->renderRow(array('class' => 'validate-selection')) ?>
         <?php echo $form['new']['company_cif']->renderRow(array('class' => 'required')) ?>
         <?php echo $form['new']['company_logo']->renderRow(array('class' => 'required')) ?>
-        <?php echo $form['new']['new']['language_id']->renderRow(array('class' => 'validate-selection')) ?>
-        <?php echo $form['new']['new']['company_name']->renderRow(array('class' => 'required')) ?>
+        <?php echo $form['new']['company_name']->renderRow(array('class' => 'required')) ?>
         <?php echo $form['captcha']->RenderRow() ?>
     </tbody>
   </table>

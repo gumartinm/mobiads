@@ -13,62 +13,13 @@
             <?php echo $form['general_categ_id']->renderError() ?>
             <?php echo $form['parent_category']->renderRow(array('class' => 'validate-selection')) ?>
             <?php echo $form['parent_category']->renderError() ?>
+            <?php echo $form['company_categ_name']->renderRow(array('class' => 'required')) ?>
+            <?php echo $form['company_categ_name']->renderError() ?>
+            <?php echo $form['company_categ_description']->renderRow(array('class' => 'required')) ?>
+            <?php echo $form['company_categ_description']->renderError() ?>
     </tbody>
   </table>
-  </fieldset>
-  <fieldset>
-  <legend class="optional"><?php echo __('INTERNATIONALIZATION') ?></legend>
-  <table id="rounded-cornergus">
-  <thead>
-    <tr>
-        <th> </th>
-        <th scope="col" class="rounded-companygus"><?php echo __('Language') ?></th>
-        <th scope="col" class="rounded-companygus"><?php echo __('Category Name and Description') ?></th>
-        <th scope="col" class="rounded-q4gus"><?php echo __('Remove') ?></th>
-    </tr>
-  </thead>
-  <tbody>
-  <?php if (isset($form['new'])): ?>
-     <tr>
-    <td><?php echo __('New Entry:') ?></td>
-    <td>
-        <?php echo $form['new']['language_id']->render(array('class' => 'validate-selection')) ?>
-        <?php echo $form['new']['language_id']->renderError() ?>
-    </td>
-    <td>
-        <?php echo $form['new']['company_categ_name']->render(array('class' => 'required')) ?>
-        <?php echo $form['new']['company_categ_name']->renderError() ?>
-        <?php echo $form['new']['company_categ_description']->render(array('class' => 'required')) ?>
-        <?php echo $form['new']['company_categ_description']->renderError() ?>
-        <?php echo $form['new']['id'] ?>
-        <?php echo $form['new']['id']->renderError() ?>
-    </td>
-    <td></td>
-    </tr>
-  <?php endif; ?>
-  <?php foreach ($form['CompanyCategoryDescription'] as $companyCategDescription): ?>
-    <tr>
-    <td><?php echo __('Current Entry:') ?></td>
-    <td>
-        <?php echo $companyCategDescription['language_id']->render(array('class' => 'validate-selection')) ?>
-        <?php echo $companyCategDescription['language_id']->renderError() ?>
-    </td>
-    <td>
-        <?php echo $companyCategDescription['company_categ_name']->render(array('class' => 'required')) ?>
-        <?php echo $companyCategDescription['company_categ_name']->renderError() ?>
-        <?php echo $companyCategDescription['company_categ_description']->render(array('class' => 'required')) ?>
-        <?php echo $companyCategDescription['company_categ_description']->renderError() ?>
-    </td>
-    <td>
-        <?php echo $companyCategDescription['delete'] ?>
-        <?php echo $companyCategDescription['delete']->renderError() ?>
-        <?php echo $companyCategDescription['id'] ?>
-        <?php echo $companyCategDescription['id']->renderError() ?>
-    </td>
-    </tr>
-  <?php endforeach; ?>
-  </tbody>
-  </table>
+  <?php echo $form->renderGlobalErrors() ?>
   <?php echo $form->renderHiddenFields(false) ?>
   </fieldset>
   &nbsp;

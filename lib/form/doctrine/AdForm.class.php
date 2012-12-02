@@ -14,7 +14,7 @@ class AdForm extends BaseAdForm
 
   public function configure()
   {
-    $this->useFields(array('company_categ_id', 'ad_mobile_image_link'));
+    $this->useFields(array('company_categ_id', 'ad_mobile_image'));
 
     //Narrow down the valid options for some field validators
     $companyCategs = CompanyCategoryTable::getInstance()->getCompanyCategoriesByCompanyIdQuery($this->getOption('company_user_id'));
@@ -29,14 +29,14 @@ class AdForm extends BaseAdForm
                                                                                     'query'    => $companyCategs));
 
 
-    $this->widgetSchema['ad_mobile_image_link'] =
-                new sfWidgetFormInputFileEditable(array('file_src'    => '/uploads/images/'.$this->getObject()->ad_mobile_image_link,
+    $this->widgetSchema['ad_mobile_image'] =
+                new sfWidgetFormInputFileEditable(array('file_src'    => '/uploads/images/'.$this->getObject()->ad_mobile_image,
                                                         'edit_mode'   => !$this->isNew(),
                                                         'is_image'    => true,
                                                         'with_delete' => false));
 
 
-    $this->validatorSchema['ad_mobile_image_link'] = new sfValidatorFileImage(array('mime_types' => 'web_images',
+    $this->validatorSchema['ad_mobile_image'] = new sfValidatorFileImage(array('mime_types' => 'web_images',
                                                                                     'path' => sfConfig::get('app_default_picture_directory'),
                                                                                     'required' => $this->isNew(),
                                                                                     'is_only_image' => true,
@@ -72,7 +72,7 @@ class AdForm extends BaseAdForm
 
 
     $this->widgetSchema->setLabels(array('company_categ_id'  => 'Company Category'));
-    $this->widgetSchema->setLabels(array('ad_mobile_image_link' => "Picture on the user's mobile"));
+    $this->widgetSchema->setLabels(array('ad_mobile_image' => "Picture on the user's mobile"));
     $this->widgetSchema->setLabels(array('longitude'  => 'Longitude (180 to -180): '));
     $this->widgetSchema->setLabels(array('latitude'  => 'Latitude (90 to -90): '));
 

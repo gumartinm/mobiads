@@ -1,10 +1,8 @@
-CREATE TABLE ad (id BIGSERIAL, company_id BIGINT NOT NULL, company_categ_id BIGINT, ad_gps BYTEA, ad_mobile_image_link VARCHAR(3000) NOT NULL, created_at TIMESTAMP NOT NULL, updated_at TIMESTAMP NOT NULL, PRIMARY KEY(id));
+CREATE TABLE ad (id BIGSERIAL, company_id BIGINT NOT NULL, company_categ_id BIGINT, ad_gps BYTEA, ad_mobile_image VARCHAR(255) NOT NULL, created_at TIMESTAMP NOT NULL, updated_at TIMESTAMP NOT NULL, PRIMARY KEY(id));
 CREATE TABLE ad_description (id BIGSERIAL, language_id BIGINT NOT NULL, ad_id BIGINT NOT NULL, ad_name VARCHAR(255) NOT NULL, ad_description text, ad_mobile_text VARCHAR(500) NOT NULL, ad_link VARCHAR(3000) NOT NULL, PRIMARY KEY(id));
 CREATE TABLE city (id BIGSERIAL, city_name VARCHAR(64) NOT NULL, region_id BIGINT NOT NULL, PRIMARY KEY(id));
-CREATE TABLE company (id BIGSERIAL, user_id INT NOT NULL, company_cif VARCHAR(255) NOT NULL UNIQUE, company_logo VARCHAR(255) NOT NULL, created_at TIMESTAMP NOT NULL, updated_at TIMESTAMP NOT NULL, PRIMARY KEY(id));
-CREATE TABLE company_category (id BIGSERIAL, company_id BIGINT NOT NULL, general_categ_id BIGINT, created_at TIMESTAMP NOT NULL, updated_at TIMESTAMP NOT NULL, root_id BIGINT, lft INT, rgt INT, level SMALLINT, PRIMARY KEY(id));
-CREATE TABLE company_category_description (id BIGSERIAL, language_id BIGINT NOT NULL, company_categ_id BIGINT NOT NULL, company_categ_name VARCHAR(255) NOT NULL, company_categ_description text, PRIMARY KEY(id));
-CREATE TABLE company_description (id BIGSERIAL, company_id BIGINT NOT NULL, language_id BIGINT NOT NULL, company_name VARCHAR(255) NOT NULL, PRIMARY KEY(id));
+CREATE TABLE company (id BIGSERIAL, user_id INT NOT NULL, company_cif VARCHAR(255) NOT NULL UNIQUE, company_logo VARCHAR(255) NOT NULL, company_name VARCHAR(255) NOT NULL, created_at TIMESTAMP NOT NULL, updated_at TIMESTAMP NOT NULL, PRIMARY KEY(id));
+CREATE TABLE company_category (id BIGSERIAL, company_id BIGINT NOT NULL, general_categ_id BIGINT, company_categ_name VARCHAR(255) NOT NULL, company_categ_description text, created_at TIMESTAMP NOT NULL, updated_at TIMESTAMP NOT NULL, root_id BIGINT, lft INT, rgt INT, level SMALLINT, PRIMARY KEY(id));
 CREATE TABLE country (id BIGSERIAL, country_name VARCHAR(80) NOT NULL, iso_code_2 VARCHAR(2) NOT NULL, iso_code_3 VARCHAR(3) NOT NULL, PRIMARY KEY(id));
 CREATE TABLE general_category (id BIGSERIAL, created_at TIMESTAMP NOT NULL, updated_at TIMESTAMP NOT NULL, root_id BIGINT, lft INT, rgt INT, level SMALLINT, PRIMARY KEY(id));
 CREATE TABLE general_category_description (id BIGSERIAL, language_id BIGINT NOT NULL, general_categ_id BIGINT NOT NULL, general_categ_name VARCHAR(255) NOT NULL UNIQUE, general_categ_description text, PRIMARY KEY(id));
@@ -30,10 +28,6 @@ ALTER TABLE city ADD CONSTRAINT city_region_id_region_id FOREIGN KEY (region_id)
 ALTER TABLE company ADD CONSTRAINT company_user_id_sf_guard_user_id FOREIGN KEY (user_id) REFERENCES sf_guard_user(id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE;
 ALTER TABLE company_category ADD CONSTRAINT company_category_general_categ_id_general_category_id FOREIGN KEY (general_categ_id) REFERENCES general_category(id) ON DELETE SET NULL NOT DEFERRABLE INITIALLY IMMEDIATE;
 ALTER TABLE company_category ADD CONSTRAINT company_category_company_id_company_id FOREIGN KEY (company_id) REFERENCES company(id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE;
-ALTER TABLE company_category_description ADD CONSTRAINT company_category_description_language_id_language_id FOREIGN KEY (language_id) REFERENCES language(id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE;
-ALTER TABLE company_category_description ADD CONSTRAINT ccci FOREIGN KEY (company_categ_id) REFERENCES company_category(id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE;
-ALTER TABLE company_description ADD CONSTRAINT company_description_language_id_language_id FOREIGN KEY (language_id) REFERENCES language(id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE;
-ALTER TABLE company_description ADD CONSTRAINT company_description_company_id_company_id FOREIGN KEY (company_id) REFERENCES company(id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE;
 ALTER TABLE general_category_description ADD CONSTRAINT gggi FOREIGN KEY (general_categ_id) REFERENCES general_category(id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE;
 ALTER TABLE general_category_description ADD CONSTRAINT general_category_description_language_id_language_id FOREIGN KEY (language_id) REFERENCES language(id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE;
 ALTER TABLE office ADD CONSTRAINT office_company_id_company_id FOREIGN KEY (company_id) REFERENCES company(id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE;

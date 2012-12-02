@@ -38,7 +38,7 @@
     $(document).ready(function(){
         var longitude = document.getElementById('office_longitude');
         var latitude = document.getElementById('office_latitude');
-        var adMapURL = 'http://localhost/companyfront.php/admap/officemap?latitude='+latitude.value+'&longitude='+longitude.value;
+        var adMapURL = 'http://localhost/companyfront_dev.php/admap/officemap?latitude='+latitude.value+'&longitude='+longitude.value;
         $('#office_longitude').click(function() {
             newwindow=window.open(adMapURL, '', 'menubar=no,height=600,width=600');
             if (window.focus) {

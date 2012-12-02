@@ -3,7 +3,7 @@
 
 # default values
 all:
-  default_language: eng                              # Everything must exist at least with this language
+  default_language: spa                              # Everything must exist at least with this language
   # Using meters for the radius parameter in PostGIS
   radius: 100
 

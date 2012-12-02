@@ -15,27 +15,31 @@ abstract class BaseCompanyCategoryForm extends BaseFormDoctrine
   public function setup()
   {
     $this->setWidgets(array(
-      'id'               => new sfWidgetFormInputHidden(),
-      'company_id'       => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Company'), 'add_empty' => false)),
-      'general_categ_id' => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('GeneralCategory'), 'add_empty' => true)),
-      'created_at'       => new sfWidgetFormDateTime(),
-      'updated_at'       => new sfWidgetFormDateTime(),
-      'root_id'          => new sfWidgetFormInputText(),
-      'lft'              => new sfWidgetFormInputText(),
-      'rgt'              => new sfWidgetFormInputText(),
-      'level'            => new sfWidgetFormInputText(),
+      'id'                        => new sfWidgetFormInputHidden(),
+      'company_id'                => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Company'), 'add_empty' => false)),
+      'general_categ_id'          => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('GeneralCategory'), 'add_empty' => true)),
+      'company_categ_name'        => new sfWidgetFormInputText(),
+      'company_categ_description' => new sfWidgetFormInputText(),
+      'created_at'                => new sfWidgetFormDateTime(),
+      'updated_at'                => new sfWidgetFormDateTime(),
+      'root_id'                   => new sfWidgetFormInputText(),
+      'lft'                       => new sfWidgetFormInputText(),
+      'rgt'                       => new sfWidgetFormInputText(),
+      'level'                     => new sfWidgetFormInputText(),
     ));
 
     $this->setValidators(array(
-      'id'               => new sfValidatorChoice(array('choices' => array($this->getObject()->get('id')), 'empty_value' => $this->getObject()->get('id'), 'required' => false)),
-      'company_id'       => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Company'))),
-      'general_categ_id' => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('GeneralCategory'), 'required' => false)),
-      'created_at'       => new sfValidatorDateTime(),
-      'updated_at'       => new sfValidatorDateTime(),
-      'root_id'          => new sfValidatorInteger(array('required' => false)),
-      'lft'              => new sfValidatorInteger(array('required' => false)),
-      'rgt'              => new sfValidatorInteger(array('required' => false)),
-      'level'            => new sfValidatorInteger(array('required' => false)),
+      'id'                        => new sfValidatorChoice(array('choices' => array($this->getObject()->get('id')), 'empty_value' => $this->getObject()->get('id'), 'required' => false)),
+      'company_id'                => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Company'))),
+      'general_categ_id'          => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('GeneralCategory'), 'required' => false)),
+      'company_categ_name'        => new sfValidatorString(array('max_length' => 255)),
+      'company_categ_description' => new sfValidatorPass(array('required' => false)),
+      'created_at'                => new sfValidatorDateTime(),
+      'updated_at'                => new sfValidatorDateTime(),
+      'root_id'                   => new sfValidatorInteger(array('required' => false)),
+      'lft'                       => new sfValidatorInteger(array('required' => false)),
+      'rgt'                       => new sfValidatorInteger(array('required' => false)),
+      'level'                     => new sfValidatorInteger(array('required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('company_category[%s]');

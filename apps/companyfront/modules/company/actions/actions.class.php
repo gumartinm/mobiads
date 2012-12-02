@@ -12,11 +12,6 @@ class companyActions extends sfActions
 {
   public function executeIndex(sfWebRequest $request)
   {
-    $this->companys = Doctrine_Core::getTable('Company')
-      ->createQuery('a')
-      ->execute();
-
-
     //Get user Id
     $userId = $this->getUser()->getGuardUser()->getId();
 
@@ -24,24 +19,8 @@ class companyActions extends sfActions
     //Just 1 user owns a company. Should this be improved?
     $companyId = CompanyTable::getInstance()->findOneByUserId($userId)->getId();
 
-    $languageCode = $request->getParameter('language');
-    if ($languageCode != null)
-    {
-        $language = LanguageTable::getInstance()->findOneByCode($languageCode);
-        if ($language == null)
-        {
-            //By default we use the current user's language.
-            $language = $this->getUser()->getGuardUser()->getLanguage();
-        }
-    }
-    else
-    {
-        //By default we use the current user's language.
-        $language = $this->getUser()->getGuardUser()->getLanguage();
-    }
-
     //Retrieve Doctrine Record (just one company for user)
-    $this->company = CompanyDescriptionTable::getInstance()->findOneByCompanyIdAndLanguageId($companyId, $language->getId());
+    $this->company = CompanyTable::getInstance()->findOneById($companyId);
   }
 
   public function executeShow(sfWebRequest $request)

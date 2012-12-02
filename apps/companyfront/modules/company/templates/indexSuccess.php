@@ -16,11 +16,11 @@
   </tfoot>
   <tbody>
     <tr>
-      <td><img src="<?php echo "/uploads/images/".$company->getCompany()->getCompanyLogo() ?>" width="100" height="100"/></td>
+      <td><img src="<?php echo "/uploads/images/".$company->getCompanyLogo() ?>" width="100" height="100"/></td>
       <td><?php echo $company->getCompanyName() ?></td>
-      <td><?php echo $company->getCompany()->getCompanyCif() ?></td>
+      <td><?php echo $company->getCompanyCif() ?></td>
     </tr>
   </tbody>
 </table>
 
-<a href="<?php echo url_for('company/edit?id='.$company->getCompany()->getId()) ?>" class="bt_green"><span class="bt_green_lft"></span><strong><?php echo __('Edit Your Company') ?></strong><span class="bt_green_r"></span></a>
+<a href="<?php echo url_for('company/edit?id='.$company->getId()) ?>" class="bt_green"><span class="bt_green_lft"></span><strong><?php echo __('Edit Your Company') ?></strong><span class="bt_green_r"></span></a>

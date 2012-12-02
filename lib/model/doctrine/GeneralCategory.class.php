@@ -19,16 +19,21 @@ class GeneralCategory extends BaseGeneralCategory
    */
   public function __toString()
   {
-    $languageId = sfContext::getInstance()->getUser()->getGuardUser()->getLanguage()->getId();
-
-    //Check if there is description with the user's language
+    $user = sfContext::getInstance()->getUser();
     $generalCategoryDescriptions = GeneralCategoryDescriptionTable::getInstance()->findByGeneralCategId($this->getId());
-    foreach ($generalCategoryDescriptions as $generalCategoryDescription)
+
+    if ($user instanceof sfGuardSecurityUser)
     {
-        if ($generalCategoryDescription->getLanguageId() == $languageId)
+        $languageId = $user->getGuardUser()->getLanguage()->getId();
+
+        //Check if there is description with the user's language
+        foreach ($generalCategoryDescriptions as $generalCategoryDescription)
         {
-           //We found it!!!
-           return (string) $generalCategoryDescription->getGeneralCategName();
+            if ($generalCategoryDescription->getLanguageId() == $languageId)
+            {
+                //We found it!!!
+                return (string) $generalCategoryDescription->getGeneralCategName();
+            }
         }
     }
 

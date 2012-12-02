@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>
-      Mobile Ads: advertising GEO localizatiodafdafdsdfan
+      Mobile Ads: advertising GEO localization
     </title>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="UTF-8">

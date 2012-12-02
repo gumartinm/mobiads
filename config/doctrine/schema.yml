@@ -1,8 +1,6 @@
 #
 # MOBIADS schema
 #
-# Hopefully good enough.
-#
 
 Company:
   actAs: [Timestampable]
@@ -10,17 +8,9 @@ Company:
     user_id:      { type: integer (4), notnull: true }
     company_cif:  { type: string(255), notnull: true, unique: true }
     company_logo: { type: string(255), notnull: true }
-  relations:
-    User: { class: sfGuardUser, local: user_id, onDelete: CASCADE }
-
-CompanyDescription:
-  columns:
-    company_id:   { type: integer, notnull: true }
-    language_id:  { type: integer, notnull: true }
     company_name: { type: string(255), notnull: true }
   relations:
-    Company:  { onDelete: CASCADE, local: company_id, foreign: id }
-    Language: { onDelete: CASCADE, local: language_id, foreign: id }
+    User: { class: sfGuardUser, local: user_id, onDelete: CASCADE }
 
 Office:
   actAs:
@@ -62,21 +52,13 @@ CompanyCategory:
       hasManyRoots: true
       rootColumnName: root_id
   columns:
-    company_id:       { type: integer, notnull: true }
-    general_categ_id: { type: integer }
-  relations:
-    Company:      { onDelete: CASCADE, local: company_id, foreign: id }
-    GeneralCategory: { onDelete: SET NULL, local: general_categ_id, foreign: id }
-
-CompanyCategoryDescription:
-  columns:
-    language_id:               { type: integer, notnull: true }
-    company_categ_id:          { type: integer, notnull: true }
+    company_id:                { type: integer, notnull: true }
+    general_categ_id:          { type: integer }
     company_categ_name:        { type: string (255), notnull: true }
     company_categ_description: { type: text }
   relations:
-    Language:        { onDelete: CASCADE, local: language_id, foreign: id }
-    CompanyCategory: { onDelete: CASCADE, local: company_categ_id, foreign: id }
+    Company:         { onDelete: CASCADE, local: company_id, foreign: id }
+    GeneralCategory: { onDelete: SET NULL, local: general_categ_id, foreign: id }
 
 GeneralCategory:
   actAs:
@@ -103,10 +85,10 @@ Language:
 Ad:
   actAs: [Timestampable]
   columns:
-    company_id:           { type: integer, notnull: true }
-    company_categ_id:     { type: integer }
-    ad_gps:               { type: blob }
-    ad_mobile_image_link: { type: string (3000), notnull: true }
+    company_id:       { type: integer, notnull: true }
+    company_categ_id: { type: integer }
+    ad_gps:           { type: blob }
+    ad_mobile_image:  { type: string (255), notnull: true }
   relations:
     Company:      { onDelete: CASCADE, local: company_id, foreign: id }
     CompanyCategory: { onDelete: SET NULL, local: company_categ_id, foreign: id }

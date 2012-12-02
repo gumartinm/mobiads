@@ -4,17 +4,6 @@
         });
 </script>
 
-<script type="text/javascript">
-jQuery(document).ready(function(){
-  $("#associate").click(function(event){
-      event.preventDefault();
-      event.stopPropagation();
-      window.open('<?php echo url_for('categgeneral/index') ?>', '', 'scrollbars,resizable,status,width=888,height=888');
-  });
-});
-</script>
-
-
 <table id="rounded-corner">
   <thead>
     <tr>

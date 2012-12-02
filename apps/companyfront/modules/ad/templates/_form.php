@@ -6,7 +6,7 @@
     $(document).ready(function(){
         var longitude = document.getElementById('ad_longitude');
         var latitude = document.getElementById('ad_latitude');
-        var adMapURL = 'http://localhost/companyfront.php/admap/admap?latitude='+latitude.value+'&longitude='+longitude.value;
+        var adMapURL = 'http://localhost/companyfront_dev.php/admap/admap?latitude='+latitude.value+'&longitude='+longitude.value;
         $('#ad_longitude').click(function() {
         newwindow=window.open(adMapURL, '', 'menubar=no,height=600,width=600');
             if (window.focus) {
@@ -19,7 +19,7 @@
     $(document).ready(function(){
         var longitude = document.getElementById('ad_longitude');
         var latitude = document.getElementById('ad_latitude');
-        var adMapURL = 'http://localhost/companyfront.php/admap/admap?latitude='+latitude.value+'&longitude='+longitude.value;
+        var adMapURL = 'http://localhost/companyfront_dev.php/admap/admap?latitude='+latitude.value+'&longitude='+longitude.value;
         $('#ad_latitude').click(function() {
         newwindow=window.open(adMapURL, '', 'menubar=no,height=600,width=600');
             if (window.focus) {
@@ -41,7 +41,7 @@
     <tbody>
             <?php echo $form['company_categ_id']->renderRow(array('class' => 'validate-selection')) ?>
             <?php echo $form['company_categ_id']->renderError() ?>
-            <?php echo $form['ad_mobile_image_link']->renderRow(array('class' => 'required')) ?>
+            <?php echo $form['ad_mobile_image']->renderRow(array('class' => 'required')) ?>
             <?php echo $form['longitude']->renderRow(array('class' => 'required')) ?>
             <?php echo $form['longitude']->renderError() ?>
             <?php echo $form['latitude']->renderRow(array('class' => 'required')) ?>

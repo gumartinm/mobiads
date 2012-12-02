@@ -25,7 +25,7 @@
         <input type="submit" name="register" value="<?php echo __('Register', null, 'sf_guard') ?>" class="NFButton"/>
         </td>
         <tr>
-    <tbody>
+    </tbody>
   </table>
 </form>
 

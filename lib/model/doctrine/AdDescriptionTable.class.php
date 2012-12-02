@@ -31,6 +31,27 @@ class AdDescriptionTable extends Doctrine_Table
                                                   ->orderBy('ad.id');
     }
 
+    
+   /**
+    * Returns as many ads as the number specified by the input parameter and ordered by timestamp
+    *
+    * @return Doctrine_Collection with Doctrine_Records
+    */
+    public function getAdsByLanguageandTimeStamp($quantity = null, $languageId)
+    {
+
+        if ($quantity == null)
+        {
+            //Default value
+            $quantity = 3;
+        }
+        return $this->createQuery('adDescription')->innerjoin('adDescription.Ad ad')
+                                                         ->where('adDescription.language_id = ?', $languageId)
+                                                         ->orderBy('ad.updated_at')
+                                                         ->limit($quantity)
+                                                         ->execute();
+    }
+
 
     public function getAdsByGPSAndUserIdAndLanguageId(array $parameters, $userId, $languageId)
     {

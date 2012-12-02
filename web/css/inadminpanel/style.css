@@ -30,6 +30,17 @@ margin:0px;
 float:left;
 clear:both;
 }
+h4{
+font-size:18px;
+color:#49bae8;
+font-weight:bold;
+line-height:20px;
+padding:15px 0 5px 20px;
+margin:0px;
+float:left;
+clear:both;
+font-family:Tahoma, Arial;
+}
 a.forgot_pass{
 float:right;
 color:#256c89;
@@ -322,6 +333,54 @@ background: #ecf8fd url('/images/inadminpanel/images/botright.jpg') right bottom
 {
 background: #d2e7f0;
 }
+
+
+
+/*frontend*/
+#rounded-corner-front
+{
+margin:0px;
+width:200px;
+text-align: left;
+border-collapse: collapse;
+}
+#rounded-corner-front thead th.rounded-company
+{
+background: #60c8f2 url('/images/inadminpanel/images/left.jpg') left top no-repeat;
+}
+#rounded-corner-front thead th.rounded-q4
+{
+background: #60c8f2 url('/images/inadminpanel/images/right.jpg') right top no-repeat;
+}
+#rounded-corner-front th
+{
+padding: 8px;
+font-weight: normal;
+font-size: 13px;
+color: #039;
+background: #60c8f2;
+}
+#rounded-corner-front td
+{
+padding: 8px;
+background: #ecf8fd;
+border-top: 1px solid #fff;
+color: #669;
+}
+#rounded-corner-front tfoot td.rounded-foot-left
+{
+background: #ecf8fd url('/images/inadminpanel/images/botleft.jpg') left bottom no-repeat;
+}
+#rounded-corner-front tfoot td.rounded-foot-right
+{
+background: #ecf8fd url('/images/inadminpanel/images/botright.jpg') right bottom no-repeat;
+}
+#rounded-corner-front tbody tr:hover td
+{
+background: #d2e7f0;
+}
+
+
 
 
 .question {

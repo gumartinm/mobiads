@@ -7,44 +7,19 @@
  * 
  * @package    mobiads
  * @subpackage model
- * @author     Gustavo Martin Morcuende
- * @version
+ * @author     Your name here
+ * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
 class CompanyCategory extends BaseCompanyCategory
 {
-  /**
-   * Returns the string representation of this object.
-   *
-   * @return string
-   */
+ /**
+  * Returns the string representation of this object.
+  *
+  * @return string
+  */
   public function __toString()
-  {
-    $languageId = sfContext::getInstance()->getUser()->getGuardUser()->getLanguage()->getId();
-
-    //Check if there is description with the user's language
-    $categoryDescriptions = CompanyCategoryDescriptionTable::getInstance()->findByCompanyCategId($this->getId());
-    foreach ($categoryDescriptions as $categoryDescription)
-    {
-        if ($categoryDescription->getLanguageId() == $languageId)
-        {
-           //We found it!!!
-           return (string) $categoryDescription->getCompanyCategName();
-        }
-    }
-
-    //Otherwise return with the default language
-    $languageCode = sfConfig::get('app_default_language');
-    $languageId = LanguageTable::getInstance()->findOneByCode($languageCode)->getId();
-    foreach ($categoryDescriptions as $categoryDescription)
-    {
-        if ($categoryDescription->getLanguageId() == $languageId)
-        {
-           //We found the default name description!!!
-           return (string) $categoryDescription->getCompanyCategName();
-        }
-    }
-
-    //Finally, if nothing was found, return nice error message.
-    return (string) "Company category without default language";
+  { 
+    return (string) $this->getCompanyCategName();
   }
+
 }

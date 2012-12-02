@@ -8,28 +8,28 @@
  * @property integer $user_id
  * @property string $company_cif
  * @property string $company_logo
+ * @property string $company_name
  * @property sfGuardUser $User
- * @property Doctrine_Collection $CompanyDescription
  * @property Doctrine_Collection $Office
  * @property Doctrine_Collection $CompanyCategory
  * @property Doctrine_Collection $Ad
  * 
- * @method integer             getUserId()             Returns the current record's "user_id" value
- * @method string              getCompanyCif()         Returns the current record's "company_cif" value
- * @method string              getCompanyLogo()        Returns the current record's "company_logo" value
- * @method sfGuardUser         getUser()               Returns the current record's "User" value
- * @method Doctrine_Collection getCompanyDescription() Returns the current record's "CompanyDescription" collection
- * @method Doctrine_Collection getOffice()             Returns the current record's "Office" collection
- * @method Doctrine_Collection getCompanyCategory()    Returns the current record's "CompanyCategory" collection
- * @method Doctrine_Collection getAd()                 Returns the current record's "Ad" collection
- * @method Company             setUserId()             Sets the current record's "user_id" value
- * @method Company             setCompanyCif()         Sets the current record's "company_cif" value
- * @method Company             setCompanyLogo()        Sets the current record's "company_logo" value
- * @method Company             setUser()               Sets the current record's "User" value
- * @method Company             setCompanyDescription() Sets the current record's "CompanyDescription" collection
- * @method Company             setOffice()             Sets the current record's "Office" collection
- * @method Company             setCompanyCategory()    Sets the current record's "CompanyCategory" collection
- * @method Company             setAd()                 Sets the current record's "Ad" collection
+ * @method integer             getUserId()          Returns the current record's "user_id" value
+ * @method string              getCompanyCif()      Returns the current record's "company_cif" value
+ * @method string              getCompanyLogo()     Returns the current record's "company_logo" value
+ * @method string              getCompanyName()     Returns the current record's "company_name" value
+ * @method sfGuardUser         getUser()            Returns the current record's "User" value
+ * @method Doctrine_Collection getOffice()          Returns the current record's "Office" collection
+ * @method Doctrine_Collection getCompanyCategory() Returns the current record's "CompanyCategory" collection
+ * @method Doctrine_Collection getAd()              Returns the current record's "Ad" collection
+ * @method Company             setUserId()          Sets the current record's "user_id" value
+ * @method Company             setCompanyCif()      Sets the current record's "company_cif" value
+ * @method Company             setCompanyLogo()     Sets the current record's "company_logo" value
+ * @method Company             setCompanyName()     Sets the current record's "company_name" value
+ * @method Company             setUser()            Sets the current record's "User" value
+ * @method Company             setOffice()          Sets the current record's "Office" collection
+ * @method Company             setCompanyCategory() Sets the current record's "CompanyCategory" collection
+ * @method Company             setAd()              Sets the current record's "Ad" collection
  * 
  * @package    mobiads
  * @subpackage model
@@ -57,6 +57,11 @@ abstract class BaseCompany extends sfDoctrineRecord
              'notnull' => true,
              'length' => 255,
              ));
+        $this->hasColumn('company_name', 'string', 255, array(
+             'type' => 'string',
+             'notnull' => true,
+             'length' => 255,
+             ));
     }
 
     public function setUp()
@@ -66,10 +71,6 @@ abstract class BaseCompany extends sfDoctrineRecord
              'local' => 'user_id',
              'foreign' => 'id',
              'onDelete' => 'CASCADE'));
-
-        $this->hasMany('CompanyDescription', array(
-             'local' => 'id',
-             'foreign' => 'company_id'));
 
         $this->hasMany('Office', array(
              'local' => 'id',
