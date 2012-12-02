@@ -161,7 +161,7 @@ class adActions extends sfActions
 
     //Remove picture from file system.
     $fs = new sfFilesystem();
-    $fs->remove(sfConfig::get('app_default_picture_directory').$ad->getAdMobileImageLink());
+    $fs->remove(sfConfig::get('app_default_picture_directory').$ad->getAdMobileImage());
     //Remove ad from database.
     $ad->delete();
 

@@ -14,7 +14,7 @@
     </tr>
     <tr>
       <th>Ad mobile image link:</th>
-      <td><?php echo $ad->getAdMobileImageLink() ?></td>
+      <td><?php echo $ad->getAdMobileImage() ?></td>
     </tr>
     <tr>
       <th>Created at:</th>
