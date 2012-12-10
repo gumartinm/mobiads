@@ -121,9 +121,14 @@ GeneralCategory:
   GeneralCategory_Root:
     children:
       GeneralCategory_1:
+        children:
+          GeneralCategory_5:
+            children:
+              GeneralCategory_6:
       GeneralCategory_2:
         children:
           GeneralCategory_3:
+          GeneralCategory_4:
 
 GeneralCategoryDescription:
   Root_Product:  #The root node
@@ -146,6 +151,21 @@ GeneralCategoryDescription:
     GeneralCategory: GeneralCategory_3
     general_categ_name: Zapatillas de deporte
     general_categ_description: Calzado deportivo
+  Mocasines:
+    Language: Spanish
+    GeneralCategory: GeneralCategory_4
+    general_categ_name: Mocasines
+    general_categ_description: Mocasines
+  Palmeras:
+    Language: Spanish
+    GeneralCategory: GeneralCategory_5
+    general_categ_name: Palmeras
+    general_categ_description: Palmeras de chocolate y azúcar
+  Palmeras_de_chocolate:
+    Language: Spanish
+    GeneralCategory: GeneralCategory_6
+    general_categ_name: Palmeras de chocolate
+    general_categ_description: Palmeras de chocolate sin azúcar
 
 Ad:
   BabuchasVerdes:
