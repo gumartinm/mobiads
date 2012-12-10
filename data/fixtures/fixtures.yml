@@ -4,17 +4,6 @@
 # # 
 # # See documentation for your ORM's *:data-load task for more information.
 # 
-# User:
-#   fabien:
-#     username: fabien
-#     password: changeme
-#     name:     Fabien Potencier
-#     email:    fabien.potencier@symfony-project.com
-#   kris:
-#     username: Kris.Wallsmith
-#     password: changeme
-#     name:     Kris Wallsmith
-#     email:    kris.wallsmith@symfony-project.com
 
 Language:
   Spanish:
@@ -37,8 +26,20 @@ City:
   London:
     city_name: London
     Region: London
+  Candeleda:
+    city_name: Candeleda
+    Region: Avila
+  Torrijos:
+    city_name: Torrijos
+    Region: Toledo
 
 Region:
+  Avila:
+    region_name: Avila
+    Country: Spain
+  Toledo:
+    region_name: Toledo
+    Country: Spain
   Madrid:
     region_name: Madrid
     Country: Spain
@@ -56,11 +57,14 @@ Country:
     iso_code_2: GB
     iso_code_3: GBR
 
+# Warning about company_log field:
+# You must upload at the beginning the right picture for every company because this field stores the picture's hash tag created in run time. 
+# Pictures are physically stored in the web/uploads/images directory. That directory must always be created before running the application.
 Company:
   MOBILEADVERTISING:
     User: MOBILEADVERTISING
     company_cif: 4683838383-I
-    company_logo: mobileads.jpg
+    company_logo: mobileads.jpg 
     company_name: MOBILEADVERTISING
   DIA:
     User: DIA
@@ -125,6 +129,8 @@ GeneralCategory:
           GeneralCategory_5:
             children:
               GeneralCategory_6:
+              GeneralCategory_7:
+          GeneralCategory_8:
       GeneralCategory_2:
         children:
           GeneralCategory_3:
@@ -166,7 +172,25 @@ GeneralCategoryDescription:
     GeneralCategory: GeneralCategory_6
     general_categ_name: Palmeras de chocolate
     general_categ_description: Palmeras de chocolate sin azúcar
+  Palmeras_de_azucar:
+    Language: Spanish
+    GeneralCategory: GeneralCategory_7
+    general_categ_name: Palmeras de azucar
+    general_categ_description: Palmeras de azúcar sin chocolate
+  Pasteles:
+    Language: Spanish
+    GeneralCategory: GeneralCategory_8
+    general_categ_name: Pasteles
+    general_categ_description: Pasteles de todo tipo
+  Cakes:
+    Language: English
+    GeneralCategory: GeneralCategory_8
+    general_categ_name: Cakes
+    general_categ_description: Many kinds of cakes
 
+# Warning about ad_mobile_image:
+# You must upload at the beginning the right picture for every ad because this field stores the picture's hash tag created in run time. 
+# Pictures are physically stored in the web/uploads/images directory. That directory must always be created before running the application.
 Ad:
   BabuchasVerdes:
     Company: CARREFOUR
