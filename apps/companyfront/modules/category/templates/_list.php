@@ -18,7 +18,7 @@
     <tr id="node-<?php echo $company_category->getId()?>" <?php
 	  // insert hierarchical info
 	  $node = $company_category->getNode();
-	  if ($node->isValidNode() && $node->hasParent() && ($node->getParent()->getId() != '1'))
+	  if ($node->isValidNode() && $node->hasParent() && ($node->getParent()->getLevel() != '0'))
       {
       	echo 'class="child-of-node-'.$node->getParent()->getId().'"';
       }
