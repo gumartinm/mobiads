@@ -83,8 +83,8 @@ class categoryActions extends sfActions
     //Get user Id
     $userId = $this->getUser()->getGuardUser()->getId();
 
-    //Get data from user
-    $checked = $request->getParameter('checked');
+    //Get data from user. Empty array by default.
+    $checked = $request->getParameter('checked', array());
 
     $uniqChecked =  array_unique($checked, SORT_NUMERIC);
 
@@ -96,16 +96,14 @@ class categoryActions extends sfActions
     $iterator = $userBaskets->getIterator();
     while ($userBasket = $iterator->current())
     {
-        if (!empty($uniqChecked))
+        foreach ($uniqChecked as $index => $value)
         {
-            foreach ($uniqChecked as $index => $value)
+            if ($userBasket->getGeneralCategId() == $value)
             {
-                if ($userBasket->getGeneralCategId() == $value)
-                {
-                    unset($uniqChecked[$index]);
-                    $iterator->next();
-                    continue 2;
-                }
+                unset($uniqChecked[$index]);
+                $iterator->next();
+                //I know this sucks, but I am in a hurry.
+                continue 2;
             }
         }
         $userBaskets->remove($iterator->key());
@@ -118,6 +116,10 @@ class categoryActions extends sfActions
         {
             //Never trust in data coming from users... Performance vs security.
             $generalCategory = GeneralCategoryTable::getInstance()->findOneById($value);
+            //TODO: some evil person could send the data without using my nice JavaScript code
+            //Here I should check if the node has child nodes and add them always, even if the user
+            //did not send them because she/he is not using my nice JavaScript code. My JavaScript code
+            //always checks the child nodes' checkbox following the hierarchy structure.
             if ($generalCategory != null)
             {
                 $userBasket = new UserBasket();

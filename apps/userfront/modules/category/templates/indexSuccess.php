@@ -18,6 +18,26 @@
         }, "json");
     };
 </script>
+<script type="text/javascript">
+    function hierarchyCheck(node, checkedInput) {
+        $("table.treeTable tbody tr.child-of-" + node[0].id).each(function(data){
+            $(this).children('td').eq(1).find('input').prop('checked', checkedInput);
+            $(this).children('td').eq(1).find('input').prop('disabled', checkedInput);
+            hierarchyCheck($(this), checkedInput);
+        });
+
+    }
+    $(document).ready(function(){
+        $('[id^=node]').change(function(){
+            var checkedInput = false;
+            if($(this).children('td').eq(1).find('input').is(':checked')) {
+                checkedInput = true;
+            }
+            hierarchyCheck($(this), checkedInput);
+        });
+    });
+</script>
+
 
 
 
