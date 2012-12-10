@@ -17,7 +17,10 @@ class CityForm extends BaseCityForm
     $this->widgetSchema['region_id'] = new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Region'), 
                                                                             'add_empty' => true));
 
-    $this->widgetSchema['region_id']->setAttribute('disabled', 'disabled');
+    if($this->isNew())
+    {
+        $this->widgetSchema['region_id']->setAttribute('disabled', 'disabled');
+    }
 
     $this->embedRelation('Region');
   }

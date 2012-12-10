@@ -2,33 +2,44 @@
 <?php use_javascripts_for_form($form) ?>
 
 <script type="text/javascript">
-    $(document).ready(function(){
-        $('#office_City_Region_country_id').change(function() {
-            $.post('<?php echo url_for('office/chosencountry') ?>', { 'countryId': $(this).val() },
-                function(data){
-                    $('#office_City_region_id').empty();
-                    $('#office_City_region_id').removeAttr('disabled');
-                    $('#office_City_region_id').append($("<option></option>").attr("value", "").text(""));
-                    $.each(data, function(value, key) {
-                        $('#office_City_region_id').append($("<option></option>").attr("value", value).text(key));
-                    });
-            }, "json");
-        });
-    });
-</script>
-
-<script type="text/javascript">
-    $(document).ready(function(){
-        $('#office_City_region_id').change(function() {
-            $.post('<?php echo url_for('office/chosenregion') ?>', { 'regionId': $(this).val() },
+    function onChangeCountry(node) {
+        if (node.val())
+        {
+            $('#office_City_Region_country_id option[value=""]').remove();
+                $.post('<?php echo url_for('office/chosencountry') ?>', { 'countryId': node.val() },
+                    function(data){
+                        $('#office_City_region_id').empty();
+                        $('#office_City_region_id').removeAttr('disabled');
+                        $.each(data, function(value, key) {
+                            $('#office_City_region_id').append($("<option></option>").attr("value", value).text(key));
+                        });
+                        onChangeRegion($('#office_City_region_id'));
+                    }, "json");
+        }
+    }
+    function onChangeRegion(node) {
+        if (node.val())
+        {
+            $.post('<?php echo url_for('office/chosenregion') ?>', { 'regionId': node.val() },
                 function(data){
                     $('#office_city_id').empty();
                     $('#office_city_id').removeAttr('disabled');
-                    $('#office_city_id').append($("<option></option>").attr("value", "").text(""));
                     $.each(data, function(value, key) {
                         $('#office_city_id').append($("<option></option>").attr("value", value).text(key));
                     });
-            }, "json");
+                }, "json");
+        }
+    }
+
+    $(document).ready(function(){
+        $('#office_City_Region_country_id').change(function() {
+            onChangeCountry($(this));
+        });
+    });
+
+    $(document).ready(function(){
+        $('#office_City_region_id').change(function() {
+            onChangeRegion($(this));
         });
     });
 </script>

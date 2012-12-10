@@ -17,6 +17,5 @@ class RegionForm extends BaseRegionForm
     $this->widgetSchema['country_id'] = new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Country'),
                                                                              'add_empty' => true));
 
-    $this->embedRelation('Country');
   }
 }

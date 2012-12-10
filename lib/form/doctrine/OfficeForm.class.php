@@ -14,27 +14,20 @@ class OfficeForm extends BaseOfficeForm
   {
     $this->useFields(array('city_id', 'office_street_address', 'office_zip'));
 
-    $query = null;
-    if($this->isNew()) 
-    {
-        $country = CountryTable::getInstance()->findOnebyCountryName(sfConfig::get('app_default_country'));
-        $region = RegionTable::getInstance()->findOneByCountryId($country->getId());
-        $query = CityTable::getInstance()->getCitiesByRegionIdQuery($region->getId());
-    }
-
     $this->widgetSchema['longitude'] = new sfWidgetFormInputFloat();
     $this->widgetSchema['latitude'] = new sfWidgetFormInputFloat();
 
     $this->widgetSchema['city_id'] = new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('City'), 
-                                                                          'add_empty' => true,
-                                                                          'query' => $query));
+                                                                          'add_empty' => true));
 
     $this->validatorSchema['city_id'] = new sfValidatorDoctrineChoice(array('model'   => $this->getRelatedModelName('City'),
                                                                             'required' => true));
 
 
-
-    $this->widgetSchema['city_id']->setAttribute('disabled', 'disabled');
+    if($this->isNew())
+    {
+        $this->widgetSchema['city_id']->setAttribute('disabled', 'disabled');
+    }
 
 
 
@@ -147,5 +140,22 @@ class OfficeForm extends BaseOfficeForm
 
     $this->setDefault('longitude', $this->getObject()->getLongitude());
     $this->setDefault('latitude', $this->getObject()->getLatitude());
+  }
+
+  protected function doBind(array $values)
+  {
+    if($this->getObject()->isNew())
+    {
+        if (!empty($values['City']['region_id']))
+        {
+             $this->widgetSchema['City']['region_id']->setAttribute('disabled', '');
+             $this->widgetSchema['city_id']->setAttribute('disabled', '');
+        }
+        if (!empty($values['City']['Region']['country_id']))
+        {
+            $this->widgetSchema['City']['region_id']->setAttribute('disabled', '');
+        }
+    }
+    parent::doBind($values);
   }
 }
