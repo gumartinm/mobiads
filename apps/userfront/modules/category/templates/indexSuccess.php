@@ -36,6 +36,14 @@
             hierarchyCheck($(this), checkedInput);
         });
     });
+
+    $(document).ready(function(){
+        $('[id^=node]').each(function(data){
+            if($(this).children('td').eq(1).find('input').is(':checked')) {
+                hierarchyCheck($(this), true);
+            }
+        });
+    });
 </script>
 
 
@@ -53,20 +61,24 @@
     <tr id="node-<?php echo $category->getId()?>" <?php
       // insert hierarchical info
       $node = $category->getNode();
-      if ($node->isValidNode() && $node->hasParent() && ($node->getParent()->getId() != '1'))
+      if ($node->isValidNode() && $node->hasParent() && ($node->getParent()->getLevel() != '0'))
       {
         echo 'class="child-of-node-'.$node->getParent()->getId().'"';
       }
       ?>>
       <td><a><?php echo $category ?></a></td>
-      <td><input type="checkbox" id="chosen" class="NFCheck" value="<?php echo $category->getId() ?>"
-      <?php foreach ($category->getUserBaskets() as $userBasket): ?>
-        <?php if ($userBasket->getUserId() == $userId): ?>
-            checked
-            <?php break ?>
-        <?php endif; ?>
-      <?php endforeach; ?>
-      ></td>
+      <?php if ($node->getLevel() != '0'): ?>
+        <td><input type="checkbox" id="chosen" class="NFCheck" value="<?php echo $category->getId() ?>"
+        <?php foreach ($category->getUserBaskets() as $userBasket): ?>
+            <?php if ($userBasket->getUserId() == $userId): ?>
+                checked
+                <?php break ?>
+            <?php endif; ?>
+        <?php endforeach; ?>
+        ></td>
+      <?php else: ?>
+        <td></td>
+      <?php endif; ?>
     </tr>
     <?php endforeach; ?>
   </tbody>
