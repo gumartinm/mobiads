@@ -20,7 +20,9 @@ class CompanyCategoryForm extends BaseCompanyCategoryForm
 
     //Narrow down the valid options for some field validators
     $companyCategs = CompanyCategoryTable::getInstance()->getCompanyCategoriesByCompanyIdQuery($this->getOption('company_user_id'),
-                                                                                               $this->getOption('current_category'));
+                                                                                               $this->getOption('current_category'),
+                                                                                               $this->getOption('current_category_lft'),
+                                                                                               $this->getOption('current_category_rgt'));
 
     $this->widgetSchema['parent_category'] = new sfWidgetFormDoctrineChoice(array('model'     => $this->getModelName(),
                                                                                   'add_empty' => false,
