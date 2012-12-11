@@ -57,7 +57,18 @@ class officeActions extends sfActions
     $officeInit->company_id = CompanyTable::getInstance()->findOneByUserId($userId)->getId();
     $officeInit->city_id = null;
 
-    $this->form = new OfficeForm($officeInit);
+    $officeParameters = $request->getParameter('office');
+    //Never trust data coming from users.
+    $cityId = 1;
+    if ($officeParameters['city_id'])
+    {
+        $cityId = $officeParameters['city_id'];
+    }
+    $city = CityTable::getInstance()->findOneById($cityId);
+    $regionId = $city->getRegion()->getId();
+    $countryId = $city->getRegion()->getCountry()->getId();
+
+    $this->form = new OfficeForm($officeInit, array('region_id' => $regionId, 'country_id' => $countryId));
 
     $this->sort = $request->getParameter('sort', 'id');
     $this->page = $request->getParameter('page', 1);
@@ -87,7 +98,10 @@ class officeActions extends sfActions
     $this->sort = $request->getParameter('sort', 'id');
     $this->page = $request->getParameter('page', 1);
 
-    $this->form = new OfficeForm($office);
+    $regionId = $office->getCity()->getRegion()->getId();
+    $countryId = $office->getCity()->getRegion()->getCountry()->getId();
+
+    $this->form = new OfficeForm($office, array('region_id' => $regionId, 'country_id' => $countryId));
   }
 
   public function executeUpdate(sfWebRequest $request)

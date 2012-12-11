@@ -16,4 +16,14 @@ class RegionTable extends Doctrine_Table
     {
         return Doctrine_Core::getTable('Region');
     }
+
+   /**
+    * Returns a query which is able to retrieve regions related to a specified country.
+    *
+    * @return object Doctrine_Query
+    */
+    public function getRegionsByCountryIdQuery($countryId)
+    {
+        return $this->createQuery('region')->where('region.country_id = ?', $countryId);
+    }
 }

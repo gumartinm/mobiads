@@ -31,6 +31,11 @@ class CityTable extends Doctrine_Table
         return $query;
     }
 
+   /**
+    * Returns a query which is able to retrieve cities related to a specified region.
+    *
+    * @return object Doctrine_Query
+    */
     public function getCitiesByRegionIdQuery($regionId)
     {
         return $this->createQuery('city')->where('city.region_id = ?', $regionId);

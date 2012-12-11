@@ -14,13 +14,21 @@ class OfficeForm extends BaseOfficeForm
   {
     $this->useFields(array('city_id', 'office_street_address', 'office_zip'));
 
+    //Narrow down the valid options for some field validators
+    $citiesQuery = null;
+    if ($this->getOption('region_id'))
+    {
+        $citiesQuery = CityTable::getInstance()->getCitiesByRegionIdQuery($this->getOption('region_id'));
+    }
+
     $this->widgetSchema['longitude'] = new sfWidgetFormInputFloat();
     $this->widgetSchema['latitude'] = new sfWidgetFormInputFloat();
 
-    $this->widgetSchema['city_id'] = new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('City'), 
-                                                                          'add_empty' => true));
+    $this->widgetSchema['city_id'] = new sfWidgetFormDoctrineChoice(array('model'     => $this->getRelatedModelName('City'),
+                                                                          'add_empty' => true,
+                                                                          'query'     => $citiesQuery));
 
-    $this->validatorSchema['city_id'] = new sfValidatorDoctrineChoice(array('model'   => $this->getRelatedModelName('City'),
+    $this->validatorSchema['city_id'] = new sfValidatorDoctrineChoice(array('model'    => $this->getRelatedModelName('City'),
                                                                             'required' => true));
 
 
@@ -58,7 +66,7 @@ class OfficeForm extends BaseOfficeForm
                                          'office_street_address' => 'Address: ',
                                          'office_zip'            => 'ZIP:',));
 
-    $this->embedRelation('City');
+    $this->embedRelation('City', null, array('country_id' => $this->getOption('country_id')));
 
 
     //In the future the companies could pay for improvements in their accounts (premium accounts)

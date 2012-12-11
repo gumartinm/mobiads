@@ -14,8 +14,16 @@ class CityForm extends BaseCityForm
   {
     unset($this['city_name']);
 
-    $this->widgetSchema['region_id'] = new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Region'), 
-                                                                            'add_empty' => true));
+    //Narrow down the valid options for some field validators
+    $regionsQuery = null;
+    if ($this->getOption('country_id'))
+    {
+        $regionsQuery = RegionTable::getInstance()->getRegionsByCountryIdQuery($this->getOption('country_id'));
+    }
+
+    $this->widgetSchema['region_id'] = new sfWidgetFormDoctrineChoice(array('model'     => $this->getRelatedModelName('Region'),
+                                                                            'add_empty' => true,
+                                                                            'query'     => $regionsQuery));
 
     if($this->isNew())
     {
