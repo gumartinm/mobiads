@@ -22,7 +22,7 @@ class CityForm extends BaseCityForm
     }
 
     $this->widgetSchema['region_id'] = new sfWidgetFormDoctrineChoice(array('model'     => $this->getRelatedModelName('Region'),
-                                                                            'add_empty' => true,
+                                                                            'add_empty' => false,
                                                                             'query'     => $regionsQuery));
 
     if($this->isNew())

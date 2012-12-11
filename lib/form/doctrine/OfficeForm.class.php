@@ -25,7 +25,7 @@ class OfficeForm extends BaseOfficeForm
     $this->widgetSchema['latitude'] = new sfWidgetFormInputFloat();
 
     $this->widgetSchema['city_id'] = new sfWidgetFormDoctrineChoice(array('model'     => $this->getRelatedModelName('City'),
-                                                                          'add_empty' => true,
+                                                                          'add_empty' => false,
                                                                           'query'     => $citiesQuery));
 
     $this->validatorSchema['city_id'] = new sfValidatorDoctrineChoice(array('model'    => $this->getRelatedModelName('City'),
