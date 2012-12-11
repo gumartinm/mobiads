@@ -7,6 +7,8 @@
         });
 </script>
 <script type="text/javascript">
+    //TODO: I am wasting space in the data base because if a parent category is checked directly we know the child categories
+    //are as well selected. So, we do not really need to send every checked category, just the parent ones.
     $.fn.CheckCategories = function() {
         var checked = [];
         $('#rounded-corner :checked').each(function() {
