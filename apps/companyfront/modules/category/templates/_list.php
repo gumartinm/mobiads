@@ -34,7 +34,7 @@
         <?php endif; ?>
       </td>
       <td>
-        <?php if ($company_category->getId() != 1): ?>
+        <?php if ($company_category->getLevel() != 0): ?>
          <a href="<?php echo url_for('category/edit?id='.$company_category->getId()) ?>">
          <img src="/images/pencil_add.png" alt="" title="" border="0" /></a>
         <?php else: ?>
@@ -42,7 +42,7 @@
         <?php endif; ?>
       </td>
       <td>
-        <?php if ($company_category->getId() != 1): ?>	  
+        <?php if ($company_category->getLevel() != 0): ?>
          <?php echo link_to('<img src="/images/inadminpanel/images/trash.png" alt="" title="" border="0" />', 'category/delete?id='.$company_category->getId(), array('method' => 'delete', 'confirm' => 'Are you sure?')) ?>
         <?php else: ?>
          <a><img src="/images/cross.png" alt="" title="" border="0" /></a>
