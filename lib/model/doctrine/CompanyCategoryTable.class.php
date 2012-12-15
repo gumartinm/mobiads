@@ -28,14 +28,14 @@ class CompanyCategoryTable extends Doctrine_Table
         if ($currentCategory != null)
         {
             return $this->createQuery('cc')->where('cc.level != ?', '0')
-                                           ->orWhere('cc.company_id = ?', $companyId)
+                                           ->andWhere('cc.company_id = ?', $companyId)
                                            ->andWhere('cc.lft > ? or cc.lft < ?', array($currentRgt, $currentLft))
                                            ->orderBy('cc.lft');
         }
         else
         {
             return $this->createQuery('cc')->where('cc.company_id = ?', $companyId)
-                                           ->orWhere('cc.level != ?', '0')
+                                           ->andWhere('cc.level != ?', '0')
                                            ->orderBy('cc.lft');
         }
     }
