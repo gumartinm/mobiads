@@ -69,18 +69,14 @@
       }
       ?>>
       <td><a><?php echo $category ?></a></td>
-      <?php if ($node->getLevel() != '0'): ?>
-        <td><input type="checkbox" id="chosen" class="NFCheck" value="<?php echo $category->getId() ?>"
-        <?php foreach ($category->getUserBaskets() as $userBasket): ?>
-            <?php if ($userBasket->getUserId() == $userId): ?>
-                checked
-                <?php break ?>
-            <?php endif; ?>
-        <?php endforeach; ?>
-        ></td>
-      <?php else: ?>
-        <td></td>
-      <?php endif; ?>
+      <td><input type="checkbox" id="chosen" class="NFCheck" value="<?php echo $category->getId() ?>"
+      <?php foreach ($category->getUserBaskets() as $userBasket): ?>
+          <?php if ($userBasket->getUserId() == $userId): ?>
+              checked
+              <?php break ?>
+          <?php endif; ?>
+      <?php endforeach; ?>
+      ></td>
     </tr>
     <?php endforeach; ?>
   </tbody>

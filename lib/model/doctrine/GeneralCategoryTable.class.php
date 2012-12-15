@@ -19,13 +19,13 @@ class GeneralCategoryTable extends Doctrine_Table
 
 
     /**
-    * Returns general categories, ordered by lft field.
+    * Returns general categories skipping main category and ordered by lft field.
     *
     * @return Doctrine Query
     */
     public function getGeneralCategoriesByLftQuery()
     {
-        return $this->createQuery('gc')->where('gc.id != 1')
+        return $this->createQuery('gc')->where('gc.level != 0')
                                        ->orderBy('gc.lft');
     }
 }
