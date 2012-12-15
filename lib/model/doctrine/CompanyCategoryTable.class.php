@@ -27,16 +27,29 @@ class CompanyCategoryTable extends Doctrine_Table
     {
         if ($currentCategory != null)
         {
-            return $this->createQuery('cc')->where('cc.level != ?', '0')
-                                           ->andWhere('cc.company_id = ?', $companyId)
+            return $this->createQuery('cc')->where('cc.level = ?', '0')
+                                           ->orWhere('cc.company_id = ?', $companyId)
                                            ->andWhere('cc.lft > ? or cc.lft < ?', array($currentRgt, $currentLft))
                                            ->orderBy('cc.lft');
         }
         else
         {
             return $this->createQuery('cc')->where('cc.company_id = ?', $companyId)
-                                           ->andWhere('cc.level != ?', '0')
+                                           ->orWhere('cc.level = ?', '0')
                                            ->orderBy('cc.lft');
         }
+    }
+
+
+   /**
+    * Returns company categories by company id skipping the main category called Producto.
+    *
+    * @return related company categories to a company as Doctrine Query
+    */
+    public function getCompanyCategoriesByCompanyIdQuerySkipMain($companyId)
+    {
+        return $this->createQuery('cc')->where('cc.company_id = ?', $companyId)
+                                       ->andWhere('cc.level != ?', '0')
+                                       ->orderBy('cc.lft');
     }
 }

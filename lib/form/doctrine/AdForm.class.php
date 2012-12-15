@@ -17,7 +17,7 @@ class AdForm extends BaseAdForm
     $this->useFields(array('company_categ_id', 'ad_mobile_image'));
 
     //Narrow down the valid options for some field validators
-    $companyCategs = CompanyCategoryTable::getInstance()->getCompanyCategoriesByCompanyIdQuery($this->getOption('company_user_id'));
+    $companyCategs = CompanyCategoryTable::getInstance()->getCompanyCategoriesByCompanyIdQuerySkipMain($this->getOption('company_user_id'));
 
     //The default value is not good enough for us. We need narrow down the results.
     $this->widgetSchema['company_categ_id'] = new sfWidgetFormDoctrineChoice(array('model'    => $this->getModelName(),
