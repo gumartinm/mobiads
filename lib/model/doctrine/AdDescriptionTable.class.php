@@ -102,7 +102,7 @@ class AdDescriptionTable extends Doctrine_Table
         {
             try
             {
-                $adIds[] = Doctrine_Manager::getInstance()->getCurrentConnection()->fetchOne(
+                $auxAdId = Doctrine_Manager::getInstance()->getCurrentConnection()->fetchOne(
                     "SELECT ad.id FROM ad INNER JOIN company_category ON (ad.company_categ_id=company_category.id)
                     INNER JOIN general_category ON (company_category.general_categ_id=general_category.id)
                     INNER JOIN user_basket ON (user_basket.general_categ_id=general_category.id)
@@ -113,6 +113,11 @@ class AdDescriptionTable extends Doctrine_Table
             {
                 //In case of error return as soon as posible.
                 return null;
+            }
+
+            if (!empty($auxAdId))
+            {
+                $adIds[] = $auxAdId;
             }
         }
         if (empty($adIds))
