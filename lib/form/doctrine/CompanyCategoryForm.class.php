@@ -28,11 +28,21 @@ class CompanyCategoryForm extends BaseCompanyCategoryForm
                                                                                   'add_empty' => false,
                                                                                   'query'     => $companyCategs));
 
+    $this->widgetSchema['general_categ_id'] = new sfWidgetFormDoctrineChoice(array('model'     => $this->getRelatedModelName('GeneralCategory'),
+                                                                                   'add_empty' => true,
+                                                                                   'query'     => GeneralCategoryTable::getInstance()->getGeneralCategoriesByLftQuery()));
+
+
     $this->widgetSchema['company_categ_description'] = new sfWidgetFormTextarea();
 
     $this->validatorSchema['parent_category'] = new sfValidatorDoctrineChoice(array('model'    => $this->getModelName(),
                                                                                     'required' => true,
                                                                                     'query'    => $companyCategs));
+
+    $this->validatorSchema['general_categ_id'] = new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('GeneralCategory'),
+                                                                                     'required' => false,
+                                                                                     'query'     => GeneralCategoryTable::getInstance()->getGeneralCategoriesByLftQuery()));
+
 
 
     $this->widgetSchema->setLabels(array('parent_category'  => 'Parent Company Category'));
