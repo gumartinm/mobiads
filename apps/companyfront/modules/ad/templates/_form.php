@@ -3,6 +3,7 @@
 
 <script type="text/javascript">
     var alreadyOpened = false;
+    var checkBoxes = 0;
 
     $(document).ready(function(){
         $('#ad_longitude').click(function() {
@@ -31,6 +32,28 @@
                     newwindow.focus()
                 }
             }
+        });
+    });
+
+    $(document).ready(function(){
+        $('[id$=delete]').change(function(){
+            var checkedBoxes = 0;
+            $('[id$=delete]').each(function(data){
+                if($(this).is(':checked')) {
+                    checkedBoxes = checkedBoxes + 1;
+                }
+            });
+            if (checkedBoxes == checkBoxes) {
+                alert('The system always keeps one description for one ad even if you try to remove all of them. \n' +
+                      'If you want to remove completely an ad you may do it from the Ads Index Web Page \n' +
+                      'or just press the Back to list button which you can find on the bottom of this page.');
+            }
+        });
+    });
+
+    $(document).ready(function(){
+        $('[id$=delete]').each(function(data){
+            checkBoxes = checkBoxes + 1;
         });
     });
 
