@@ -100,7 +100,7 @@ Office:
 CompanyCategory:
   CompanyCategory_Root:
     company_categ_name: Producto
-    company_categ_description: Root Node
+    company_categ_description: Nodo raiz
     Company: MOBILEADVERTISING
     GeneralCategory: GeneralCategory_Root  # aiming to root node of CategGeneral
     children:
@@ -137,11 +137,11 @@ GeneralCategory:
           GeneralCategory_4:
 
 GeneralCategoryDescription:
-  Root_Product:  #The root node
+  Producto_Raiz:  #The root node
     Language: Spanish
     GeneralCategory: GeneralCategory_Root
     general_categ_name: Producto
-    general_categ_description: Root Node
+    general_categ_description: Nodo Raiz
   Reposteria:
     Language: Spanish
     GeneralCategory: GeneralCategory_1
@@ -182,6 +182,46 @@ GeneralCategoryDescription:
     GeneralCategory: GeneralCategory_8
     general_categ_name: Pasteles
     general_categ_description: Pasteles de todo tipo
+  Root_Product:  #The root node
+    Language: English
+    GeneralCategory: GeneralCategory_Root
+    general_categ_name: Product
+    general_categ_description: Root Node
+  Pastries:
+    Language: English
+    GeneralCategory: GeneralCategory_1
+    general_categ_name: Pastries
+    general_categ_description: All kinds of pastries
+  Shoes:
+    Language: English
+    GeneralCategory: GeneralCategory_2
+    general_categ_name: Shoes
+    general_categ_description: All kinds of shoes
+  Sneakers:
+    Language: English
+    GeneralCategory: GeneralCategory_3
+    general_categ_name: Sneakers
+    general_categ_description: Sport shoes
+  Moccasin:
+    Language: English
+    GeneralCategory: GeneralCategory_4
+    general_categ_name: Moccasin
+    general_categ_description: Moccasin
+  Heart_shaped:
+    Language: English
+    GeneralCategory: GeneralCategory_5
+    general_categ_name: Heart-shaped puff pastry
+    general_categ_description: Heart-shaped puff pastry
+  Heart_shaped_chocolate:
+    Language: English
+    GeneralCategory: GeneralCategory_6
+    general_categ_name: Heart-shaped puff chocolate pastry
+    general_categ_description: Heart-shaped puff chocolate pastry without sugar
+  Heart_shaped_sugar:
+    Language: English
+    GeneralCategory: GeneralCategory_7
+    general_categ_name: Heart-shaped puff sugar pastry
+    general_categ_description: Heart-shaped puff sugar pastry without chocolate
   Cakes:
     Language: English
     GeneralCategory: GeneralCategory_8
@@ -228,7 +268,27 @@ AdDescription:
     ad_description: Anuncio sobre donuts
     ad_mobile_text: Donuts en oferta solo hoy!
     ad_link: http://gumartinm.name
-
+  GreenSlippers:
+    Language: English
+    Ad: BabuchasVerdes
+    ad_name: Green slippers
+    ad_description: Ad about green slippers
+    ad_mobile_text: Green slippers just today!
+    ad_link: http://gumartinm.name
+  ExtraGreenSlippers:
+    Language: English
+    Ad: BabuchasVerdisimas
+    ad_name: Extra green slippers
+    ad_description: Ad about extra green slippers
+    ad_mobile_text: Extra green slippers just today!
+    ad_link: http://gumartinm.name
+  Donuts_english:
+    Language: English
+    Ad: Donuts
+    ad_name: Donuts
+    ad_description: Ad about donuts
+    ad_mobile_text: Donuts just today!
+    ad_link: http://gumartinm.name
 
 OfficeAds:
   BabuchasVerdes:
