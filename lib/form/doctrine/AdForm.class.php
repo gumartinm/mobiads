@@ -81,13 +81,13 @@ class AdForm extends BaseAdForm
     //i18n (Internationalization)
     $this->widgetSchema->getFormFormatter()->setTranslationCatalogue('ad_form');
 
-    // Ad creation form
-    $adDescription = new AdDescription();
-    $adDescription->Ad = $this->getObject();
-    $newAdDescriptionForm = new AdDescriptionForm($adDescription);
 
     if (!$this->isTheLanguageInformationComplete())
     {
+        // Ad creation form
+        $adDescription = new AdDescription();
+        $adDescription->Ad = $this->getObject();
+        $newAdDescriptionForm = new AdDescriptionForm($adDescription);
         $this->embedForm('new', $newAdDescriptionForm);
     }
 
