@@ -86,7 +86,10 @@ class AdForm extends BaseAdForm
     $adDescription->Ad = $this->getObject();
     $newAdDescriptionForm = new AdDescriptionForm($adDescription);
 
-    $this->embedForm('new', $newAdDescriptionForm);
+    if (!$this->isTheLanguageInformationComplete())
+    {
+        $this->embedForm('new', $newAdDescriptionForm);
+    }
 
     $this->embedRelation('AdDescription');
 
@@ -219,5 +222,48 @@ class AdForm extends BaseAdForm
         //Update PostGIS with null value (no GPS coordinates)
         Doctrine_Manager::connection()->execute("UPDATE ad SET ad_gps=null WHERE id=$rowId");
     }   
+  }
+
+ /**
+  * Check if the current ad has a description for every available language in the system.
+  *
+  * @return boolean true, if the current ad has a description for every available language, otherwise false.
+  */
+  private function isTheLanguageInformationComplete()
+  {
+    if($this->isNew())
+    {
+        return false;
+    }
+
+    //Doctrine_Collection with all our languages
+    $languages = LanguageTable::getInstance()->findAll();
+
+    //Using Doctrine_Collection_Iterator
+    $iterator = $languages->getIterator();
+
+    //Doctrine_Collection with the available descriptions for our ad
+    $adDescriptions = AdDescriptionTable::getInstance()->findByAdId($this->getObject()->getId());
+
+    while ($language = $iterator->current())
+    {
+        $match = false;
+        foreach ($adDescriptions as $adDescription)
+        {
+            if ($adDescription->getLanguageId() == $language->getId())
+            {
+                //There is a match
+                $match = true;
+                break;
+            }
+        }
+        if (!$match)
+        {
+            return false;
+        }
+        $iterator->next();
+    }
+
+    return true;
   }
 }
