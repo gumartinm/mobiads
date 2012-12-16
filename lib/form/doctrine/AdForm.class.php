@@ -242,7 +242,7 @@ class AdForm extends BaseAdForm
     //Using Doctrine_Collection_Iterator
     $iterator = $languages->getIterator();
 
-    //Doctrine_Collection with the available descriptions for our ad
+    //Doctrine_Collection with the current descriptions for our ad
     $adDescriptions = AdDescriptionTable::getInstance()->findByAdId($this->getObject()->getId());
 
     while ($language = $iterator->current())
