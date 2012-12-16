@@ -16,4 +16,22 @@ class LanguageTable extends Doctrine_Table
     {
         return Doctrine_Core::getTable('Language');
     }
+
+   /**
+    * Return languages by their ids
+    *
+    * @param array $availableLanguages    an array with the language ids to search for.
+    * @return Doctrine_Query              one ore more languages by its ids as a Doctrine Query
+    */
+    public function getLanguagesQuery($availableLanguages)
+    {
+        if (empty($availableLanguages)) {
+            return $this->createQuery('la');
+        } elseif (is_array($availableLanguages)) {
+            return $this->createQuery('la')->whereIn('la.id', $availableLanguages);
+        }
+        else {
+            return $this->createQuery('la')->where('la.id = ?', $availableLanguages);
+        }
+    }
 }
