@@ -45,8 +45,8 @@
             });
             if (checkedBoxes == checkBoxes) {
                 alert('The system always keeps one description for one ad even if you try to remove all of them. \n' +
-                      'If you want to remove completely an ad you may do it from the Ads Index Web Page \n' +
-                      'or just press the Back to list button which you can find on the bottom of this page.');
+                      'If you want to remove an ad you may do it from the "Ads Index Web Page". \n\n' +
+                      'The "Back to list" button, which you can find on the bottom of this page will take you to the "Ads Index Web Page".');
             }
         });
     });
